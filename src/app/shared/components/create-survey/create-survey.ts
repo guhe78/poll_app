@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { SurveyForm } from '../survey-form/survey-form';
 
 @Component({
   selector: 'app-create-survey',
-  imports: [],
+  imports: [SurveyForm],
   templateUrl: './create-survey.html',
   styleUrl: './create-survey.scss',
 })
