@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Surveys } from '../../../service/survey';
 
 @Component({
   selector: 'app-survey-form',
@@ -8,16 +9,21 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './survey-form.scss',
 })
 export class SurveyForm {
-  surveyForm = new FormGroup({
-    name: new FormControl(''),
-    endDate: new FormControl(''),
-    description: new FormControl(''),
-    questions: new FormControl(''),
+  formbuilder = inject(FormBuilder);
+  surveyService = inject(Surveys);
+
+  survey = this.surveyService.surveyDetail;
+
+  surveyForm = this.formbuilder.group({
+    name: [this.survey().name, []],
+    endDate: [this.survey().date, []],
+    description: [this.survey().description, []],
+    questions: [this.survey().questions, []],
   });
 
   onSubmit() {
     console.log('Submit');
   }
 
-  removeQuestion(i: number) {}
+  remove() {}
 }
