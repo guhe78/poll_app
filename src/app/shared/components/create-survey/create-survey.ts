@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SurveyForm } from '../survey-form/survey-form';
 
 @Component({

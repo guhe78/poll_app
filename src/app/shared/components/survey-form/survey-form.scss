@@ -1,0 +1,39 @@
+.survey-form {
+  font-family: 'Mulish';
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(254, 253, 255, 1);
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 40px 32px;
+  gap: 16px;
+
+  background-color: rgba(142, 112, 153, 0.16);
+  border-radius: 5px 80px 5px 5px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 64px;
+
+    & div {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      & input,
+      textarea {
+        width: 100%;
+        padding: 8px 16px;
+        gap: 10px;
+
+        background-color: rgba(254, 253, 255, 1);
+        border: none;
+        border-radius: 5px 20px 5px 5px;
+      }
+    }
+  }
+}

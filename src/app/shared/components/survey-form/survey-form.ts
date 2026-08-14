@@ -23,6 +23,13 @@ export class SurveyForm {
 
   onSubmit() {
     console.log('Submit');
+    if (this.surveyForm.valid) {
+      console.log(this.surveyForm.value);
+    }
+  }
+
+  isInvalid(): boolean {
+    return this.surveyForm.invalid;
   }
 
   remove() {}

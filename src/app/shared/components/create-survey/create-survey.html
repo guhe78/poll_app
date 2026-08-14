@@ -1,7 +1,12 @@
 <section class="create-survey">
-  <header class="create-survey__header">
-    <h1 class="create-survey__headline">Create Survey</h1>
-    <a href="" class="btn btn--cancel">Cancel</a>
-  </header>
-  <app-survey-form></app-survey-form>
+  <main class="create-survey__main">
+    <header class="create-survey__header">
+      <h3 class="create-survey__headline">Create new survey</h3>
+      <a href="" class="btn btn--cancel">Cancel</a>
+    </header>
+    <app-survey-form #surveyForm></app-survey-form>
+    <button type="submit" form="survey-form" [disabled]="surveyForm.isInvalid()">
+      Create Survey
+    </button>
+  </main>
 </section>
