@@ -1,40 +1,76 @@
 <form id="survey-form" class="survey-form" [formGroup]="surveyForm" (ngSubmit)="onSubmit()">
   <div class="survey-form__header">
-    <div class="surver-form__header--left-side">
-      <div class="form-group">
+    <div class="survey-form__header--left-side">
+      <div class="form-group survey-form__name">
         <label for="name">Survey name</label>
+
         <input type="text" id="name" formControlName="name" />
       </div>
-      <div class="form-group">
-        <label for="date">Set end date (optional)</label>
-        <input type="date" id="date" formControlName="endDate" />
-        <label for="time">Set end time (optional)</label>
-        <input type="" id="time" formControlName="endTime" />
+
+      <div class="survey-form__date-category">
+        <div class="form-group">
+          <label for="date">Set end date (optional)</label>
+
+          <input type="date" id="date" formControlName="endDate" />
+        </div>
+        <div class="form-group">
+          <div class="survey-form__dropdown">
+            <button
+              type="button"
+              class="survey-form__dropdown-button"
+              [class.survey-form__dropdown-button--open]="categoryDropdownOpen"
+              (click)="toggleCategoryDropdown()"
+            >
+              <span>Choose category</span>
+
+              <span class="survey-form__dropdown-arrow">
+                @if (categoryDropdownOpen) {
+                  <span [innerHTML]="icons.dropdownUpArrow"></span>
+                } @else {
+                  <span [innerHTML]="icons.dropdownDownArrow"></span>
+                }
+              </span>
+            </button>
+
+            @if (selectedCategory) {
+              <span class="survey-form__selected-category">
+                {{ selectedCategory }}
+              </span>
+            }
+            @if (categoryDropdownOpen) {
+              <div class="survey-form__dropdown-menu">
+                @for (category of categories; track category) {
+                  <button
+                    type="button"
+                    class="survey-form__dropdown-item"
+                    (click)="selectCategory(category)"
+                  >
+                    {{ category }}
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        </div>
       </div>
     </div>
-    <div class="surver-form__header--right-side">
+    <div class="survey-form__header--right-side">
       <div class="form-group">
-        <div class="form-group">
-          <label for="description">Survey Description</label>
-          <textarea id="description" formControlName="description"></textarea>
-        </div>
+        <label for="description">Survey Description</label>
+
+        <textarea id="description" formControlName="description"></textarea>
       </div>
     </div>
   </div>
   <div class="form-group">
-    <label for="questions">Questions</label>
-    <div formArrayName="questions">
-      <input type="text" formControlName="question" />
-      <button type="button" (click)="remove()">Remove</button>
-    </div>
-    <div class="form-group">
-      <label for="answers">Answers</label>
-      <div formArrayName="answers">
-        <input type="text" formControlName="answer" />
-        <button type="button" (click)="remove()">Remove</button>
-        <input type="text" formControlName="answer" />
-        <button type="button" (click)="remove()">Remove</button>
-      </div>
+    <label>Questions</label>
+    <div class="survey-form__questions" formArrayName="questions">
+      @for (question of questions.controls; track $index) {
+        <div class="survey-form__question" [formGroupName]="$index">
+          <input type="text" formControlName="question" />
+          <button type="button" (click)="remove($index)">Remove</button>
+        </div>
+      }
     </div>
   </div>
 </form>
