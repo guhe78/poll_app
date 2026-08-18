@@ -3,15 +3,23 @@
     <div class="survey-form__header--left-side">
       <div class="form-group survey-form__name">
         <label for="name">Survey name</label>
-
-        <input type="text" id="name" formControlName="name" />
+        <div class="survey-form__input-button-container">
+          <input type="text" id="name" formControlName="name" />
+          <button type="button" class="survey-form__delete-button" (click)="remove(1)">
+            <span class="survey-form__delete-button--icon" [innerHTML]="icons.trashcan"></span>
+          </button>
+        </div>
       </div>
 
       <div class="survey-form__date-category">
         <div class="form-group">
-          <label for="date">Set end date (optional)</label>
-
-          <input type="date" id="date" formControlName="endDate" />
+          <label for="date">Set end date <span class="optional">(optional)</span></label>
+          <div class="survey-form__input-button-container">
+            <input type="date" id="date" formControlName="endDate" />
+            <button type="button" class="survey-form__delete-button" (click)="remove(1)">
+              <span class="survey-form__delete-button--icon" [innerHTML]="icons.trashcan"></span>
+            </button>
+          </div>
         </div>
         <div class="form-group">
           <div class="survey-form__dropdown">
@@ -56,14 +64,21 @@
     </div>
     <div class="survey-form__header--right-side">
       <div class="form-group">
-        <label for="description">Survey Description</label>
-
-        <textarea id="description" formControlName="description"></textarea>
+        <label for="description">Describing text <span class="optional">(optional)</span></label>
+        <div class="survey-form__input-button-container">
+          <textarea id="description" formControlName="description"></textarea>
+          <button type="button" class="survey-form__delete-button" (click)="remove(1)">
+            <span
+              class="survey-form__delete-button--icon survey-form__delete-button--icon--textarea"
+              [innerHTML]="icons.trashcan"
+            ></span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
   <div class="form-group">
-    <label>Questions</label>
+    <label>Question</label>
     <div class="survey-form__questions" formArrayName="questions">
       @for (question of questions.controls; track $index) {
         <div class="survey-form__question" [formGroupName]="$index">

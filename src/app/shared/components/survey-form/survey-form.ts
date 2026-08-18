@@ -19,6 +19,7 @@ export class SurveyForm {
   readonly icons = {
     dropdownDownArrow: this.sanitizer.bypassSecurityTrustHtml(uiIcons.dropdownDownArrow()),
     dropdownUpArrow: this.sanitizer.bypassSecurityTrustHtml(uiIcons.dropdownUpArrow()),
+    trashcan: this.sanitizer.bypassSecurityTrustHtml(uiIcons.trashcan()),
   };
 
   survey = this.surveyService.surveyDetail;
