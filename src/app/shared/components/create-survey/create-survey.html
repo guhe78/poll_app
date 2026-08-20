@@ -5,8 +5,13 @@
       <a href="" class="btn btn--cancel">Cancel</a>
     </header>
     <app-survey-form #surveyForm></app-survey-form>
-    <button type="submit" form="survey-form" [disabled]="surveyForm.isInvalid()">
-      Create Survey
+    <button
+      class="create-survey__button"
+      type="submit"
+      form="survey-form"
+      [disabled]="surveyForm.isInvalid()"
+    >
+      Publish <span class="create-survey__button--icon" [innerHTML]="icons.check"></span>
     </button>
   </main>
 </section>
