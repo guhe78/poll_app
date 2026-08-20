@@ -12,7 +12,7 @@
 .survey-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 64px;
 
   width: 100%;
   padding: 40px 32px;
@@ -70,7 +70,7 @@
   }
 
   & textarea {
-    min-height: 150px;
+    min-height: 110px;
     resize: vertical;
   }
 
@@ -244,9 +244,14 @@
   }
 }
 
-.survey-form-questions {
-  width: 50%;
+.survey-form-questions-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 64px;
+  width: 100%;
+}
 
+.survey-form-question {
   &__header {
     display: flex;
     flex-direction: column;
@@ -260,11 +265,13 @@
     gap: 8px;
   }
 
-  &__question {
+  &__item {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 24px;
+    width: 470px;
+    border: 1px solid red;
   }
 }
 
@@ -313,7 +320,6 @@
     cursor: pointer;
 
     position: relative;
-    //border-bottom: 1px solid rgba(255, 255, 255, 1);
 
     &::after {
       content: '';
@@ -336,6 +342,41 @@
         width: 100%;
         height: 100%;
       }
+    }
+  }
+}
+
+.survey-form__add-question-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: auto;
+  max-width: 195px;
+  height: 40px;
+  padding: 8px 12px;
+
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(254, 253, 255, 1);
+
+  background-color: rgba(255, 183, 112, 0.3);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &--icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    & svg {
+      width: 100%;
+      height: 100%;
     }
   }
 }

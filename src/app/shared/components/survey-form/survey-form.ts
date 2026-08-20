@@ -12,7 +12,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrl: './survey-form.scss',
 })
 export class SurveyForm {
-  private formBuilder = inject(FormBuilder);
+  private formbuilder = inject(FormBuilder);
   private surveyService = inject(Surveys);
   private sanitizer = inject(DomSanitizer);
 
@@ -41,18 +41,18 @@ export class SurveyForm {
 
   selectedCategory = '';
 
-  surveyForm = this.formBuilder.group({
+  surveyForm = this.formbuilder.group({
     name: [this.survey().name],
     category: [''],
     endDate: [this.survey().date],
     description: [this.survey().description],
-    questions: this.formBuilder.array([
-      this.formBuilder.group({
+    questions: this.formbuilder.array([
+      this.formbuilder.group({
         question: [''],
         allowMultipleAnswers: [false],
-        answers: this.formBuilder.array([
-          this.formBuilder.control(''),
-          this.formBuilder.control(''),
+        answers: this.formbuilder.array([
+          this.formbuilder.control(''),
+          this.formbuilder.control(''),
         ]),
       }),
     ]),
@@ -90,12 +90,22 @@ export class SurveyForm {
     return this.surveyForm.invalid;
   }
 
-  remove(index: number): void {
+  remove(index: number) {}
+
+  getQuestions() {
+    return this.surveyForm.controls.questions;
+  }
+
+  removeQuestion(index: number): void {
     this.questions.removeAt(index);
   }
 
-  addAnswer(): void {
-    this.answers.push(this.formBuilder.control(''));
+  getAnswers(questionIndex: number): FormArray {
+    return this.questions.at(questionIndex).get('answers') as FormArray;
+  }
+
+  addAnswer(questionIndex: number): void {
+    this.getAnswers(questionIndex).push(this.formbuilder.control(''));
   }
 
   removeAnswer(index: number): void {
@@ -104,5 +114,15 @@ export class SurveyForm {
 
   getAnswerLetter(index: number): string {
     return String.fromCharCode(65 + index);
+  }
+
+  addQuestion(): void {
+    const question = this.formbuilder.group({
+      question: [''],
+      allowMultipleAnswers: [false],
+      answers: this.formbuilder.array([this.formbuilder.control(''), this.formbuilder.control('')]),
+    });
+
+    this.questions.push(question);
   }
 }

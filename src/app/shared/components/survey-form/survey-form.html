@@ -77,61 +77,85 @@
       </div>
     </div>
   </div>
-  <div class="form-group survey-form-questions" formArrayName="questions">
-    <div class="survey-form-questions__question" [formGroupName]="0">
-      <div class="survey-form-questions__header">
-        <div class="survey-form-questions__header--label-container">
-          <label>
-            <span>{{ indexQuestions + 1 }}.</span>
-            Question
-          </label>
-          <button type="button" class="survey-form__delete-button" (click)="remove(1)">
-            <span
-              class="survey-form__delete-button--icon survey-form__delete-button--icon--textarea"
-              [innerHTML]="icons.trashcan"
-            ></span>
-          </button>
-        </div>
-        <input type="text" formControlName="question" />
-      </div>
-      <div class="survey-form-answers">
-        <div class="survey-form-answers__header">
-          <label>Answers</label>
-          <div class="survey-form__input-button-container">
-            <input
-              class="survey-form__checkbox"
-              type="checkbox"
-              id="allowMultipleAnswers"
-              formControlName="allowMultipleAnswers"
-            />
-            <label for="allowMultipleAnswers" class="optional"> Allow multiple answers </label>
-          </div>
-        </div>
-        <div class="survey-form-answers__answers" formArrayName="answers">
-          @for (answer of answers.controls; track answer; let index = $index) {
-            <div class="form-group survey-form-answers__answer">
-              <label>{{ getAnswerLetter(index) }}.</label>
-
-              <input type="text" [formControlName]="index" />
-
+  <div class="survey-form-questions-container" formArrayName="questions">
+    @for (question of questions.controls; track $index; let index = $index) {
+      <div class="form-group survey-form-question">
+        <div class="survey-form-question__item" [formGroupName]="index">
+          <div class="survey-form-question__header">
+            <div class="survey-form-question__header--label-container">
+              <label>
+                <span>{{ index + 1 }}.</span>
+                Question
+              </label>
               <button
                 type="button"
                 class="survey-form__delete-button"
-                (click)="removeAnswer(index)"
+                (click)="removeQuestion(index)"
               >
-                <span class="survey-form__delete-button--icon" [innerHTML]="icons.trashcan"></span>
+                <span
+                  class="survey-form__delete-button--icon survey-form__delete-button--icon--textarea"
+                  [innerHTML]="icons.trashcan"
+                ></span>
               </button>
             </div>
-          }
+            <input type="text" formControlName="question" />
+          </div>
+          <div class="survey-form-answers">
+            <div class="survey-form-answers__header">
+              <label>Answers</label>
+              <div class="survey-form__input-button-container">
+                <input
+                  class="survey-form__checkbox"
+                  type="checkbox"
+                  id="allowMultipleAnswers"
+                  formControlName="allowMultipleAnswers"
+                />
+                <label for="allowMultipleAnswers" class="optional"> Allow multiple answers </label>
+              </div>
+            </div>
+            <div class="survey-form-answers__answers" formArrayName="answers">
+              @for (answer of getAnswers(index).controls; track answer; let answerIndex = $index) {
+                <div class="form-group survey-form-answers__answer">
+                  <label>{{ getAnswerLetter(answerIndex) }}.</label>
+
+                  <input type="text" [formControlName]="answerIndex" />
+
+                  <button
+                    type="button"
+                    class="survey-form__delete-button"
+                    (click)="removeAnswer(index)"
+                  >
+                    <span
+                      class="survey-form__delete-button--icon"
+                      [innerHTML]="icons.trashcan"
+                    ></span>
+                  </button>
+                </div>
+              }
+            </div>
+            <button
+              type="button"
+              class="survey-form-answers__add-answer-button"
+              (click)="addAnswer(index)"
+            >
+              Add answer
+              <span
+                class="survey-form-answers__add-answer-button--icon"
+                [innerHTML]="icons.plus"
+              ></span>
+            </button>
+          </div>
         </div>
-        <button type="button" class="survey-form-answers__add-answer-button" (click)="addAnswer()">
-          Add answer
-          <span
-            class="survey-form-answers__add-answer-button--icon"
-            [innerHTML]="icons.plus"
-          ></span>
-        </button>
       </div>
-    </div>
+    }
+    <button
+      class="addQuestionButton"
+      type="button"
+      class="survey-form__add-question-button"
+      (click)="addQuestion()"
+    >
+      Add next question
+      <span class="survey-form__add-question-button--icon" [innerHTML]="icons.plus"></span>
+    </button>
   </div>
 </form>
