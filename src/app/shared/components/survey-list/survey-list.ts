@@ -9,5 +9,4 @@ import { Surveys } from '../../../service/survey';
 })
 export class SurveyList {
   surveys = inject(Surveys);
-  surveyList = this.surveys.getSurveys;
 }

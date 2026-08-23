@@ -1,0 +1,35 @@
+<section class="main-page">
+  <div class="main-page__head">
+    <div class="main-page__text">
+      <h1 class="main-page__title">
+        Collect Feedback,<br />
+        Unlock Ideas
+      </h1>
+      <p class="main-page__description">
+        Create and share surveys in minutes &ndash; from team events to workplace culture. Collect
+        opinions, engage your audience,<br />
+        and turn feedback into action.
+      </p>
+      <button class="main-page__button">New survey</button>
+    </div>
+    <img class="main-page__image" src="images/main-page-image.png" alt="Main page image" />
+  </div>
+  <div class="main-page__content">
+    <h2 class="main-page__content-title">Your surveys</h2>
+    <div class="main-page__survey-list--ending-soon">
+      @for (survey of surveyList(); track survey.id; let i = $index) {
+        @if (i < 3) {
+          <app-survey-card [survey]="survey"></app-survey-card>
+        }
+      }
+    </div>
+
+    <div class="main-page__survey-list--surveys">
+      @for (survey of surveyList(); track survey.id; let i = $index) {
+        @if (i >= 3) {
+          <app-survey-card [survey]="survey"></app-survey-card>
+        }
+      }
+    </div>
+  </div>
+</section>

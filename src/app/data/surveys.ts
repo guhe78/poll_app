@@ -3,62 +3,160 @@ import { Survey } from '../shared/interfaces/survey';
 export const surveys: Survey[] = [
   {
     id: 1,
-    name: 'Lifestyle, Umwelt, IT & Sport',
+    name: 'Lifestyle',
     date: '2026-08-12',
     description: 'Wie stehst du zu verschiedenen Themen aus dem Alltag?',
     questions: [
       {
-        question: 'Wie oft nutzt du öffentliche Verkehrsmittel?',
-        answers: ['Täglich', 'Mehrmals pro Woche', 'Gelegentlich', 'Selten', 'Nie'],
+        question: 'Wie wichtig ist dir ein gesunder Lebensstil?',
+        answers: ['Sehr wichtig', 'Wichtig', 'Eher unwichtig'],
+      },
+      {
+        question: 'Wie wichtig ist dir ein gesunder Lebensstil?',
+        answers: ['Sehr wichtig', 'Wichtig', 'Eher unwichtig'],
+      },
+      {
+        question: 'Wie wichtig ist dir ein gesunder Lebensstil?',
+        answers: ['Sehr wichtig', 'Wichtig', 'Eher unwichtig'],
+      },
+      {
+        question: 'Wie wichtig ist dir ein gesunder Lebensstil?',
+        answers: ['Sehr wichtig', 'Wichtig', 'Eher unwichtig'],
+      },
+      {
+        question: 'Wie wichtig ist dir ein gesunder Lebensstil?',
+        answers: ['Sehr wichtig', 'Wichtig', 'Eher unwichtig'],
+      },
+      {
+        question: 'Wie wichtig ist dir ein gesunder Lebensstil?',
+        answers: ['Sehr wichtig', 'Wichtig', 'Eher unwichtig'],
+      },
+    ],
+  },
+
+  {
+    id: 2,
+    name: 'Umwelt',
+    date: '2026-08-15',
+    description: 'Fragen rund um Nachhaltigkeit und Umweltschutz.',
+    questions: [
+      {
+        question: 'Wie wichtig ist dir eine nachhaltige Lebensweise?',
+        answers: ['Sehr wichtig', 'Wichtig', 'Teils/teils'],
       },
       {
         question: 'Wie wichtig ist dir eine nachhaltige Lebensweise?',
-        answers: ['Sehr wichtig', 'Wichtig', 'Teils/teils', 'Eher unwichtig', 'Gar nicht wichtig'],
+        answers: ['Sehr wichtig', 'Wichtig', 'Teils/teils'],
       },
       {
-        question: 'Wie häufig kaufst du gebrauchte Produkte?',
-        answers: ['Sehr häufig', 'Häufig', 'Gelegentlich', 'Selten', 'Nie'],
+        question: 'Wie wichtig ist dir eine nachhaltige Lebensweise?',
+        answers: ['Sehr wichtig', 'Wichtig', 'Teils/teils'],
+      },
+    ],
+  },
+
+  {
+    id: 3,
+    name: 'IT',
+    date: '2026-08-20',
+    description: 'Fragen rund um Technologie.',
+    questions: [
+      {
+        question: 'Wie wichtig ist dir Datenschutz?',
+        answers: ['Sehr wichtig', 'Wichtig', 'Unwichtig'],
       },
       {
-        question: 'Wie viel Zeit verbringst du durchschnittlich täglich am Computer?',
-        answers: [
-          'Unter 1 Stunde',
-          '1–3 Stunden',
-          '3–5 Stunden',
-          '5–8 Stunden',
-          'Mehr als 8 Stunden',
-        ],
+        question: 'Wie wichtig ist dir Datenschutz?',
+        answers: ['Sehr wichtig', 'Wichtig', 'Unwichtig'],
       },
       {
-        question: 'Wie wichtig ist dir der Datenschutz bei digitalen Diensten?',
-        answers: ['Sehr wichtig', 'Wichtig', 'Teils/teils', 'Eher unwichtig', 'Gar nicht wichtig'],
+        question: 'Wie wichtig ist dir Datenschutz?',
+        answers: ['Sehr wichtig', 'Wichtig', 'Unwichtig'],
       },
       {
-        question: 'Wie oft treibst du pro Woche Sport?',
-        answers: ['Jeden Tag', '4–6 Mal', '2–3 Mal', 'Einmal', 'Gar nicht'],
+        question: 'Wie wichtig ist dir Datenschutz?',
+        answers: ['Sehr wichtig', 'Wichtig', 'Unwichtig'],
+      },
+    ],
+  },
+
+  {
+    id: 4,
+    name: 'Sport',
+    date: '2026-08-25',
+    description: 'Fragen rund um Sport und Bewegung.',
+    questions: [
+      {
+        question: 'Wie oft treibst du Sport?',
+        answers: ['Täglich', '2–3 Mal', 'Selten'],
       },
       {
-        question: 'Welche Sportart machst du am liebsten?',
-        answers: ['Laufen', 'Fitness/Kraftsport', 'Radfahren', 'Teamsport', 'Schwimmen', 'Andere'],
+        question: 'Wie oft treibst du Sport?',
+        answers: ['Täglich', '2–3 Mal', 'Selten'],
       },
       {
-        question: 'Wie häufig versuchst du deinen Plastikverbrauch zu reduzieren?',
-        answers: ['Immer', 'Sehr häufig', 'Manchmal', 'Selten', 'Nie'],
+        question: 'Wie oft treibst du Sport?',
+        answers: ['Täglich', '2–3 Mal', 'Selten'],
+      },
+    ],
+  },
+  {
+    id: 5,
+    name: 'Sport',
+    date: '2026-08-25',
+    description: 'Fragen rund um Sport und Bewegung.',
+    questions: [
+      {
+        question: 'Wie oft treibst du Sport?',
+        answers: ['Täglich', '2–3 Mal', 'Selten'],
       },
       {
-        question: 'Wie wichtig sind dir regelmäßige Software-Updates?',
-        answers: ['Sehr wichtig', 'Wichtig', 'Teils/teils', 'Eher unwichtig', 'Unwichtig'],
+        question: 'Wie oft treibst du Sport?',
+        answers: ['Täglich', '2–3 Mal', 'Selten'],
       },
       {
-        question: 'Was motiviert dich am meisten zu einem gesünderen Lebensstil?',
-        answers: [
-          'Gesundheit',
-          'Fitness und Aussehen',
-          'Mehr Energie',
-          'Mentales Wohlbefinden',
-          'Leistung verbessern',
-          'Nichts davon',
-        ],
+        question: 'Wie oft treibst du Sport?',
+        answers: ['Täglich', '2–3 Mal', 'Selten'],
+      },
+    ],
+  },
+  {
+    id: 6,
+    name: 'Sport',
+    date: '2026-08-25',
+    description: 'Fragen rund um Sport und Bewegung.',
+    questions: [
+      {
+        question: 'Wie oft treibst du Sport?',
+        answers: ['Täglich', '2–3 Mal', 'Selten'],
+      },
+      {
+        question: 'Wie oft treibst du Sport?',
+        answers: ['Täglich', '2–3 Mal', 'Selten'],
+      },
+      {
+        question: 'Wie oft treibst du Sport?',
+        answers: ['Täglich', '2–3 Mal', 'Selten'],
+      },
+    ],
+  },
+  {
+    id: 7,
+    name: 'Sport',
+    date: '2026-08-25',
+    description: 'Fragen rund um Sport und Bewegung.',
+    questions: [
+      {
+        question: 'Wie oft treibst du Sport?',
+        answers: ['Täglich', '2–3 Mal', 'Selten'],
+      },
+      {
+        question: 'Wie oft treibst du Sport?',
+        answers: ['Täglich', '2–3 Mal', 'Selten'],
+      },
+      {
+        question: 'Wie oft treibst du Sport?',
+        answers: ['Täglich', '2–3 Mal', 'Selten'],
       },
     ],
   },

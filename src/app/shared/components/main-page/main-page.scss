@@ -1,0 +1,62 @@
+@use '../../../styles/base/typography';
+@use '../../../styles/layout';
+
+.main-page {
+  background-color: rgba(53, 39, 58, 1);
+
+  padding: 177px 111px;
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+  }
+
+  &__title {
+    font-family: 'Nerko One', sans-serif;
+    font-weight: 400;
+    line-height: 89px;
+    color: rgba(255, 183, 112, 1);
+  }
+
+  &__description {
+    font-family: 'Mulish', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    color: rgba(255, 255, 255, 1);
+  }
+
+  &__head {
+    display: flex;
+
+    gap: 32px;
+  }
+
+  &__image {
+    width: 100%;
+    max-width: 426px;
+    height: 100%;
+    max-height: 420px;
+  }
+
+  &__survey-list {
+    &--ending-soon {
+      border: 1px solid red;
+
+      display: grid;
+      grid-auto-rows: 310px;
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 32px;
+    }
+
+    &--surveys {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 130px;
+
+      gap: 32px;
+    }
+  }
+}
