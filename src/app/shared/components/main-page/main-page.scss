@@ -10,6 +10,15 @@
 
   padding: 177px 111px;
 
+  position: relative;
+
+  &__header {
+    position: absolute;
+    top: 39px;
+    left: 111px;
+    width: 100%;
+  }
+
   &__content {
     display: flex;
     flex-direction: column;
