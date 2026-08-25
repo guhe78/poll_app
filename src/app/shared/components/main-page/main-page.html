@@ -16,20 +16,21 @@
   </div>
   <div class="main-page__content">
     <h2 class="main-page__content-title">Your surveys</h2>
-    <div class="main-page__survey-list--ending-soon">
-      @for (survey of surveyList(); track survey.id; let i = $index) {
-        @if (i < 3) {
-          <app-survey-card [survey]="survey"></app-survey-card>
+    <div class="main-page__survey-list">
+      <h4>Ending soon</h4>
+      <div class="main-page__survey-list--ending-soon">
+        @for (survey of surveyList(); track survey.id; let i = $index) {
+          @if (i < 3) {
+            <app-survey-card [survey]="survey" variant="soon"></app-survey-card>
+          }
         }
-      }
-    </div>
+      </div>
 
-    <div class="main-page__survey-list--surveys">
-      @for (survey of surveyList(); track survey.id; let i = $index) {
-        @if (i >= 3) {
-          <app-survey-card [survey]="survey"></app-survey-card>
+      <div class="main-page__survey-list--surveys">
+        @for (survey of surveyList(); track survey.id; let i = $index) {
+          <app-survey-card [survey]="survey" variant="normal"></app-survey-card>
         }
-      }
+      </div>
     </div>
   </div>
 </section>

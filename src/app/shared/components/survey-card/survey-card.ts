@@ -10,4 +10,5 @@ import { Survey } from '../../interfaces/survey';
 })
 export class SurveyCard {
   survey = input.required<Survey>();
+  variant = input<'soon' | 'normal'>('soon');
 }

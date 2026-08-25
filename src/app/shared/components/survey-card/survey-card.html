@@ -1,7 +1,11 @@
-<section class="survey-card">
+<section class="survey-card" [class.survey-card--soon]="variant() === 'soon'">
   <div class="survey-card__head">
     <p class="survey-card__category">{{ survey().name }}</p>
     <h4 class="survey-card__title">{{ survey().description }}</h4>
   </div>
-  <app-status-badge buttonText="Ends in one day" backgroundColor="green"></app-status-badge>
+  <app-status-badge
+    class="status"
+    buttonText="Ends in one day"
+    backgroundColor="green"
+  ></app-status-badge>
 </section>
