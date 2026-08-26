@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 
 @Component({
   selector: 'app-status-badge',
@@ -9,4 +9,5 @@ import { Component, Input } from '@angular/core';
 export class StatusBadge {
   @Input() buttonText!: string;
   @Input() backgroundColor!: string;
+  variant = input<'published' | 'normal'>('normal');
 }

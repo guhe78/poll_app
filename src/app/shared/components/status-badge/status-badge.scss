@@ -10,4 +10,10 @@
   font-weight: 600;
   color: rgba(34, 18, 39, 1);
   border-radius: 0 14px 0 0;
+
+  background-color: rgba(255, 207, 161, 1);
+
+  &--published {
+    background-color: rgba(255, 183, 112, 1);
+  }
 }
