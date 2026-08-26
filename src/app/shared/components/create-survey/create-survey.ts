@@ -1,9 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { SurveyForm } from '../survey-form/survey-form';
-import { uiIcons } from '../../../assets/icons';
-
-import { DomSanitizer } from '@angular/platform-browser';
 import { StatusBadge } from '../status-badge/status-badge';
+import { Icons } from '../../../service/icons';
 
 @Component({
   selector: 'app-create-survey',
@@ -12,10 +10,5 @@ import { StatusBadge } from '../status-badge/status-badge';
   styleUrl: './create-survey.scss',
 })
 export class CreateSurvey {
-  private sanitizer = inject(DomSanitizer);
-
-  readonly icons = {
-    check: this.sanitizer.bypassSecurityTrustHtml(uiIcons.check()),
-    close: this.sanitizer.bypassSecurityTrustHtml(uiIcons.close()),
-  };
+  readonly iconsService = inject(Icons).icons;
 }

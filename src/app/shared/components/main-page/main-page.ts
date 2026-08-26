@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { SurveyCard } from '../survey-card/survey-card';
 import { Surveys } from '../../../service/survey';
 import { Header } from '../header/header';
+import { Icons } from '../../../service/icons';
 
 @Component({
   selector: 'app-main-page',
@@ -11,6 +12,8 @@ import { Header } from '../header/header';
 })
 export class MainPage {
   private surveysService = inject(Surveys);
+
+  readonly iconsService = inject(Icons).icons;
 
   surveyList = this.surveysService.surveyList;
 

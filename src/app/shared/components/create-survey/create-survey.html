@@ -8,7 +8,8 @@
       <div class="create-survey__headline--container">
         <h3 class="create-survey__headline">Create new survey</h3>
         <button class="create-survey__button-cancel" type="reset" form="survey-form">
-          Cancel <span class="create-survey__button-cancel--icon" [innerHTML]="icons.close"></span>
+          Cancel
+          <span class="create-survey__button-cancel--icon" [innerHTML]="iconsService.close"></span>
         </button>
       </div>
     </header>
@@ -19,7 +20,7 @@
       form="survey-form"
       [disabled]="surveyForm.isInvalid()"
     >
-      Publish <span class="create-survey__button--icon" [innerHTML]="icons.check"></span>
+      Publish <span class="create-survey__button--icon" [innerHTML]="iconsService.check"></span>
     </button>
   </main>
 </section>
