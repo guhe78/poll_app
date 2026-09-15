@@ -175,3 +175,18 @@
     }
   }
 }
+
+dialog.survey-dialog {
+  border: none;
+  background-color: rgba(53, 39, 58, 1);
+  border-radius: 5px 80px 5px 5px;
+
+  padding: 0;
+  margin: auto;
+  overflow: visible;
+}
+
+dialog.survey-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+}

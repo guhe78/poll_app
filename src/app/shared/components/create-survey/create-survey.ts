@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Output, EventEmitter, inject } from '@angular/core';
 import { SurveyForm } from '../survey-form/survey-form';
 import { StatusBadge } from '../status-badge/status-badge';
 import { Icons } from '../../../service/icons';
@@ -11,4 +11,10 @@ import { Icons } from '../../../service/icons';
 })
 export class CreateSurvey {
   readonly iconsService = inject(Icons).icons;
+
+  @Output() closeDialog = new EventEmitter<void>();
+
+  closeSurveyForm() {
+    this.closeDialog.emit();
+  }
 }

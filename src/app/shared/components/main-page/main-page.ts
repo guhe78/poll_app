@@ -1,12 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, ViewChild, ElementRef, inject } from '@angular/core';
 import { SurveyCard } from '../survey-card/survey-card';
 import { Surveys } from '../../../service/survey';
 import { Header } from '../header/header';
 import { Icons } from '../../../service/icons';
+import { CreateSurvey } from '../create-survey/create-survey';
 
 @Component({
   selector: 'app-main-page',
-  imports: [SurveyCard, Header],
+  imports: [SurveyCard, Header, CreateSurvey],
   templateUrl: './main-page.html',
   styleUrl: './main-page.scss',
 })
@@ -19,5 +20,27 @@ export class MainPage {
 
   ngOnInit() {
     console.log(this.surveyList().length);
+  }
+
+  @ViewChild('nativeDialog') dialogRef!: ElementRef<HTMLDialogElement>;
+
+  openDialog() {
+    this.dialogRef.nativeElement.showModal();
+
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeDialog() {
+    this.dialogRef.nativeElement.close();
+
+    document.body.style.overflow = '';
+  }
+
+  closeOnBackdrop(event: MouseEvent) {
+    const dialog = this.dialogRef.nativeElement as HTMLDialogElement;
+
+    if (event.target === dialog) {
+      this.closeDialog();
+    }
   }
 }

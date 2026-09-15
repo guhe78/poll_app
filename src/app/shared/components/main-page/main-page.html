@@ -11,9 +11,17 @@
         opinions, engage your audience,<br />
         and turn feedback into action.
       </p>
-      <button class="main-page__button">
+      <button class="main-page__button" (click)="openDialog()">
         New survey<span class="main-page__button--icon" [innerHTML]="iconsService.plus"></span>
       </button>
+      <dialog
+        class="survey-dialog"
+        #nativeDialog
+        (cancel)="closeDialog()"
+        (click)="closeOnBackdrop($event)"
+      >
+        <app-create-survey (closeDialog)="closeDialog()"></app-create-survey>
+      </dialog>
     </div>
     <img class="main-page__image" src="images/main-page-image.png" alt="Main page image" />
   </div>
