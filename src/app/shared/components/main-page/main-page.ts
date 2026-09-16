@@ -27,13 +27,13 @@ export class MainPage {
   openDialog() {
     this.dialogRef.nativeElement.showModal();
 
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflowY = 'clip';
   }
 
   closeDialog() {
     this.dialogRef.nativeElement.close();
 
-    document.body.style.overflow = '';
+    document.body.style.overflowY = '';
   }
 
   closeOnBackdrop(event: MouseEvent) {

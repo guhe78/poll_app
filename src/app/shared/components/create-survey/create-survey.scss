@@ -1,5 +1,10 @@
 @use '../../../styles/base/typography';
 
+:host {
+  display: flex;
+  min-height: 0;
+}
+
 .create-survey {
   background-color: rgba(53, 39, 58, 1);
   display: flex;
@@ -8,13 +13,14 @@
   align-items: center;
   padding: 40px 54px;
 
+  min-height: 0;
+
   border-radius: 5px 100px 5px 5px;
 
   &__header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 1px solid red;
   }
 
   &__main {
@@ -24,6 +30,9 @@
     gap: 32px;
 
     width: 100%;
+    min-height: 0;
+
+    flex: 1;
   }
 
   &__headline--container {
@@ -126,7 +135,13 @@
     border: none;
     border-radius: 10px;
 
+    gap: 8px;
+
     cursor: pointer;
+
+    &--text {
+      transform: translateY(1px);
+    }
 
     &--icon {
       display: flex;
@@ -135,8 +150,6 @@
 
       width: 14px;
       height: 14px;
-
-      margin-left: 8px;
 
       & svg {
         width: 100%;

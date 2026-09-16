@@ -1,3 +1,8 @@
+:host {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
 .form-group {
   display: flex;
   flex-direction: column;
@@ -15,6 +20,8 @@
   gap: 64px;
 
   width: 100%;
+  height: 100%;
+  min-height: 0;
   padding: 40px 32px;
 
   font-family: 'Mulish';
@@ -245,10 +252,14 @@
 }
 
 .survey-form-questions-container {
+  border: 1px solid red;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 64px;
   width: 100%;
+  flex-grow: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .survey-form-question {
@@ -271,7 +282,6 @@
     justify-content: flex-start;
     gap: 24px;
     width: 470px;
-    border: 1px solid red;
   }
 }
 
