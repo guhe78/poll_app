@@ -1,10 +1,8 @@
-import { Injectable, signal } from '@angular/core';
+import { Service, signal } from '@angular/core';
 import { Survey } from '../shared/interfaces/survey';
 import { surveys } from '../data/surveys';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class Surveys {
   surveyList = signal<Survey[]>(surveys);
 
@@ -13,6 +11,5 @@ export class Surveys {
     name: '',
     date: '',
     description: '',
-    questions: [],
   });
 }

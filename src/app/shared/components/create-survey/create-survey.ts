@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, inject } from '@angular/core';
+import { Component, Output, EventEmitter, inject, ViewChild } from '@angular/core';
 import { SurveyForm } from '../survey-form/survey-form';
 import { StatusBadge } from '../status-badge/status-badge';
 import { Icons } from '../../../service/icons';
@@ -14,7 +14,10 @@ export class CreateSurvey {
 
   @Output() closeDialog = new EventEmitter<void>();
 
-  closeSurveyForm() {
+  @ViewChild(SurveyForm) surveyForm?: SurveyForm;
+
+  closeSurveyForm(): void {
     this.closeDialog.emit();
+    this.surveyForm?.resetForm();
   }
 }

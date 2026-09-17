@@ -83,6 +83,8 @@ export class SurveyForm {
   onSubmit(): void {
     if (this.surveyForm.valid) {
       console.log(this.surveyForm.value);
+
+      this.resetForm();
     }
   }
 
@@ -124,5 +126,11 @@ export class SurveyForm {
     });
 
     this.questions.push(question);
+  }
+
+  resetForm(): void {
+    this.surveyForm.reset();
+    this.questions.clear();
+    this.addQuestion();
   }
 }

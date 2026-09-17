@@ -114,7 +114,11 @@
               </div>
             </div>
             <div class="survey-form-answers__answers" formArrayName="answers">
-              @for (answer of getAnswers(index).controls; track answer; let answerIndex = $index) {
+              @for (
+                answer of getAnswers(index).controls;
+                track answerIndex;
+                let answerIndex = $index
+              ) {
                 <div class="form-group survey-form-answers__answer">
                   <label>{{ getAnswerLetter(answerIndex) }}.</label>
 
