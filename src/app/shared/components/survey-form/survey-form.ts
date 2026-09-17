@@ -1,9 +1,9 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 
-import { Surveys } from '../../../service/survey';
+import { Surveys } from '../../../services/surveys';
 import { uiIcons } from '../../../assets/icons';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-survey-form',

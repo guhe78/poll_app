@@ -1,8 +1,8 @@
 import { Component, ViewChild, ElementRef, inject } from '@angular/core';
 import { SurveyCard } from '../survey-card/survey-card';
-import { Surveys } from '../../../service/survey';
+import { Surveys } from '../../../services/surveys';
 import { Header } from '../header/header';
-import { Icons } from '../../../service/icons';
+import { Icons } from '../../../services/icons';
 import { CreateSurvey } from '../create-survey/create-survey';
 
 @Component({

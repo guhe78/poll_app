@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, inject, ViewChild } from '@angular/core';
 import { SurveyForm } from '../survey-form/survey-form';
 import { StatusBadge } from '../status-badge/status-badge';
-import { Icons } from '../../../service/icons';
+import { Icons } from '../../../services/icons';
 
 @Component({
   selector: 'app-create-survey',

@@ -12,4 +12,12 @@ export class AnswerModel implements Answer {
     this.answer = data.answer ?? '';
     this.votes = data.votes ?? 0;
   }
+
+  getCleanAddJson() {
+    return {
+      question_id: this.question_id,
+      answer: this.answer,
+      votes: this.votes,
+    };
+  }
 }
