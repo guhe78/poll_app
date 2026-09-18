@@ -12,6 +12,7 @@ export class Surveys {
   surveyDetail = signal<Survey>({
     id: 0,
     name: '',
+    category: '',
     date: '',
     description: '',
     questions: [],

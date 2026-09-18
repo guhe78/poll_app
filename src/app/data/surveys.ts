@@ -1,3 +1,4 @@
+import { Answer } from '../shared/interfaces/answer';
 import { Question } from '../shared/interfaces/question';
 import { Survey } from '../shared/interfaces/survey';
 
@@ -11,19 +12,40 @@ function createQuestion(
     id: questionId,
     survey_id: surveyId,
     question: text,
-    answers: answerTexts.map((answer, index) => ({
-      id: questionId * 10 + index + 1,
-      question_id: questionId,
-      answer,
-      votes: 0,
-    })),
+    answers: createAnswers(questionId, answerTexts),
   };
 }
+
+// function createQuestion(
+//   text: string,
+//   answerTexts: string[],
+// ): Question {
+//   return {
+//     question: text,
+//     answers: createAnswers(answerTexts),
+//   };
+// }
+
+function createAnswers(questionId: number, answerTexts: string[]): Answer[] {
+  return answerTexts.map((answer, index) => ({
+    id: questionId * 10 + index + 1,
+    question_id: questionId,
+    answer,
+    votes: 0,
+  }));
+}
+
+// function createAnswers(answerTexts: string[]): Answer[] {
+//   return answerTexts.map((answer) => ({
+//     answer,
+//   }));
+// }
 
 export const surveys: Survey[] = [
   {
     id: 1,
-    name: 'Lifestyle',
+    name: 'A question about your life',
+    category: 'Lifestyle',
     date: '2026-08-12',
     description: 'Wie stehst du zu verschiedenen Themen aus dem Alltag?',
     questions: [
@@ -46,7 +68,8 @@ export const surveys: Survey[] = [
   },
   {
     id: 2,
-    name: 'Umwelt',
+    name: 'Wie steht ihr zum Umweltschutz',
+    category: 'Umwelt',
     date: '2026-08-15',
     description: 'Fragen rund um Nachhaltigkeit und Umweltschutz.',
     questions: [
@@ -69,7 +92,8 @@ export const surveys: Survey[] = [
   },
   {
     id: 3,
-    name: 'IT',
+    name: 'Ich will eure Meinung zum Theme IT wissen',
+    category: 'IT',
     date: '2026-08-20',
     description: 'Fragen rund um Technologie.',
     questions: [
@@ -92,7 +116,8 @@ export const surveys: Survey[] = [
   },
   {
     id: 4,
-    name: 'Sport',
+    name: 'Wie sportlich seid ihr?',
+    category: 'Sport',
     date: '2026-08-25',
     description: 'Fragen rund um Sport und Bewegung.',
     questions: [
@@ -115,7 +140,8 @@ export const surveys: Survey[] = [
   },
   {
     id: 5,
-    name: 'Sport',
+    name: 'Wie sportlich seid ihr?',
+    category: 'Sport',
     date: '2026-08-25',
     description: 'Fragen rund um Sport und Bewegung.',
     questions: [
@@ -138,7 +164,8 @@ export const surveys: Survey[] = [
   },
   {
     id: 6,
-    name: 'Sport',
+    name: 'Wie sportlich seid ihr?',
+    category: 'Sport',
     date: '2026-08-25',
     description: 'Fragen rund um Sport und Bewegung.',
     questions: [
@@ -161,7 +188,8 @@ export const surveys: Survey[] = [
   },
   {
     id: 7,
-    name: 'Sport',
+    name: 'Wie sportlich seid ihr?',
+    category: 'Sport',
     date: '2026-08-25',
     description: 'Fragen rund um Sport und Bewegung.',
     questions: [
@@ -184,7 +212,8 @@ export const surveys: Survey[] = [
   },
   {
     id: 8,
-    name: 'Sport',
+    name: 'Wie sportlich seid ihr?',
+    category: 'Sport',
     date: '2026-08-25',
     description: 'Fragen rund um Sport und Bewegung.',
     questions: [
@@ -207,7 +236,8 @@ export const surveys: Survey[] = [
   },
   {
     id: 9,
-    name: 'Sport',
+    name: 'Wie sportlich seid ihr?',
+    category: 'Sport',
     date: '2026-08-25',
     description: 'Fragen rund um Sport und Bewegung.',
     questions: [

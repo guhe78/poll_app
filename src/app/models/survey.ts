@@ -4,6 +4,7 @@ import { Survey } from '../shared/interfaces/survey';
 export class SurveyModel implements Survey {
   id: number;
   name: string;
+  category: string;
   date: string;
   description: string;
   questions: Question[];
@@ -11,6 +12,7 @@ export class SurveyModel implements Survey {
   constructor(data: Partial<Survey> = {}) {
     this.id = data.id ?? 0;
     this.name = data.name ?? '';
+    this.category = data.category ?? '';
     this.date = data.date ?? '';
     this.description = data.description ?? '';
     this.questions = data.questions ?? [];
@@ -19,6 +21,7 @@ export class SurveyModel implements Survey {
   getCleanAddJson() {
     return {
       name: this.name,
+      category: this.category,
       date: this.date,
       description: this.description,
       questions: this.questions,

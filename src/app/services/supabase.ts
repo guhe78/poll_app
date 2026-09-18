@@ -9,10 +9,6 @@ import { Answer } from '../shared/interfaces/answer';
 export class Supabase {
   private supabase: SupabaseClient;
 
-  surveyList = signal<Survey[]>([]);
-  questionList = signal<Question[]>([]);
-  answerList = signal<Answer[]>([]);
-
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabasePublishKey);
   }
@@ -23,6 +19,14 @@ export class Supabase {
     if (error) throw error;
 
     return data as Survey[];
+  }
+
+  async getQuestions(): Promise<Question[]> {
+    const { data, error } = await this.supabase.from('questions').select('*');
+
+    if (error) throw error;
+
+    return data as Question[];
   }
 
   async getSurvey(id: number) {}
