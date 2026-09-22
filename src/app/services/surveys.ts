@@ -1,19 +1,18 @@
 import { inject, Service, signal } from '@angular/core';
 import { Survey } from '../shared/interfaces/survey';
 import { Supabase } from './supabase';
-import { surveys } from '../data/surveys';
+import { CreateSurvey } from '../shared/interfaces/create-survey';
 
 @Service()
 export class Surveys {
   private supabase = inject(Supabase);
 
-  surveyList = signal<Survey[]>(surveys);
+  surveyList = signal<Survey[]>([]);
 
   surveyDetail = signal<Survey>({
-    id: 0,
     name: '',
     category: '',
-    date: '',
+    endDate: '',
     description: '',
     questions: [],
   });
@@ -22,5 +21,7 @@ export class Surveys {
     this.surveyList.set(await this.supabase.getSurveys());
   }
 
-  async createSurvey() {}
+  async createSurvey(survey: CreateSurvey): Promise<void> {
+    await this.supabase.createSurvey(survey);
+  }
 }

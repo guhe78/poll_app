@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Survey } from '../shared/interfaces/survey';
 import { Question } from '../shared/interfaces/question';
 import { Answer } from '../shared/interfaces/answer';
+import { CreateSurvey } from '../shared/interfaces/create-survey';
 
 @Service()
 export class Supabase {
@@ -38,6 +39,56 @@ export class Supabase {
 
     if (error) {
       throw error;
+    }
+  }
+
+  async createSurvey(surveyData: CreateSurvey): Promise<void> {
+    const { data: survey, error: surveyError } = await this.supabase
+      .from('surveys')
+      .insert({
+        name: surveyData.name,
+        category: surveyData.category,
+        date_end: surveyData.endDate,
+        description: surveyData.description,
+      })
+      .select()
+      .single();
+
+    if (surveyError) {
+      throw surveyError;
+    }
+
+    for (const question of surveyData.questions) {
+      const { data: savedQuestion, error: questionError } = await this.supabase
+        .from('questions')
+        .insert({
+          survey_id: survey.id,
+          question: question.question,
+          allow_multiple_answers: question.allowMultipleAnswers,
+        })
+        .select()
+        .single();
+
+      if (questionError) {
+        throw questionError;
+      }
+
+      const answers = question.answers
+        .filter((answer) => answer.answer.trim() !== '')
+        .map((answer) => ({
+          question_id: savedQuestion.id,
+          answer: answer.answer,
+        }));
+
+      if (!answers.length) {
+        continue;
+      }
+
+      const { error: answerError } = await this.supabase.from('answers').insert(answers);
+
+      if (answerError) {
+        throw answerError;
+      }
     }
   }
 }

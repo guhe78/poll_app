@@ -1,9 +1,10 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { Surveys } from '../../../services/surveys';
 import { uiIcons } from '../../../assets/icons';
+import { CreateSurvey } from '../../interfaces/create-survey';
 
 @Component({
   selector: 'app-survey-form',
@@ -13,7 +14,7 @@ import { uiIcons } from '../../../assets/icons';
 })
 export class SurveyForm {
   private formbuilder = inject(FormBuilder);
-  private surveyService = inject(Surveys);
+  private surveysService = inject(Surveys);
   private sanitizer = inject(DomSanitizer);
 
   indexQuestions = 0;
@@ -25,7 +26,7 @@ export class SurveyForm {
     plus: this.sanitizer.bypassSecurityTrustHtml(uiIcons.plus()),
   };
 
-  survey = this.surveyService.surveyDetail;
+  survey = this.surveysService.surveyDetail;
 
   readonly categories = [
     'All surveys',
@@ -41,22 +42,28 @@ export class SurveyForm {
 
   selectedCategory = '';
 
-  surveyForm = this.formbuilder.group({
+  surveyForm = this.formbuilder.nonNullable.group({
     name: [this.survey().name],
     category: [''],
-    endDate: [this.survey().date],
+    endDate: [this.survey().endDate],
     description: [this.survey().description],
-    questions: this.formbuilder.array([
-      this.formbuilder.group({
-        question: [''],
-        allowMultipleAnswers: [false],
-        answers: this.formbuilder.array([
-          this.formbuilder.control(''),
-          this.formbuilder.control(''),
-        ]),
-      }),
-    ]),
+    questions: this.formbuilder.array([this.createQuestionGroup()]),
   });
+
+  constructor() {
+    this.addQuestion();
+  }
+
+  private createQuestionGroup() {
+    return this.formbuilder.nonNullable.group({
+      question: [''],
+      allowMultipleAnswers: [false],
+      answers: this.formbuilder.nonNullable.array([
+        this.formbuilder.nonNullable.control(''),
+        this.formbuilder.nonNullable.control(''),
+      ]),
+    });
+  }
 
   get questions(): FormArray {
     return this.surveyForm.get('questions') as FormArray;
@@ -80,9 +87,24 @@ export class SurveyForm {
     this.categoryDropdownOpen = false;
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.surveyForm.valid) {
-      console.log(this.surveyForm.value);
+      const formValue = this.surveyForm.getRawValue();
+
+      const survey: CreateSurvey = {
+        name: formValue.name,
+        category: formValue.category,
+        endDate: formValue.endDate,
+        description: formValue.description,
+        questions: formValue.questions.map((q) => ({
+          question: q.question,
+          allowMultipleAnswers: q.allowMultipleAnswers,
+          answers: q.answers.map((answer) => ({ answer })),
+        })),
+      };
+      console.log(survey);
+
+      await this.surveysService.createSurvey(survey);
 
       this.resetForm();
     }
@@ -110,8 +132,9 @@ export class SurveyForm {
     this.getAnswers(questionIndex).push(this.formbuilder.control(''));
   }
 
-  removeAnswer(index: number): void {
-    this.answers.removeAt(index);
+  removeAnswer(questionIndex: number, answerIndex: number): void {
+    this.getAnswers(questionIndex).removeAt(answerIndex);
+    console.log(questionIndex, answerIndex);
   }
 
   getAnswerLetter(index: number): string {
@@ -119,13 +142,7 @@ export class SurveyForm {
   }
 
   addQuestion(): void {
-    const question = this.formbuilder.group({
-      question: [''],
-      allowMultipleAnswers: [false],
-      answers: this.formbuilder.array([this.formbuilder.control(''), this.formbuilder.control('')]),
-    });
-
-    this.questions.push(question);
+    this.questions.push(this.createQuestionGroup());
   }
 
   resetForm(): void {

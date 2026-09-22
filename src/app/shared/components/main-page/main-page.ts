@@ -18,11 +18,11 @@ export class MainPage {
 
   surveyList = this.surveysService.surveyList;
 
-  ngOnInit() {
-    console.log(this.surveyList().length);
-  }
-
   @ViewChild('nativeDialog') dialogRef!: ElementRef<HTMLDialogElement>;
+
+  constructor() {
+    this.surveysService.loadSurveys();
+  }
 
   openDialog() {
     this.dialogRef.nativeElement.showModal();
