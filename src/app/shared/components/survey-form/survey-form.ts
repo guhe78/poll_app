@@ -50,10 +50,6 @@ export class SurveyForm {
     questions: this.formbuilder.array([this.createQuestionGroup()]),
   });
 
-  constructor() {
-    this.addQuestion();
-  }
-
   private createQuestionGroup() {
     return this.formbuilder.nonNullable.group({
       question: [''],

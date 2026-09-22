@@ -1,12 +1,13 @@
-import { Service, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 import { Survey } from '../shared/interfaces/survey';
 import { Question } from '../shared/interfaces/question';
-import { Answer } from '../shared/interfaces/answer';
 import { CreateSurvey } from '../shared/interfaces/create-survey';
 
-@Service()
+@Injectable({
+  providedIn: 'root',
+})
 export class Supabase {
   private supabase: SupabaseClient;
 
@@ -15,11 +16,49 @@ export class Supabase {
   }
 
   async getSurveys(): Promise<Survey[]> {
-    const { data, error } = await this.supabase.from('surveys').select('*');
+    const { data, error } = await this.supabase.from('surveys').select(`
+      id,
+      name,
+      category,
+      date_end,
+      description,
+      questions (
+        id,
+        survey_id,
+        question,
+        allow_multiple_answers,
+        answers (
+          id,
+          question_id,
+          answer,
+          votes
+        )
+      )
+    `);
 
-    if (error) throw error;
+    if (error) {
+      throw error;
+    }
 
-    return data as Survey[];
+    return data.map((survey) => ({
+      id: survey.id,
+      name: survey.name,
+      category: survey.category,
+      endDate: survey.date_end,
+      description: survey.description,
+      questions: survey.questions.map((question) => ({
+        id: question.id,
+        survey_id: question.survey_id,
+        question: question.question,
+        allow_multiple_answers: question.allow_multiple_answers,
+        answers: question.answers.map((answer) => ({
+          id: answer.id,
+          question_id: answer.question_id,
+          answer: answer.answer,
+          votes: answer.votes,
+        })),
+      })),
+    }));
   }
 
   async getQuestions(): Promise<Question[]> {

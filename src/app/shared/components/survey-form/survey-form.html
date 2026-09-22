@@ -107,10 +107,12 @@
                 <input
                   class="survey-form__checkbox"
                   type="checkbox"
-                  id="allowMultipleAnswers"
+                  [id]="'allowMultipleAnswers' + index"
                   formControlName="allowMultipleAnswers"
                 />
-                <label for="allowMultipleAnswers" class="optional"> Allow multiple answers </label>
+                <label [for]="'allowMultipleAnswers' + index" class="optional">
+                  Allow multiple answers
+                </label>
               </div>
             </div>
             <div class="survey-form-answers__answers" formArrayName="answers">

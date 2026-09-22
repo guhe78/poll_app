@@ -38,7 +38,7 @@
       </div>
 
       <div class="main-page__survey-list--surveys">
-        @for (survey of surveyList(); track survey.id; let i = $index) {
+        @for (survey of surveyList(); track survey.id) {
           <app-survey-card [survey]="survey" variant="normal"></app-survey-card>
         }
       </div>

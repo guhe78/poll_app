@@ -20,8 +20,8 @@ export class MainPage {
 
   @ViewChild('nativeDialog') dialogRef!: ElementRef<HTMLDialogElement>;
 
-  constructor() {
-    this.surveysService.loadSurveys();
+  async ngOnInit(): Promise<void> {
+    await this.surveysService.loadSurveys();
   }
 
   openDialog() {
