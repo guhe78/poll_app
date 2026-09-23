@@ -1,13 +1,15 @@
-import { Component, ViewChild, ElementRef, inject } from '@angular/core';
+import { Component, ViewChild, ElementRef, inject, signal } from '@angular/core';
 import { SurveyCard } from '../survey-card/survey-card';
 import { Surveys } from '../../../services/surveys';
 import { Header } from '../header/header';
 import { Icons } from '../../../services/icons';
 import { CreateSurvey } from '../create-survey/create-survey';
+import { AnswerSurvey } from '../answer-survey/answer-survey';
+import { Survey } from '../survey/survey';
 
 @Component({
   selector: 'app-main-page',
-  imports: [SurveyCard, Header, CreateSurvey],
+  imports: [SurveyCard, Header, CreateSurvey, AnswerSurvey],
   templateUrl: './main-page.html',
   styleUrl: './main-page.scss',
 })
@@ -16,31 +18,54 @@ export class MainPage {
 
   readonly iconsService = inject(Icons).icons;
 
+  selectedSurvey = signal<Survey | null>(null);
+
   surveyList = this.surveysService.surveyList;
 
-  @ViewChild('nativeDialog') dialogRef!: ElementRef<HTMLDialogElement>;
+  @ViewChild('creatingDialog') creatingDialogRef!: ElementRef<HTMLDialogElement>;
+  @ViewChild('votingDialog') votingDialogRef!: ElementRef<HTMLDialogElement>;
 
   async ngOnInit(): Promise<void> {
     await this.surveysService.loadSurveys();
   }
 
-  openDialog() {
-    this.dialogRef.nativeElement.showModal();
+  openCreatingDialog() {
+    this.creatingDialogRef.nativeElement.showModal();
 
     document.body.style.overflowY = 'clip';
   }
 
-  closeDialog() {
-    this.dialogRef.nativeElement.close();
+  closeCreatingDialog() {
+    this.creatingDialogRef.nativeElement.close();
 
     document.body.style.overflowY = '';
   }
 
-  closeOnBackdrop(event: MouseEvent) {
-    const dialog = this.dialogRef.nativeElement as HTMLDialogElement;
+  closeCreatingDialogOnBackdrop(event: MouseEvent) {
+    const dialog = this.creatingDialogRef.nativeElement as HTMLDialogElement;
 
     if (event.target === dialog) {
-      this.closeDialog();
+      this.closeCreatingDialog();
+    }
+  }
+  openVotingDialog(survey: Survey) {
+    this.votingDialogRef.nativeElement.showModal();
+    console.log(survey);
+
+    document.body.style.overflowY = 'clip';
+  }
+
+  closeVotingDialog() {
+    this.votingDialogRef.nativeElement.close();
+
+    document.body.style.overflowY = '';
+  }
+
+  closeVotingDialogOnBackdrop(event: MouseEvent) {
+    const dialog = this.votingDialogRef.nativeElement as HTMLDialogElement;
+
+    if (event.target === dialog) {
+      this.closeVotingDialog();
     }
   }
 }

@@ -11,17 +11,9 @@
         opinions, engage your audience,<br />
         and turn feedback into action.
       </p>
-      <button class="main-page__button" (click)="openDialog()">
+      <button class="main-page__button" (click)="openCreatingDialog()">
         New survey<span class="main-page__button--icon" [innerHTML]="iconsService.plus"></span>
       </button>
-      <dialog
-        class="survey-dialog"
-        #nativeDialog
-        (cancel)="closeDialog()"
-        (click)="closeOnBackdrop($event)"
-      >
-        <app-create-survey (closeDialog)="closeDialog()"></app-create-survey>
-      </dialog>
     </div>
     <img class="main-page__image" src="images/main-page-image.png" alt="Main page image" />
   </div>
@@ -32,16 +24,39 @@
       <div class="main-page__survey-list--ending-soon">
         @for (survey of surveyList(); track survey.id; let i = $index) {
           @if (i < 3) {
-            <app-survey-card [survey]="survey"></app-survey-card>
+            <app-survey-card
+              [survey]="survey"
+              (surveyClick)="openVotingDialog($event)"
+            ></app-survey-card>
           }
         }
       </div>
 
       <div class="main-page__survey-list--surveys">
         @for (survey of surveyList(); track survey.id) {
-          <app-survey-card [survey]="survey" variant="normal"></app-survey-card>
+          <app-survey-card
+            [survey]="survey"
+            variant="normal"
+            (surveyClick)="openVotingDialog($event)"
+          ></app-survey-card>
         }
       </div>
     </div>
   </div>
+  <dialog
+    class="survey-dialog"
+    #creatingDialog
+    (cancel)="closeCreatingDialog()"
+    (click)="closeCreatingDialogOnBackdrop($event)"
+  >
+    <app-create-survey (closeDialog)="closeCreatingDialog()"></app-create-survey>
+  </dialog>
+  <dialog
+    class="survey-dialog"
+    #votingDialog
+    (cancel)="closeVotingDialog()"
+    (click)="closeVotingDialogOnBackdrop($event)"
+  >
+    <app-answer-survey (closeDialog)="closeVotingDialog()"></app-answer-survey>
+  </dialog>
 </section>

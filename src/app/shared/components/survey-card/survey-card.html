@@ -1,7 +1,11 @@
-<section class="survey-card" [class.survey-card--soon]="variant() === 'soon'">
+<section
+  class="survey-card"
+  [class.survey-card--soon]="variant() === 'soon'"
+  (click)="openSurvey()"
+>
   <div class="survey-card__head">
-    <p class="survey-card__category">{{ survey().name }}</p>
-    <h4 class="survey-card__title">{{ survey().description }}</h4>
+    <p class="survey-card__category">{{ survey().category }}</p>
+    <h4 class="survey-card__title">{{ survey().name }}</h4>
   </div>
-  <app-status-badge class="status" buttonText="Ends in one day"></app-status-badge>
+  <app-status-badge class="status" buttonText="{{ survey().endDate }}"></app-status-badge>
 </section>
