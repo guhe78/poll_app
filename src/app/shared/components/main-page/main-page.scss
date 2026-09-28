@@ -122,8 +122,6 @@
     gap: 32px;
 
     &--ending-soon {
-      border: 1px solid red;
-
       display: grid;
       grid-auto-rows: 310px;
       grid-template-columns: repeat(3, 1fr);
@@ -176,7 +174,7 @@
   }
 }
 
-dialog.survey-dialog {
+.survey-create-dialog {
   &[open] {
     display: flex;
     flex-direction: column;
@@ -192,6 +190,31 @@ dialog.survey-dialog {
   overflow: hidden;
 }
 
-dialog.survey-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.9);
+.survey-create-dialog::backdrop {
+  background: rgba(255, 255, 255, 1);
+}
+
+.survey-vote-dialog {
+  &[open] {
+    display: flex;
+    flex-direction: column;
+  }
+  border: none;
+  background-color: rgba(53, 39, 58, 1);
+
+  width: 100%;
+  height: 100dvh;
+  max-width: 1440px;
+  max-height: 1024px;
+
+  margin: auto;
+  padding: 0;
+
+  border: none;
+
+  overflow-y: auto;
+}
+
+.survey-vote-dialog::backdrop {
+  background: rgba(255, 255, 255, 1);
 }

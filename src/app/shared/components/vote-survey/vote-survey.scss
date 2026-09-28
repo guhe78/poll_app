@@ -1,0 +1,151 @@
+@use '../../../styles/base/typography';
+@use '../../../styles/layout';
+
+:host {
+  display: flex;
+  flex: 1 0 auto;
+  min-height: 100%;
+}
+
+.vote-survey-section {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1 0 auto;
+
+  width: 100%;
+  max-width: 1440px;
+  height: auto;
+  min-height: 100%;
+
+  gap: 40px;
+  padding: 39px 110px;
+
+  background-color: rgba(254, 253, 255, 1);
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    &--logo {
+      display: flex;
+      justify-content: flex-start;
+      gap: 7px;
+
+      & p {
+        font-family: 'Nerko One', sans-serif;
+        font-size: 26px;
+        font-weight: 400;
+        line-height: 16px;
+
+        color: rgba(255, 183, 112, 1);
+      }
+    }
+  }
+
+  &__body {
+    display: flex;
+    width: 100%;
+    height: auto;
+
+    gap: 42px;
+  }
+}
+
+.vote-survey {
+  display: flex;
+  flex-direction: column;
+
+  padding: 40px;
+  gap: 8px;
+
+  border-radius: 5px 160px 5px 5px;
+  background-color: rgba(142, 112, 153, 0.1);
+
+  &__title {
+    font-family: 'Nerko One', sans-serif;
+    font-weight: 400;
+
+    color: rgba(255, 183, 112, 1);
+  }
+
+  &__questions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-columns: auto;
+    gap: 24px;
+
+    &--item {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      &--headline {
+        font-family: 'Mulish', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 100%;
+
+        width: 100%;
+        max-width: 299px;
+
+        color: rgba(53, 39, 58, 1);
+      }
+    }
+
+    &--hint {
+      font-family: 'Mulish', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 100%;
+
+      color: rgba(53, 39, 58, 1);
+    }
+  }
+
+  &__answers {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 8px;
+
+    &--item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      font-family: 'Mulish', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 100%;
+
+      color: rgba(53, 39, 58, 1);
+
+      & label {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      & .letter {
+        font-weight: 700;
+        align-self: flex-start;
+      }
+    }
+  }
+}
+
+.vote-results {
+  border: 1px solid red;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  max-width: 315px;
+}

@@ -4,12 +4,12 @@ import { Surveys } from '../../../services/surveys';
 import { Header } from '../header/header';
 import { Icons } from '../../../services/icons';
 import { CreateSurvey } from '../create-survey/create-survey';
-import { AnswerSurvey } from '../answer-survey/answer-survey';
-import { Survey } from '../survey/survey';
+import { VoteSurvey } from '../vote-survey/vote-survey';
+import { Survey } from '../../interfaces/survey';
 
 @Component({
   selector: 'app-main-page',
-  imports: [SurveyCard, Header, CreateSurvey, AnswerSurvey],
+  imports: [SurveyCard, Header, CreateSurvey, VoteSurvey, VoteSurvey],
   templateUrl: './main-page.html',
   styleUrl: './main-page.scss',
 })
@@ -49,6 +49,7 @@ export class MainPage {
     }
   }
   openVotingDialog(survey: Survey) {
+    this.selectedSurvey.set(survey);
     this.votingDialogRef.nativeElement.showModal();
     console.log(survey);
 

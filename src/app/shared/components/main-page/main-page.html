@@ -44,7 +44,7 @@
     </div>
   </div>
   <dialog
-    class="survey-dialog"
+    class="survey-create-dialog"
     #creatingDialog
     (cancel)="closeCreatingDialog()"
     (click)="closeCreatingDialogOnBackdrop($event)"
@@ -52,11 +52,13 @@
     <app-create-survey (closeDialog)="closeCreatingDialog()"></app-create-survey>
   </dialog>
   <dialog
-    class="survey-dialog"
+    class="survey-vote-dialog"
     #votingDialog
     (cancel)="closeVotingDialog()"
     (click)="closeVotingDialogOnBackdrop($event)"
   >
-    <app-answer-survey (closeDialog)="closeVotingDialog()"></app-answer-survey>
+    @if (selectedSurvey(); as survey) {
+      <app-vote-survey [survey]="survey" (closeDialog)="closeVotingDialog()"></app-vote-survey>
+    }
   </dialog>
 </section>
