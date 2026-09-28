@@ -8,8 +8,9 @@
   </div>
   <div class="vote-survey-section__body">
     <div class="vote-survey">
-      <span>{{ survey.endDate }}</span
-      ><span>{{ survey.category }}</span>
+      <app-status-badge variant="published"></app-status-badge>
+      <span>Ends on {{ formattedEndDate }}</span
+      ><span>Category: {{ survey.category }}</span>
       <h3 class="vote-survey__title">{{ survey.name }}</h3>
       <p class="vote-survey__description">{{ survey.description }}</p>
       <div class="vote-survey__questions">
