@@ -33,12 +33,14 @@
       </div>
 
       <div class="main-page__survey-list--surveys">
-        @for (survey of surveyList(); track survey.id) {
-          <app-survey-card
-            [survey]="survey"
-            variant="normal"
-            (surveyClick)="openVotingDialog($event)"
-          ></app-survey-card>
+        @for (survey of surveyList(); track survey.id; let i = $index) {
+          @if (i >= 3) {
+            <app-survey-card
+              [survey]="survey"
+              variant="normal"
+              (surveyClick)="openVotingDialog($event)"
+            ></app-survey-card>
+          }
         }
       </div>
     </div>

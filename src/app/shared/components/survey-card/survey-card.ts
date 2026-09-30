@@ -1,6 +1,7 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
 import { StatusBadge } from '../status-badge/status-badge';
 import { Survey } from '../../interfaces/survey';
+import { timeLeft } from '../../utils/date.utils';
 
 @Component({
   selector: 'app-survey-card',
@@ -11,6 +12,8 @@ import { Survey } from '../../interfaces/survey';
 export class SurveyCard {
   survey = input.required<Survey>();
   variant = input<'soon' | 'normal'>('soon');
+
+  timeLeft = timeLeft;
 
   @Output() surveyClick = new EventEmitter<Survey>();
 
