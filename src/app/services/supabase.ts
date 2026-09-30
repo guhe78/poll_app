@@ -71,7 +71,7 @@ export class Supabase {
 
   async getSurvey(id: number) {}
 
-  async voteForAnswers(answerId: number) {
+  async voteForAnswer(answerId: number) {
     const { error } = await this.supabase.rpc('vote_for_answer', {
       answer_id: answerId,
     });

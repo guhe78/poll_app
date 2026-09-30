@@ -10,11 +10,11 @@
     <div class="vote-survey">
       <app-status-badge variant="published" buttonText="Published"></app-status-badge>
       <span>Ends on {{ formattedEndDate }}</span
-      ><span>Category: {{ survey.category }}</span>
-      <h3 class="vote-survey__title">{{ survey.name }}</h3>
-      <p class="vote-survey__description">{{ survey.description }}</p>
+      ><span>Category: {{ survey().category }}</span>
+      <h3 class="vote-survey__title">{{ survey().name }}</h3>
+      <p class="vote-survey__description">{{ survey().description }}</p>
       <div class="vote-survey__questions">
-        @for (question of survey.questions; track question.id; let i = $index) {
+        @for (question of survey().questions; track question.id; let i = $index) {
           <div class="vote-survey__questions--item">
             <p class="vote-survey__questions--item--headline">
               {{ i + 1 }}. {{ question.question }}
@@ -27,10 +27,12 @@
                 <div class="vote-survey__answers--item">
                   <input
                     type="checkbox"
-                    id="answer-{{ answer.id }}"
+                    [id]="'answer-' + answer.id"
+                    [attr.data-question-id]="question.id"
+                    [attr.data-answer-id]="answer.id"
                     name="question-{{ question.id }}"
                   />
-                  <label for="answer-{{ answer.id }}"
+                  <label [for]="'answer-' + answer.id"
                     ><span class="letter">{{ getLetter(i) }}.</span>{{ answer.answer }}</label
                   >
                 </div>
@@ -39,12 +41,11 @@
           </div>
         }
       </div>
-      <button>Complete Survey</button>
+      <button (click)="onSelect()">Complete Survey</button>
     </div>
     <div class="vote-results">
       <h4>Survey Results LIVE</h4>
-      <p>Results will be shown here after participations complete the survey.</p>
-      <p>There are no answears yet.</p>
+      <app-survey-result [survey]="survey()"></app-survey-result>
     </div>
   </div>
 </section>
