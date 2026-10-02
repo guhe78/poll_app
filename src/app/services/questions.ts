@@ -1,4 +1,17 @@
-import { Service } from '@angular/core';
+import { inject, Injectable, Signal, signal } from '@angular/core';
+import { Supabase } from './supabase';
+import { Question } from '../shared/interfaces/question';
 
-@Service()
-export class Questions {}
+@Injectable({
+  providedIn: 'root',
+})
+export class Questions {
+  private supabase = inject(Supabase);
+
+  questionList = signal<Question[]>([]);
+
+  async loadQuestions() {
+    this.questionList.set(await this.supabase.getQuestions());
+    console.log(this.questionList());
+  }
+}

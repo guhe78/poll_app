@@ -1,0 +1,29 @@
+.result-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 315px;
+}
+.result-bar {
+  background-color: rgba(237, 237, 237, 1);
+  border-radius: 0 20px 20px 0;
+  width: 255px;
+  height: 14px;
+
+  &__percentage {
+    background-color: rgba(255, 183, 112, 1);
+    border-radius: 0 20px 20px 0;
+
+    height: 100%;
+  }
+
+  &__text {
+    color: rgba(215, 148, 81, 1);
+    font-family: 'Mulish';
+    font-size: 14px;
+    font-weight: 800;
+    text-align: right;
+    width: 31px;
+  }
+}

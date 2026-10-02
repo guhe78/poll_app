@@ -15,3 +15,7 @@ export function timeLeft(date: string): string {
     return 'Noch ' + leftInDays + ' Tage';
   }
 }
+
+export function getAnswerLetter(index: number): string {
+  return String.fromCharCode(65 + index);
+}

@@ -1,0 +1,13 @@
+.resultbars {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  p {
+    margin: 0;
+    margin-right: 8px;
+    font-family: 'Mulish';
+    font-size: 14px;
+    font-weight: 800;
+  }
+}

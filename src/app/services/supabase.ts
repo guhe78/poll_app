@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Survey } from '../shared/interfaces/survey';
 import { Question } from '../shared/interfaces/question';
 import { CreateSurvey } from '../shared/interfaces/create-survey';
+import { Answer } from '../shared/interfaces/answer';
 
 @Injectable({
   providedIn: 'root',
@@ -71,7 +72,18 @@ export class Supabase {
 
   async getSurvey(id: number) {}
 
-  async voteForAnswer(answerId: number) {
+  async getAnswers(questionId: number): Promise<Answer[]> {
+    const { data, error } = await this.supabase
+      .from('answers')
+      .select('*')
+      .eq('question_id', questionId);
+
+    if (error) throw error;
+
+    return data as Answer[];
+  }
+
+  async voteForAnswer(answerId: number): Promise<void> {
     const { error } = await this.supabase.rpc('vote_for_answer', {
       answer_id: answerId,
     });
@@ -79,6 +91,29 @@ export class Supabase {
     if (error) {
       throw error;
     }
+  }
+
+  async getAllVotes(questionId: number): Promise<number> {
+    const { data, error } = await this.supabase
+      .from('answers')
+      .select('votes')
+      .eq('question_id', questionId);
+
+    if (error) throw error;
+
+    return data.reduce((total, answer) => total + answer.votes, 0);
+  }
+
+  async getSingleVotes(answerId: number): Promise<number> {
+    const { data, error } = await this.supabase
+      .from('answers')
+      .select('votes')
+      .eq('id', answerId)
+      .single();
+
+    if (error) throw error;
+
+    return data.votes;
   }
 
   async createSurvey(surveyData: CreateSurvey): Promise<void> {

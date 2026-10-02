@@ -1,8 +1,8 @@
 import { Component, inject, input, Input } from '@angular/core';
 import { Survey } from '../../interfaces/survey';
 import { StatusBadge } from '../status-badge/status-badge';
-import { Supabase } from '../../../services/supabase';
 import { SurveyResult } from '../survey-result/survey-result';
+import { Answers } from '../../../services/answers';
 
 @Component({
   selector: 'app-vote-survey',
@@ -12,7 +12,7 @@ import { SurveyResult } from '../survey-result/survey-result';
 })
 export class VoteSurvey {
   survey = input.required<Survey>();
-  private supabase = inject(Supabase);
+  private answers = inject(Answers);
 
   getLetter(index: number): string {
     return String.fromCharCode(65 + index);
@@ -31,12 +31,12 @@ export class VoteSurvey {
       '.vote-survey__answers input[type="checkbox"]:checked',
     );
 
-    const answersId = Array.from(selectedAnswers).map((checkbox) =>
+    const answerIds = Array.from(selectedAnswers).map((checkbox) =>
       Number(checkbox.dataset['answerId']),
     );
 
-    console.log(answersId);
+    console.log(answerIds);
 
-    await Promise.all(answersId.map((answerId) => this.supabase.voteForAnswer(answerId)));
+    await this.answers.voteForAnswers(answerIds);
   }
 }

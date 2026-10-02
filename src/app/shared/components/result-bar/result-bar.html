@@ -1,1 +1,6 @@
-<div class="result-bar">{{ survey().questions }}</div>
+<section class="result-bar-container">
+  <div class="result-bar">
+    <div class="result-bar__percentage" #percentage_bar [style.width.%]="percentage()"></div>
+  </div>
+  <div class="result-bar__text">{{ percentage() }}%</div>
+</section>

@@ -1,2 +1,10 @@
-<p>survey-result works!</p>
-<app-result-bar [survey]="survey()"></app-result-bar>
+@for (question of questions(); track question.id; let i = $index) {
+  <p>{{ i + 1 }}. {{ question.question }}</p>
+
+  @for (answer of answers()[question.id] ?? []; track answer.id; let j = $index) {
+    <div class="resultbars">
+      <p>{{ getAnswerLetter(j) }}</p>
+      <app-result-bar [percentage]="answerPercentage(answer, question.id)" />
+    </div>
+  }
+}

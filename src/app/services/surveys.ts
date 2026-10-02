@@ -22,7 +22,6 @@ export class Surveys {
 
   async loadSurveys() {
     this.surveyList.set(await this.supabase.getSurveys());
-    console.log(this.surveyList());
   }
 
   async createSurvey(survey: CreateSurvey): Promise<void> {
