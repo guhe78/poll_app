@@ -9,39 +9,50 @@
   <div class="vote-survey-section__body">
     <div class="vote-survey">
       <app-status-badge variant="published" buttonText="Published"></app-status-badge>
-      <span>Ends on {{ formattedEndDate }}</span
-      ><span>Category: {{ survey().category }}</span>
-      <h3 class="vote-survey__title">{{ survey().name }}</h3>
-      <p class="vote-survey__description">{{ survey().description }}</p>
-      <div class="vote-survey__questions">
-        @for (question of survey().questions; track question.id; let i = $index) {
-          <div class="vote-survey__questions--item">
-            <p class="vote-survey__questions--item--headline">
-              {{ i + 1 }}. {{ question.question }}
-            </p>
-            @if (question.allow_multiple_answers) {
-              <p class="vote-survey__questions--hint">More than one answer is possible.</p>
-            }
-            <div class="vote-survey__answers">
-              @for (answer of question.answers; track answer.id; let i = $index) {
-                <div class="vote-survey__answers--item">
-                  <input
-                    type="checkbox"
-                    [id]="'answer-' + answer.id"
-                    [attr.data-question-id]="question.id"
-                    [attr.data-answer-id]="answer.id"
-                    name="question-{{ question.id }}"
-                  />
-                  <label [for]="'answer-' + answer.id"
-                    ><span class="letter">{{ getLetter(i) }}.</span>{{ answer.answer }}</label
-                  >
-                </div>
-              }
+      <div class="vote-survey__content">
+        <div class="vote-survey__header">
+          <p class="vote-survey__info">
+            <span>Ends on {{ formattedEndDate }}</span
+            ><span>Category: {{ survey().category }}</span>
+          </p>
+          <h3 class="vote-survey__title">{{ survey().name }}</h3>
+          <p class="vote-survey__description">{{ survey().description }}</p>
+        </div>
+        <div class="vote-survey__questions">
+          @for (question of survey().questions; track question.id; let i = $index) {
+            <div class="vote-survey__questions--item">
+              <p class="vote-survey__questions--item--headline">
+                <span class="vote-survey__questions--item--headline--number">{{ i + 1 }}.</span>
+                <span class="vote-survey__questions--item--headline--text">
+                  {{ question.question }}
+                  @if (question.allow_multiple_answers) {
+                    <span class="vote-survey__questions--hint"
+                      >More than one answer is possible.</span
+                    >
+                  }
+                </span>
+              </p>
+              <div class="vote-survey__answers">
+                @for (answer of question.answers; track answer.id; let i = $index) {
+                  <div class="vote-survey__answers--item">
+                    <input
+                      type="checkbox"
+                      [id]="'answer-' + answer.id"
+                      [attr.data-question-id]="question.id"
+                      [attr.data-answer-id]="answer.id"
+                      name="question-{{ question.id }}"
+                    />
+                    <label [for]="'answer-' + answer.id"
+                      ><span class="letter">{{ getLetter(i) }}.</span>{{ answer.answer }}</label
+                    >
+                  </div>
+                }
+              </div>
             </div>
-          </div>
-        }
+          }
+        </div>
+        <button class="vote-survey__complete--button" (click)="onSelect()">Complete Survey</button>
       </div>
-      <button (click)="onSelect()">Complete Survey</button>
     </div>
     <div class="vote-results">
       <h4 class="vote-results__headline">
