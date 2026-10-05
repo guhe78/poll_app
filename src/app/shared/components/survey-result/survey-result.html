@@ -1,10 +1,14 @@
-@for (question of questions(); track question.id; let i = $index) {
-  <p>{{ i + 1 }}. {{ question.question }}</p>
+<section class="survey-result">
+  @for (question of questions(); track question.id; let i = $index) {
+    <p class="survey-result__question">{{ i + 1 }}. {{ question.question }}</p>
 
-  @for (answer of answers()[question.id] ?? []; track answer.id; let j = $index) {
     <div class="resultbars">
-      <p>{{ getAnswerLetter(j) }}</p>
-      <app-result-bar [percentage]="answerPercentage(answer, question.id)" />
+      @for (answer of answers()[question.id] ?? []; track answer.id; let j = $index) {
+        <div class="resultbar">
+          <p class="resultbar__letter">{{ getAnswerLetter(j) }}</p>
+          <app-result-bar [percentage]="answerPercentage(answer, question.id)" />
+        </div>
+      }
     </div>
   }
-}
+</section>

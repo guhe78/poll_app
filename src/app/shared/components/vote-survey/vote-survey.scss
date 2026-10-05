@@ -138,8 +138,6 @@
 }
 
 .vote-results {
-  border: 1px solid red;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -148,4 +146,18 @@
 
   width: 100%;
   max-width: 315px;
+
+  &__headline {
+    font-family: 'Nerko One', sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1;
+
+    align-self: flex-start;
+    color: rgba(34, 18, 39, 1);
+
+    &--live {
+      color: rgba(255, 183, 112, 1);
+    }
+  }
 }

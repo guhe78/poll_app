@@ -44,7 +44,9 @@
       <button (click)="onSelect()">Complete Survey</button>
     </div>
     <div class="vote-results">
-      <h4>Survey Results LIVE</h4>
+      <h4 class="vote-results__headline">
+        Survey Results <span class="vote-results__headline--live">LIVE</span>
+      </h4>
       <app-survey-result [questions]="survey().questions"></app-survey-result>
     </div>
   </div>
