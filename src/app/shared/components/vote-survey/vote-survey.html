@@ -4,7 +4,11 @@
       <img src="/images/poll_logo_dark.png" alt="poll app logo" />
       <p>Poll<br />App</p>
     </div>
-    <button>Create Survey</button>
+    <app-main-button
+      [buttonText]="'Create Survey'"
+      (clickFunction)="onCreateSurvey()"
+      iconName="plus"
+    ></app-main-button>
   </div>
   <div class="vote-survey-section__body">
     <div class="vote-survey">

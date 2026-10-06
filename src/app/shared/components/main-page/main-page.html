@@ -11,9 +11,11 @@
         opinions, engage your audience,<br />
         and turn feedback into action.
       </p>
-      <button class="main-page__button" (click)="openCreatingDialog()">
-        New survey<span class="main-page__button--icon" [innerHTML]="iconsService.plus"></span>
-      </button>
+      <app-main-button
+        [buttonText]="'New Survey'"
+        (clickFunction)="openCreatingDialog()"
+        iconName="plus"
+      ></app-main-button>
     </div>
     <img class="main-page__image" src="images/main-page-image.png" alt="Main page image" />
   </div>

@@ -6,10 +6,11 @@ import { Icons } from '../../../services/icons';
 import { CreateSurvey } from '../create-survey/create-survey';
 import { VoteSurvey } from '../vote-survey/vote-survey';
 import { Survey } from '../../interfaces/survey';
+import { MainButton } from '../main-button/main-button';
 
 @Component({
   selector: 'app-main-page',
-  imports: [SurveyCard, Header, CreateSurvey, VoteSurvey, VoteSurvey],
+  imports: [SurveyCard, Header, CreateSurvey, VoteSurvey, VoteSurvey, MainButton],
   templateUrl: './main-page.html',
   styleUrl: './main-page.scss',
 })
