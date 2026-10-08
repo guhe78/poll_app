@@ -32,24 +32,30 @@ export class MainPage {
   statusFilter = signal<SurveyStatus>('active');
   categoryFilter = signal('All surveys');
 
-  filteredSurveyList = computed(() => {
+  sortedSurveyList = computed(() => {
+    return this.surveyList().sort((a, b) => a.endDate.localeCompare(b.endDate));
+  });
+
+  isActiveSurveyList = computed(() => {
     const today = new Date();
     const todayString =
       `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-` +
       String(today.getDate()).padStart(2, '0');
 
-    return this.surveyList()
-      .filter((survey) => {
-        const isActive = survey.endDate >= todayString;
+    return this.sortedSurveyList().filter((survey) => survey.endDate >= todayString);
+  });
 
-        const matchesStatus = this.statusFilter() === 'active' ? isActive : !isActive;
+  filteredSurveyList = computed(() => {
+    const activeSurveys = this.isActiveSurveyList();
 
-        const matchesCategory =
-          this.categoryFilter() === 'All surveys' || survey.category === this.categoryFilter();
+    return this.sortedSurveyList().filter((survey) => {
+      const isActive = activeSurveys.includes(survey);
+      const matchesStatus = this.statusFilter() === 'active' ? isActive : !isActive;
+      const matchesCategory =
+        this.categoryFilter() === 'All surveys' || survey.category === this.categoryFilter();
 
-        return matchesStatus && matchesCategory;
-      })
-      .sort((a, b) => a.endDate.localeCompare(b.endDate));
+      return matchesStatus && matchesCategory;
+    });
   });
 
   setStatusFilter(status: SurveyStatus): void {

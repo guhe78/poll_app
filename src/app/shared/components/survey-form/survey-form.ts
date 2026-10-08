@@ -5,10 +5,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Surveys } from '../../../services/surveys';
 import { uiIcons } from '../../../assets/icons';
 import { CreateSurvey } from '../../interfaces/create-survey';
+import { DropDownButtonMenu } from '../drop-down-button-menu/drop-down-button-menu';
 
 @Component({
   selector: 'app-survey-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, DropDownButtonMenu],
   templateUrl: './survey-form.html',
   styleUrl: './survey-form.scss',
 })

@@ -22,7 +22,11 @@
           </div>
         </div>
         <div class="form-group">
-          <div class="survey-form__dropdown">
+          <app-drop-down-button-menu
+            buttonText="Choose category"
+            (categorySelected)="selectCategory($event)"
+          ></app-drop-down-button-menu>
+          <!-- <div class="survey-form__dropdown">
             <button
               type="button"
               class="survey-form__dropdown--button"
@@ -38,7 +42,7 @@
                   <span [innerHTML]="icons.dropdownDownArrow"></span>
                 }
               </span>
-            </button>
+            </button> 
 
             @if (selectedCategory) {
               <span class="survey-form__selected-category">
@@ -58,7 +62,7 @@
                 }
               </div>
             }
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
