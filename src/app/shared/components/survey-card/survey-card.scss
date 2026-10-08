@@ -46,6 +46,10 @@
       align-self: flex-start;
       bottom: 50px;
     }
+
+    & .survey-card__category {
+      color: rgba(53, 39, 58, 1);
+    }
   }
 
   &__head {
@@ -59,7 +63,7 @@
     font-weight: 600;
     font-size: 14px;
 
-    color: rgba(53, 39, 58, 1);
+    color: rgba(255, 207, 161, 1);
   }
 
   &__title {
