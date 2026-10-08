@@ -12,6 +12,7 @@
   font-size: 16px;
   font-weight: 400;
   color: rgba(53, 39, 58, 1);
+  background-color: rgba(254, 233, 212, 1);
 
   cursor: pointer;
 
@@ -19,11 +20,8 @@
     background-color: rgba(255, 207, 161, 1);
   }
 
-  &--active {
+  &.activated {
     background-color: rgba(255, 183, 112, 1);
-  }
-
-  &--past {
-    background-color: rgba(254, 233, 212, 1);
+    cursor: unset;
   }
 }

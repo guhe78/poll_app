@@ -2,13 +2,13 @@
   <div class="sort-bar__buttons">
     <app-status-button
       buttonText="Active survey"
-      variant="active"
-      (clickFunction)="statusSelected.emit('active')"
+      [isActivated]="selectedFilter() === 'active'"
+      (clickFunction)="setStatus('active')"
     ></app-status-button>
     <app-status-button
       buttonText="Past survey"
-      variant="past"
-      (clickFunction)="statusSelected.emit('past')"
+      [isActivated]="selectedFilter() === 'past'"
+      (clickFunction)="setStatus('past')"
     ></app-status-button>
   </div>
   <app-drop-down-button-menu

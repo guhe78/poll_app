@@ -13,7 +13,7 @@ type SurveyStatus = 'all' | 'active' | 'past';
 
 @Component({
   selector: 'app-main-page',
-  imports: [SurveyCard, Header, CreateSurvey, VoteSurvey, VoteSurvey, MainButton, SortBar],
+  imports: [SurveyCard, Header, CreateSurvey, VoteSurvey, MainButton, SortBar],
   templateUrl: './main-page.html',
   styleUrl: './main-page.scss',
 })
@@ -29,7 +29,7 @@ export class MainPage {
   @ViewChild('creatingDialog') creatingDialogRef!: ElementRef<HTMLDialogElement>;
   @ViewChild('votingDialog') votingDialogRef!: ElementRef<HTMLDialogElement>;
 
-  statusFilter = signal<SurveyStatus>('all');
+  statusFilter = signal<SurveyStatus>('active');
   categoryFilter = signal('All surveys');
 
   filteredSurveyList = computed(() => {
@@ -37,25 +37,23 @@ export class MainPage {
     const todayString =
       `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-` +
       String(today.getDate()).padStart(2, '0');
-    console.log(todayString);
 
-    return this.surveyList().filter((survey) => {
-      const isActive = survey.endDate >= todayString;
+    return this.surveyList()
+      .filter((survey) => {
+        const isActive = survey.endDate >= todayString;
 
-      const matchesStatus =
-        this.statusFilter() === 'all' ||
-        (this.statusFilter() === 'active' && isActive) ||
-        (this.statusFilter() === 'past' && !isActive);
+        const matchesStatus = this.statusFilter() === 'active' ? isActive : !isActive;
 
-      const matchesCategory =
-        this.categoryFilter() === 'All surveys' || survey.category === this.categoryFilter();
+        const matchesCategory =
+          this.categoryFilter() === 'All surveys' || survey.category === this.categoryFilter();
 
-      return matchesStatus && matchesCategory;
-    });
+        return matchesStatus && matchesCategory;
+      })
+      .sort((a, b) => a.endDate.localeCompare(b.endDate));
   });
 
-  setStatusFilter(status: 'active' | 'past'): void {
-    this.statusFilter.update((current) => (current === status ? 'all' : status));
+  setStatusFilter(status: SurveyStatus): void {
+    this.statusFilter.set(status);
   }
 
   async ngOnInit(): Promise<void> {

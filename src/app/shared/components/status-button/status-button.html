@@ -1,7 +1,3 @@
-<button
-  class="status-button"
-  (click)="clickFunction.emit()"
-  [class]="'status-button--' + variant()"
->
+<button class="status-button" (click)="clickFunction.emit()" [class.activated]="isActivated()">
   {{ buttonText() }}
 </button>

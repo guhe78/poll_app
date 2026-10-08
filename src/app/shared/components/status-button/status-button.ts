@@ -8,7 +8,7 @@ import { Component, input, output } from '@angular/core';
 })
 export class StatusButton {
   buttonText = input.required<string>();
-  variant = input.required<'active' | 'past'>();
+  isActivated = input<boolean>(false);
 
   clickFunction = output<void>();
 }
