@@ -1,0 +1,7 @@
+<button
+  class="status-button"
+  (click)="clickFunction.emit()"
+  [class]="'status-button--' + variant()"
+>
+  {{ buttonText() }}
+</button>

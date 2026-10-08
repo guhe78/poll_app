@@ -8,5 +8,5 @@ import { Component, computed, HostBinding, input, Input } from '@angular/core';
 })
 export class StatusBadge {
   buttonText = input.required<string>();
-  variant = input.required<'draft' | 'published' | 'date' | 'active' | 'past'>();
+  variant = input.required<'draft' | 'published' | 'date'>();
 }

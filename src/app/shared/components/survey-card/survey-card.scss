@@ -16,6 +16,10 @@
 
   position: relative;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   & h4 {
     font-size: 24px;
   }

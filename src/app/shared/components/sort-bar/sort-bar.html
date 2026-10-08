@@ -1,0 +1,18 @@
+<section class="sort-bar">
+  <div class="sort-bar__buttons">
+    <app-status-button
+      buttonText="Active survey"
+      variant="active"
+      (clickFunction)="statusSelected.emit('active')"
+    ></app-status-button>
+    <app-status-button
+      buttonText="Past survey"
+      variant="past"
+      (clickFunction)="statusSelected.emit('past')"
+    ></app-status-button>
+  </div>
+  <app-drop-down-button-menu
+    buttonText="Sort by categories"
+    (categorySelected)="categorySelected.emit($event)"
+  ></app-drop-down-button-menu>
+</section>
