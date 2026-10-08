@@ -38,15 +38,26 @@ export class SurveyResult {
     this.answers.set(results);
   }
 
-  totalVotes(questionId: number): number {
+  countVotes(questionId: number): number {
     const answers = this.answers()[questionId] ?? [];
 
     return answers.reduce((total, answer) => total + answer.votes, 0);
   }
 
-  answerPercentage(answer: Answer, questionId: number): number {
-    const total = this.totalVotes(questionId);
+  totalVotes() {
+    let total = 0;
+    for (let i = 0; i < this.questions().length; i++) {
+      for (let j = 0; j < this.questions()[i].answers.length; j++) {
+        total += this.questions()[i].answers[j].votes;
+      }
+    }
+    return total;
+  }
 
+  answerPercentage(answer: Answer, questionId: number): number {
+    const total = this.countVotes(questionId);
+
+    this.totalVotes();
     if (total === 0) return 0;
 
     return Math.round((answer.votes / total) * 100);

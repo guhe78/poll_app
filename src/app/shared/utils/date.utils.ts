@@ -10,9 +10,9 @@ export function timeLeft(date: string): string {
   if (leftInDays < 1 && leftInDays > -1) {
     const leftInHours = Math.ceil(leftInMS / (1000 * 60 * 60));
 
-    return 'Noch ' + leftInHours + ' Stunden';
+    return 'Ends in ' + leftInHours + ' hours';
   } else {
-    return 'Noch ' + leftInDays + ' Tage';
+    return 'Ends in ' + leftInDays + ' days';
   }
 }
 

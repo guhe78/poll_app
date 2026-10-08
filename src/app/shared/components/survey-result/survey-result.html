@@ -1,14 +1,21 @@
 <section class="survey-result">
-  @for (question of questions(); track question.id; let i = $index) {
-    <p class="survey-result__question">{{ i + 1 }}. {{ question.question }}</p>
-
-    <div class="resultbars">
-      @for (answer of answers()[question.id] ?? []; track answer.id; let j = $index) {
-        <div class="resultbar">
-          <p class="resultbar__letter">{{ getAnswerLetter(j) }}</p>
-          <app-result-bar [percentage]="answerPercentage(answer, question.id)" />
-        </div>
-      }
+  @if (totalVotes() === 0) {
+    <div class="survey-result__no-votes">
+      <p>Results will be shown here after participants complete the survey.</p>
+      <p>There are no answers yet.</p>
     </div>
+  } @else {
+    @for (question of questions(); track question.id; let i = $index) {
+      <p class="survey-result__question">{{ i + 1 }}. {{ question.question }}</p>
+
+      <div class="resultbars">
+        @for (answer of answers()[question.id] ?? []; track answer.id; let j = $index) {
+          <div class="resultbar">
+            <p class="resultbar__letter">{{ getAnswerLetter(j) }}</p>
+            <app-result-bar [percentage]="answerPercentage(answer, question.id)" />
+          </div>
+        }
+      </div>
+    }
   }
 </section>
