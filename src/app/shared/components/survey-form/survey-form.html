@@ -1,11 +1,21 @@
-<form id="survey-form" class="survey-form" [formGroup]="surveyForm" (ngSubmit)="onSubmit()">
+<form
+  id="survey-form"
+  class="survey-form"
+  [formGroup]="surveyForm"
+  (ngSubmit)="onSubmit()"
+  novalidate
+>
   <div class="survey-form__header">
     <div class="survey-form__header--left-side">
       <div class="form-group survey-form__name">
         <label for="name">Survey name</label>
         <div class="survey-form__input-button-container">
           <input type="text" id="name" formControlName="name" />
-          <button type="button" class="survey-form__delete-button" (click)="remove(1)">
+          <button
+            type="button"
+            class="survey-form__delete-button"
+            (click)="clearInput(surveyForm.controls.name)"
+          >
             <span class="survey-form__delete-button--icon" [innerHTML]="icons.trashcan"></span>
           </button>
         </div>
@@ -16,7 +26,11 @@
           <label for="date">Set end date <span class="optional">(optional)</span></label>
           <div class="survey-form__input-button-container">
             <input type="date" id="date" formControlName="endDate" />
-            <button type="button" class="survey-form__delete-button" (click)="remove(1)">
+            <button
+              type="button"
+              class="survey-form__delete-button"
+              (click)="clearInput(surveyForm.controls.endDate)"
+            >
               <span class="survey-form__delete-button--icon" [innerHTML]="icons.trashcan"></span>
             </button>
           </div>
@@ -26,43 +40,6 @@
             buttonText="Choose category"
             (categorySelected)="selectCategory($event)"
           ></app-drop-down-button-menu>
-          <!-- <div class="survey-form__dropdown">
-            <button
-              type="button"
-              class="survey-form__dropdown--button"
-              [class.survey-form__dropdown-button--open]="categoryDropdownOpen"
-              (click)="toggleCategoryDropdown()"
-            >
-              <span>Choose category</span>
-
-              <span class="survey-form__dropdown-arrow">
-                @if (categoryDropdownOpen) {
-                  <span [innerHTML]="icons.dropdownUpArrow"></span>
-                } @else {
-                  <span [innerHTML]="icons.dropdownDownArrow"></span>
-                }
-              </span>
-            </button> 
-
-            @if (selectedCategory) {
-              <span class="survey-form__selected-category">
-                {{ selectedCategory }}
-              </span>
-            }
-            @if (categoryDropdownOpen) {
-              <div class="survey-form__dropdown-menu">
-                @for (category of categories; track category) {
-                  <button
-                    type="button"
-                    class="survey-form__dropdown-item"
-                    (click)="selectCategory(category)"
-                  >
-                    {{ category }}
-                  </button>
-                }
-              </div>
-            }
-          </div> -->
         </div>
       </div>
     </div>
@@ -71,7 +48,11 @@
         <label for="description">Describing text <span class="optional">(optional)</span></label>
         <div class="survey-form__input-button-container">
           <textarea id="description" formControlName="description"></textarea>
-          <button type="button" class="survey-form__delete-button" (click)="remove(1)">
+          <button
+            type="button"
+            class="survey-form__delete-button"
+            (click)="clearInput(surveyForm.controls.description)"
+          >
             <span
               class="survey-form__delete-button--icon survey-form__delete-button--icon--textarea"
               [innerHTML]="icons.trashcan"
@@ -102,7 +83,7 @@
                 ></span>
               </button>
             </div>
-            <input type="text" formControlName="question" />
+            <input type="text" [formControlName]="'question' + index" />
           </div>
           <div class="survey-form-answers">
             <div class="survey-form-answers__header">
@@ -120,11 +101,7 @@
               </div>
             </div>
             <div class="survey-form-answers__answers" formArrayName="answers">
-              @for (
-                answer of getAnswers(index).controls;
-                track answerIndex;
-                let answerIndex = $index
-              ) {
+              @for (answer of getAnswers(index).controls; track answer; let answerIndex = $index) {
                 <div class="form-group survey-form-answers__answer">
                   <label>{{ getAnswerLetter(answerIndex) }}.</label>
 

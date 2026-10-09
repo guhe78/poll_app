@@ -1,7 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormControlName,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-
 import { Surveys } from '../../../services/surveys';
 import { uiIcons } from '../../../assets/icons';
 import { CreateSurvey } from '../../interfaces/create-survey';
@@ -21,8 +27,6 @@ export class SurveyForm {
   indexQuestions = 0;
 
   readonly icons = {
-    dropdownDownArrow: this.sanitizer.bypassSecurityTrustHtml(uiIcons.dropdownDownArrow()),
-    dropdownUpArrow: this.sanitizer.bypassSecurityTrustHtml(uiIcons.dropdownUpArrow()),
     trashcan: this.sanitizer.bypassSecurityTrustHtml(uiIcons.trashcan()),
     plus: this.sanitizer.bypassSecurityTrustHtml(uiIcons.plus()),
   };
@@ -44,8 +48,8 @@ export class SurveyForm {
   selectedCategory = '';
 
   surveyForm = this.formbuilder.nonNullable.group({
-    name: [this.survey().name],
-    category: [''],
+    name: [this.survey().name, Validators.required],
+    category: ['', Validators.required],
     endDate: [this.survey().endDate],
     description: [this.survey().description],
     questions: this.formbuilder.array([this.createQuestionGroup()]),
@@ -64,14 +68,6 @@ export class SurveyForm {
 
   get questions(): FormArray {
     return this.surveyForm.get('questions') as FormArray;
-  }
-
-  get answers(): FormArray {
-    return this.questions.at(0).get('answers') as FormArray;
-  }
-
-  toggleCategoryDropdown(): void {
-    this.categoryDropdownOpen = !this.categoryDropdownOpen;
   }
 
   selectCategory(category: string): void {
@@ -99,7 +95,6 @@ export class SurveyForm {
           answers: q.answers.map((answer) => ({ answer })),
         })),
       };
-      console.log(survey);
 
       await this.surveysService.createSurvey(survey);
 
@@ -131,6 +126,7 @@ export class SurveyForm {
 
   removeAnswer(questionIndex: number, answerIndex: number): void {
     this.getAnswers(questionIndex).removeAt(answerIndex);
+    console.log(this.getAnswers(questionIndex));
     console.log(questionIndex, answerIndex);
   }
 
@@ -140,6 +136,10 @@ export class SurveyForm {
 
   addQuestion(): void {
     this.questions.push(this.createQuestionGroup());
+  }
+
+  clearInput(control: FormControl): void {
+    control.reset();
   }
 
   resetForm(): void {

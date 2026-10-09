@@ -8,9 +8,11 @@ export function timeLeft(date: string): string {
   const leftInDays = Math.ceil(leftInMS / (1000 * 60 * 60 * 24));
 
   if (leftInDays < 1 && leftInDays > -1) {
-    const leftInHours = Math.ceil(leftInMS / (1000 * 60 * 60));
-
-    return 'Ends in ' + leftInHours + ' hours';
+    return 'Ends today';
+  } else if (leftInDays < 0 && leftInDays > -2) {
+    return 'Ended ' + leftInDays * -1 + ' day ago';
+  } else if (leftInDays < -1) {
+    return 'Ended ' + leftInDays * -1 + ' days ago';
   } else {
     return 'Ends in ' + leftInDays + ' days';
   }

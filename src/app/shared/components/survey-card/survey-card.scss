@@ -47,8 +47,11 @@
       bottom: 50px;
     }
 
-    & .survey-card__category {
-      color: rgba(53, 39, 58, 1);
+    & .survey-card {
+      &__category,
+      &__title {
+        color: rgba(53, 39, 58, 1);
+      }
     }
   }
 
@@ -68,5 +71,6 @@
 
   &__title {
     font-weight: 700;
+    color: rgba(255, 255, 255, 1);
   }
 }
