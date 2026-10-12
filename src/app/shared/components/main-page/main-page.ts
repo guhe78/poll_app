@@ -48,7 +48,7 @@ export class MainPage {
   filteredSurveyList = computed(() => {
     const activeSurveys = this.isActiveSurveyList();
 
-    return this.sortedSurveyList().filter((survey) => {
+    const filteredSurveys = this.sortedSurveyList().filter((survey) => {
       const isActive = activeSurveys.includes(survey);
       const matchesStatus = this.statusFilter() === 'active' ? isActive : !isActive;
       const matchesCategory =
@@ -56,6 +56,7 @@ export class MainPage {
 
       return matchesStatus && matchesCategory;
     });
+    return this.statusFilter() === 'past' ? filteredSurveys.reverse() : filteredSurveys;
   });
 
   setStatusFilter(status: SurveyStatus): void {
