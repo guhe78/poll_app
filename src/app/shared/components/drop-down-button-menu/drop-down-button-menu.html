@@ -3,6 +3,7 @@
     type="button"
     class="dropdown__button"
     [class.survey-form__dropdown-button--open]="categoryDropdownOpen"
+    [class.input-error]="inputError()"
     (click)="toggleCategoryDropdown()"
   >
     <span>{{ buttonText() }}</span>

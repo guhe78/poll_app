@@ -29,6 +29,7 @@ export class SurveyForm {
   readonly icons = {
     trashcan: this.sanitizer.bypassSecurityTrustHtml(uiIcons.trashcan()),
     plus: this.sanitizer.bypassSecurityTrustHtml(uiIcons.plus()),
+    check: this.sanitizer.bypassSecurityTrustHtml(uiIcons.check()),
   };
 
   survey = this.surveysService.surveyDetail;
@@ -50,20 +51,53 @@ export class SurveyForm {
   surveyForm = this.formbuilder.nonNullable.group({
     name: [this.survey().name, Validators.required],
     category: ['', Validators.required],
-    endDate: [this.survey().endDate],
-    description: [this.survey().description],
+    endDate: [''],
+    description: [''],
     questions: this.formbuilder.array([this.createQuestionGroup()]),
   });
 
   private createQuestionGroup() {
     return this.formbuilder.nonNullable.group({
-      question: [''],
+      question: ['', Validators.required],
       allowMultipleAnswers: [false],
       answers: this.formbuilder.nonNullable.array([
-        this.formbuilder.nonNullable.control(''),
-        this.formbuilder.nonNullable.control(''),
+        this.formbuilder.nonNullable.control('', Validators.required),
+        this.formbuilder.nonNullable.control('', Validators.required),
       ]),
     });
+  }
+
+  async onSubmit(): Promise<void> {
+    if (this.surveyForm.invalid) {
+      this.surveyForm.markAllAsTouched();
+      return;
+    }
+
+    const survey = this.createSurvey(this.surveyForm.getRawValue());
+
+    await this.surveysService.createSurvey(survey);
+    this.resetForm();
+  }
+
+  private createSurvey(formValue: ReturnType<typeof this.surveyForm.getRawValue>): CreateSurvey {
+    return {
+      name: formValue.name,
+      category: formValue.category,
+      endDate: formValue.endDate || this.getDefaultEndDate(),
+      description: formValue.description || '',
+      questions: formValue.questions.map((q) => ({
+        question: q.question,
+        allowMultipleAnswers: q.allowMultipleAnswers,
+        answers: q.answers.map((answer) => ({ answer })),
+      })),
+    };
+  }
+
+  private getDefaultEndDate(): string {
+    const date = new Date();
+    date.setDate(date.getDate() + 1000);
+
+    return date.toISOString().split('T')[0];
   }
 
   get questions(): FormArray {
@@ -78,28 +112,6 @@ export class SurveyForm {
     });
 
     this.categoryDropdownOpen = false;
-  }
-
-  async onSubmit(): Promise<void> {
-    if (this.surveyForm.valid) {
-      const formValue = this.surveyForm.getRawValue();
-
-      const survey: CreateSurvey = {
-        name: formValue.name,
-        category: formValue.category,
-        endDate: formValue.endDate,
-        description: formValue.description,
-        questions: formValue.questions.map((q) => ({
-          question: q.question,
-          allowMultipleAnswers: q.allowMultipleAnswers,
-          answers: q.answers.map((answer) => ({ answer })),
-        })),
-      };
-
-      await this.surveysService.createSurvey(survey);
-
-      this.resetForm();
-    }
   }
 
   isInvalid(): boolean {
@@ -121,7 +133,7 @@ export class SurveyForm {
   }
 
   addAnswer(questionIndex: number): void {
-    this.getAnswers(questionIndex).push(this.formbuilder.control(''));
+    this.getAnswers(questionIndex).push(this.formbuilder.control('', Validators.required));
   }
 
   removeAnswer(questionIndex: number, answerIndex: number): void {

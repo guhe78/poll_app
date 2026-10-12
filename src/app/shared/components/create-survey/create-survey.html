@@ -17,13 +17,5 @@
       </div>
     </header>
     <app-survey-form #surveyForm></app-survey-form>
-    <button
-      class="create-survey__button"
-      type="submit"
-      form="survey-form"
-      [disabled]="surveyForm.isInvalid()"
-    >
-      Publish <span class="create-survey__button--icon" [innerHTML]="iconsService.check"></span>
-    </button>
   </main>
 </section>

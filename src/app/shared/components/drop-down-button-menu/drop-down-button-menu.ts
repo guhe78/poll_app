@@ -10,6 +10,10 @@ import { uiIcons } from '../../../assets/icons';
 })
 export class DropDownButtonMenu {
   buttonText = input.required<string>();
+  inputError = input<boolean>(false);
+
+  menuClosed = output<void>();
+
   private sanitizer = inject(DomSanitizer);
 
   readonly categories = [
@@ -37,6 +41,10 @@ export class DropDownButtonMenu {
 
   toggleCategoryDropdown(): void {
     this.categoryDropdownOpen = !this.categoryDropdownOpen;
+
+    if (!this.categoryDropdownOpen) {
+      this.menuClosed.emit();
+    }
   }
 
   selectCategory(category: string): void {

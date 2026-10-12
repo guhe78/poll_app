@@ -17,20 +17,26 @@
 .survey-form {
   display: flex;
   flex-direction: column;
-  gap: 64px;
-
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  padding: 40px 32px;
+  gap: 24px;
 
   font-family: 'Mulish';
   font-size: 18px;
   font-weight: 700;
   color: rgba(254, 253, 255, 1);
 
-  background-color: rgba(142, 112, 153, 0.16);
-  border-radius: 5px 80px 5px 5px;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+
+    background-color: rgba(142, 112, 153, 0.16);
+    border-radius: 5px 80px 5px 5px;
+    padding: 40px 32px;
+
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
 
   &__header {
     display: flex;
@@ -249,6 +255,81 @@
   &__question input {
     flex: 1;
   }
+
+  &__submit-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+
+    background-color: rgba(53, 39, 58, 1);
+  }
+
+  &__submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 90px;
+    padding: 12px 16px;
+
+    font-family: 'Mulish';
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(254, 253, 255, 1);
+
+    background-color: rgba(255, 207, 161, 1);
+    border: none;
+    border-radius: 10px;
+
+    overflow: hidden;
+    cursor: pointer;
+
+    transition:
+      width 0.3s ease-in,
+      background-color 0.3s ease;
+
+    &--icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 20px;
+      height: 20px;
+
+      margin-left: 0;
+
+      transition: margin-left 0.3s ease-in;
+
+      & svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      &--cancel {
+        width: 20px;
+        height: 20px;
+
+        margin-left: 0;
+
+        transition: margin-left 0.3s ease-in;
+
+        & svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    &:hover {
+      width: 140px;
+
+      background-color: rgba(255, 183, 112, 1);
+
+      & .create-survey__button--icon {
+        margin-left: 8px;
+      }
+    }
+  }
 }
 
 .survey-form-questions-container {
@@ -388,4 +469,9 @@
       height: 100%;
     }
   }
+}
+
+.input-error::placeholder {
+  color: #dc2626;
+  opacity: 1;
 }
