@@ -51,6 +51,7 @@
   }
 
   &__description {
+    hyphens: auto;
     font-family: 'Mulish', sans-serif;
     font-weight: 600;
     font-size: 24px;
@@ -64,10 +65,10 @@
   }
 
   &__image {
+    display: block;
     width: 100%;
     max-width: 426px;
-    height: 100%;
-    max-height: 420px;
+    height: auto;
   }
 
   &__button {
@@ -122,9 +123,8 @@
 
     &--ending-soon {
       display: grid;
-      grid-auto-rows: 310px;
       grid-template-columns: repeat(3, 1fr);
-
+      overflow-x: auto;
       gap: 32px;
     }
 
@@ -215,4 +215,20 @@
 
 .survey-vote-dialog::backdrop {
   background: rgba(255, 255, 255, 1);
+}
+
+@media (max-width: 1032px) {
+  .main-page__survey-list {
+    &--ending-soon {
+      gap: 16px;
+      left: 16px;
+      right: 16px;
+      grid-auto-rows: 233px;
+    }
+
+    &__image {
+      max-width: 240px;
+      height: 240px;
+    }
+  }
 }

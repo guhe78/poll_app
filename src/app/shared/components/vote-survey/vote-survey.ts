@@ -42,8 +42,6 @@ export class VoteSurvey {
       Number(checkbox.dataset['answerId']),
     );
 
-    console.log(answerIds);
-
     await this.answers.voteForAnswers(answerIds);
   }
 }
