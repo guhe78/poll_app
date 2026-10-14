@@ -1,23 +1,20 @@
 <section class="main-page">
-  <app-header class="main-page__header"></app-header>
-  <div class="main-page__head">
-    <div class="main-page__text">
-      <h1 class="main-page__title">
-        Collect Feedback,<br />
-        Unlock Ideas
-      </h1>
-      <p class="main-page__description">
-        Create and share surveys in minutes &ndash; from team events to workplace culture. Collect
-        opinions, engage your audience,<br />
-        and turn feedback into action.
-      </p>
-      <app-main-button
-        [buttonText]="'New Survey'"
-        (clickFunction)="openCreatingDialog()"
-        iconName="plus"
-      ></app-main-button>
-    </div>
-    <img class="main-page__image" src="images/main-page-image.png" alt="Main page image" />
+  <div class="main-page__aot">
+    <app-header class="main-page__header"></app-header>
+    <h1 class="main-page__aot--title">
+      Collect Feedback,<br />
+      Unlock Ideas
+    </h1>
+    <p class="main-page__aot--description">
+      Create and share surveys in minutes &ndash; from team events to workplace culture. Collect
+      opinions, engage your audience, and turn feedback into action.
+    </p>
+    <app-main-button
+      [buttonText]="'New Survey'"
+      (clickFunction)="openCreatingDialog()"
+      iconName="plus"
+    ></app-main-button>
+    <img class="main-page__aot--image" src="images/main-page-image.png" alt="Main page image" />
   </div>
   <div class="main-page__content">
     <h2 class="main-page__content-title">Your surveys</h2>

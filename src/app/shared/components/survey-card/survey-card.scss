@@ -47,6 +47,10 @@
         hyphens: auto;
         color: rgba(53, 39, 58, 1);
       }
+
+      &__category {
+        font-size: 14px;
+      }
     }
   }
 
@@ -59,7 +63,7 @@
 
   &__category {
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
 
     color: rgba(255, 207, 161, 1);
   }
@@ -87,7 +91,8 @@
     }
 
     &--soon {
-      padding: 30px 26px;
+      padding: 24px 16px;
+      gap: 10px;
       width: 250px;
       height: 233px;
     }
