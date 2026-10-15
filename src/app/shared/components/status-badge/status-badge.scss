@@ -27,3 +27,10 @@
     border-radius: 20px;
   }
 }
+
+@media (max-width: 768px) {
+  .status-badge {
+    font-size: 14px;
+    font-weight: 500;
+  }
+}

@@ -19,6 +19,8 @@
   flex-direction: column;
   gap: 24px;
 
+  width: 100%;
+
   font-family: 'Mulish';
   font-size: 18px;
   font-weight: 700;
@@ -123,6 +125,10 @@
     display: flex;
     align-items: center;
     gap: 8px;
+
+    &--textarea {
+      align-items: flex-start;
+    }
   }
 
   &__delete-button {
@@ -134,32 +140,22 @@
     height: 26px;
     flex: 0 0 26px;
 
-    margin: 4px;
-
     background-color: transparent;
     color: rgba(254, 253, 255, 1);
     border: none;
-    border-radius: 50%;
     cursor: pointer;
 
     &--icon {
       display: flex;
       align-items: center;
       justify-content: center;
-
-      width: 100%;
-      max-width: 20px;
-      height: 100%;
+      width: 18px;
+      height: 20px;
 
       & svg {
-        width: 18px;
-        height: 20px;
+        width: 100%;
+        height: 100%;
         fill: currentColor;
-      }
-
-      &--textarea {
-        align-items: flex-start;
-        padding-top: 4px;
       }
     }
   }
@@ -340,6 +336,29 @@
   flex-grow: 1;
   min-height: 0;
   overflow-y: auto;
+  scrollbar-width: thin;
+
+  margin-right: -10px;
+  padding-right: 10px;
+
+  scrollbar-color: rgba(255, 183, 112, 1) rgba(53, 39, 58, 1);
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(53, 39, 58, 1);
+
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 183, 112, 1);
+    width: 8px;
+    height: 64px;
+
+    border-radius: 10px;
+  }
 }
 
 .survey-form-question {
@@ -361,7 +380,8 @@
     flex-direction: column;
     justify-content: flex-start;
     gap: 24px;
-    width: 470px;
+    width: 100%;
+    max-width: 470px;
   }
 }
 
@@ -474,4 +494,41 @@
 .input-error::placeholder {
   color: #dc2626;
   opacity: 1;
+}
+
+@media (max-width: 1032px) {
+  .survey-form {
+    &__header {
+      flex-direction: column;
+    }
+
+    &__date-category {
+      flex-direction: column-reverse;
+    }
+
+    &__category {
+      align-items: flex-start;
+    }
+
+    &__content {
+      height: auto;
+      min-height: max-content;
+    }
+  }
+
+  .survey-form-questions-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    min-height: max-content;
+    height: max-content;
+    margin-right: 0;
+    padding-right: 0;
+  }
+
+  .survey-form-question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
 }

@@ -9,3 +9,16 @@
     gap: 24px;
   }
 }
+
+@media (max-width: 768px) {
+  .sort-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 16px;
+    gap: 48px;
+
+    &__buttons {
+      gap: 16px;
+    }
+  }
+}
