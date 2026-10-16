@@ -1,6 +1,6 @@
 <section class="main-page">
   <div class="main-page__aot">
-    <app-header class="main-page__header"></app-header>
+    <app-header variant="light" class="main-page__header"></app-header>
     <h1 class="main-page__aot--title">
       Collect Feedback,<br />
       Unlock Ideas
@@ -51,6 +51,7 @@
     (cancel)="closeCreatingDialog()"
     (click)="closeCreatingDialogOnBackdrop($event)"
   >
+    <app-header class="survey-create-dialog__header" variant="dark"></app-header>
     <app-create-survey (closeDialog)="closeCreatingDialog()"></app-create-survey>
   </dialog>
   <dialog

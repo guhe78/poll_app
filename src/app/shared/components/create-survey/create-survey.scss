@@ -96,6 +96,26 @@
   }
 }
 
+@media (max-width: 1032px) {
+  :host {
+    flex: 0 0 auto;
+    min-height: auto;
+  }
+
+  .create-survey {
+    flex: 0 0 auto;
+    min-height: auto;
+    justify-content: flex-start;
+
+    padding: 40px 16px;
+
+    &__main {
+      flex: 0 0 auto;
+      min-height: auto;
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .create-survey__button-cancel--text {
     display: none;
