@@ -22,6 +22,9 @@ export class VoteSurvey {
 
   createSurvey = output<void>();
 
+  isOpen = false;
+  isFading = false;
+
   onCreateSurvey(): void {
     this.createSurvey.emit();
   }
@@ -52,5 +55,14 @@ export class VoteSurvey {
 
   closeVoteSurvey(): void {
     this.closeDialog.emit();
+  }
+
+  showResults(): void {
+    this.isOpen = !this.isOpen;
+    this.isFading = true;
+
+    setTimeout(() => {
+      this.isFading = false;
+    }, 300);
   }
 }

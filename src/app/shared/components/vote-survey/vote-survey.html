@@ -75,7 +75,17 @@
         </button>
       </div>
     </div>
-    <div class="vote-results">
+    <button class="vote-results__show-results-button" (click)="showResults()">
+      <span class="vote-results__show-results-button--text" [class.fade]="isFading">
+        {{ isOpen ? 'Close results' : 'See results' }}</span
+      >
+      <span
+        class="vote-results__show-results-button--icon"
+        [class.rotate]="isOpen"
+        [innerHTML]="iconsService.dropdownDownArrow"
+      ></span>
+    </button>
+    <div class="vote-results" [class.hidden]="!isOpen">
       <h4 class="vote-results__headline">
         Survey Results <span class="vote-results__headline--live">LIVE</span>
       </h4>
