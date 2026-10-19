@@ -8,18 +8,29 @@
       [buttonText]="'Create Survey'"
       (clickFunction)="onCreateSurvey()"
       iconName="plus"
+      class="vote-survey-section__head--button"
     ></app-main-button>
   </div>
   <div class="vote-survey-section__body">
     <div class="vote-survey">
-      <app-status-badge variant="published" buttonText="Published"></app-status-badge>
+      <div class="vote-survey__status-badge-button">
+        <app-status-badge variant="published" buttonText="Published"></app-status-badge>
+        <button
+          class="vote-survey__button-cancel"
+          type="reset"
+          form="survey-form"
+          (click)="closeVoteSurvey()"
+        >
+          <span class="vote-survey__button-cancel--icon" [innerHTML]="iconsService.close"></span>
+        </button>
+      </div>
       <div class="vote-survey__content">
         <div class="vote-survey__header">
           <p class="vote-survey__info">
             <span>Ends on {{ formattedEndDate }}</span
             ><span>Category: {{ survey().category }}</span>
           </p>
-          <h3 class="vote-survey__title">{{ survey().name }}</h3>
+          <h2 class="vote-survey__title">{{ survey().name }}</h2>
           <p class="vote-survey__description">{{ survey().description }}</p>
         </div>
         <div class="vote-survey__questions">
@@ -55,7 +66,13 @@
             </div>
           }
         </div>
-        <button class="vote-survey__complete--button" (click)="onSelect()">Complete Survey</button>
+        <button class="vote-survey__complete--button" (click)="onSelect()">
+          Complete <span class="vote-survey__complete--button--word">Survey</span
+          ><span
+            class="vote-survey__complete--button--icon"
+            [innerHTML]="iconsService.check"
+          ></span>
+        </button>
       </div>
     </div>
     <div class="vote-results">

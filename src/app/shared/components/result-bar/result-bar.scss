@@ -27,3 +27,9 @@
     width: 31px;
   }
 }
+
+@media (max-width: 374px) {
+  .result-bar {
+    width: 200px;
+  }
+}

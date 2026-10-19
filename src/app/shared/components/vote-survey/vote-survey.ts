@@ -1,9 +1,10 @@
-import { Component, inject, input, Input, output } from '@angular/core';
+import { Component, EventEmitter, inject, input, Input, Output, output } from '@angular/core';
 import { Survey } from '../../interfaces/survey';
 import { StatusBadge } from '../status-badge/status-badge';
 import { SurveyResult } from '../survey-result/survey-result';
 import { Answers } from '../../../services/answers';
 import { MainButton } from '../main-button/main-button';
+import { Icons } from '../../../services/icons';
 
 @Component({
   selector: 'app-vote-survey',
@@ -14,6 +15,10 @@ import { MainButton } from '../main-button/main-button';
 export class VoteSurvey {
   survey = input.required<Survey>();
   private answers = inject(Answers);
+
+  readonly iconsService = inject(Icons).icons;
+
+  @Output() closeDialog = new EventEmitter<void>();
 
   createSurvey = output<void>();
 
@@ -43,5 +48,9 @@ export class VoteSurvey {
     );
 
     await this.answers.voteForAnswers(answerIds);
+  }
+
+  closeVoteSurvey(): void {
+    this.closeDialog.emit();
   }
 }
