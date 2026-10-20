@@ -79,7 +79,7 @@
       </div>
     </div>
     <div class="survey-form-questions-container" formArrayName="questions">
-      @for (question of questions.controls; track $index; let index = $index) {
+      @for (question of questions.controls; track question; let index = $index) {
         <div class="form-group survey-form-question">
           <div class="survey-form-question__item" [formGroupName]="index">
             <div class="survey-form-question__header">
@@ -192,7 +192,7 @@
   </div>
   <div class="survey-form__submit-container">
     <button class="survey-form__submit-button" type="submit" form="survey-form">
-      Publish <span class="create-survey__button--icon" [innerHTML]="icons.check"></span>
+      Publish <span class="survey-form__submit-button--icon" [innerHTML]="icons.check"></span>
     </button>
   </div>
 </form>

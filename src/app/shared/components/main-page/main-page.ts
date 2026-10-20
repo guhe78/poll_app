@@ -89,7 +89,6 @@ export class MainPage {
   openVotingDialog(survey: Survey) {
     this.selectedSurvey.set(survey);
     this.votingDialogRef.nativeElement.showModal();
-    console.log(survey);
 
     document.body.style.overflowY = 'clip';
   }
