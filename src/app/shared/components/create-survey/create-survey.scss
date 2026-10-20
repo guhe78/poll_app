@@ -121,3 +121,19 @@
     display: none;
   }
 }
+
+@media (max-width: 370px) {
+  .create-survey {
+    &__headline {
+      &--container {
+        position: relative;
+      }
+    }
+
+    &__button-cancel {
+      position: relative;
+      top: -28px;
+      right: 25px;
+    }
+  }
+}

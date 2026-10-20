@@ -3,6 +3,7 @@
   flex: 1;
   min-height: 0;
 }
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -59,8 +60,6 @@
   }
 
   &__name {
-    display: flex;
-    flex-direction: column;
     width: 100%;
   }
 
@@ -519,7 +518,6 @@
 
     &__submit-container {
       justify-content: center;
-      padding-bottom: 40px;
     }
   }
 
@@ -548,5 +546,54 @@
 .survey-form {
   &__content {
     padding: 40px 16px;
+  }
+}
+
+@media (max-width: 550px) {
+  .form-group {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: 8px;
+  }
+
+  .form-group label {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .form-group > .survey-form__input-button-container {
+    display: contents;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  .form-group .survey-form__delete-button {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .survey-form {
+    &__category app-drop-down-button-menu {
+      justify-self: flex-start;
+    }
+  }
+}
+
+@media (max-width: 370px) {
+  .survey-form-answers {
+    &__header {
+      display: inline-block;
+    }
+
+    & .multiple-answers {
+      display: flex;
+      flex-direction: row-reverse;
+    }
   }
 }
