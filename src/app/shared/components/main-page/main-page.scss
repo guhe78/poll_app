@@ -50,12 +50,67 @@
       max-width: 700px;
     }
 
-    &--image {
+    &--images-container {
       grid-area: image;
       width: 100%;
       max-width: 426px;
       height: auto;
       object-fit: cover;
+
+      position: relative;
+
+      &:hover {
+        .main-page__aot--image-check {
+          transform: scale(1.2);
+          right: -60px;
+        }
+
+        .main-page__aot--image-question {
+          right: -50px;
+        }
+
+        .main-page__aot--image-star {
+          transform: scale(1.6);
+        }
+
+        .main-page__aot--image-speech-bubble {
+          transform: scale(1.1);
+          top: 100px;
+        }
+      }
+    }
+
+    &--image-main {
+      z-index: 0;
+    }
+    &--image-check {
+      bottom: 50px;
+      right: 0px;
+      position: absolute;
+      z-index: 1;
+
+      transition: right 1s ease;
+    }
+    &--image-question {
+      top: 40px;
+      right: -20px;
+      position: absolute;
+
+      transition: right 1s ease-out;
+    }
+    &--image-star {
+      bottom: 10px;
+      left: 50px;
+      position: absolute;
+
+      transition: transform 1.3s ease-out;
+    }
+    &--image-speech-bubble {
+      top: 120px;
+      left: 60px;
+      position: absolute;
+
+      transition: top 1.7s ease-out;
     }
 
     & app-main-button {
@@ -276,7 +331,8 @@
         'button button';
 
       text-align: justify;
-      &--image {
+
+      &--images-container {
         max-width: 343px;
         justify-self: center;
       }
