@@ -50,6 +50,10 @@
       max-width: 700px;
     }
 
+    &--image {
+      display: none;
+    }
+
     &--images-container {
       grid-area: image;
       width: 100%;
@@ -60,28 +64,38 @@
       position: relative;
 
       &:hover {
+        .main-page__aot--image-main {
+          transform: scale(0.8);
+          transition: transform 1s ease-out;
+        }
+
         .main-page__aot--image-check {
           transform: scale(1.2);
           right: -60px;
+          transition: right 1.1s ease-out;
         }
 
         .main-page__aot--image-question {
           right: -50px;
+          transition: right 1.4s ease-out;
         }
 
         .main-page__aot--image-star {
           transform: scale(1.6);
+          transition: transform 1.6s ease-out;
         }
 
         .main-page__aot--image-speech-bubble {
           transform: scale(1.1);
           top: 100px;
+          transition: top 1.7s ease-out;
         }
       }
     }
 
     &--image-main {
       z-index: 0;
+      transition: transform 1s ease-out;
     }
     &--image-check {
       bottom: 50px;
@@ -396,6 +410,19 @@
 
     &--title {
       line-height: 64px;
+    }
+
+    &--images-container {
+      display: none;
+    }
+
+    &--image {
+      display: inline-block;
+      max-width: 100%;
+
+      grid-area: image;
+
+      justify-self: center;
     }
 
     & app-main-button {
