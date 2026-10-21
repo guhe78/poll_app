@@ -6,6 +6,10 @@ export class AnswerModel implements Answer {
   answer: string;
   votes: number;
 
+  /**
+   * Constructs an instance of the AnswerModel class.
+   * @param data Partial data to initialize the answer model.
+   */
   constructor(data: Partial<Answer> = {}) {
     this.id = data.id ?? 0;
     this.question_id = data.question_id ?? 0;

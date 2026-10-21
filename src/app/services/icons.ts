@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { uiIcons } from '../assets/icons';
 
 @Injectable({

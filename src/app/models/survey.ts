@@ -9,6 +9,10 @@ export class SurveyModel implements Survey {
   description: string;
   questions: Question[];
 
+  /**
+   * Constructs an instance of the SurveyModel class.
+   * @param data Partial data to initialize the survey model.
+   */
   constructor(data: Partial<Survey> = {}) {
     this.id = data.id ?? 0;
     this.name = data.name ?? '';

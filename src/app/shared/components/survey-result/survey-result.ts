@@ -19,6 +19,7 @@ export class SurveyResult {
 
   /**
    * Initializes the survey result component and sets up the effect to load results when questions change.
+   * @returns void
    */
   constructor() {
     effect(() => {
@@ -32,6 +33,8 @@ export class SurveyResult {
 
   /**
    * Loads the survey results for the given questions.
+   * @param questions The questions to load results for.
+   * @returns void
    */
   async loadResults(questions: Question[]): Promise<void> {
     const results: Record<number, Answer[]> = {};
@@ -45,6 +48,8 @@ export class SurveyResult {
 
   /**
    * Counts the total votes for the specified question.
+   * @param questionId The ID of the question to count votes for.
+   * @returns number
    */
   countVotes(questionId: number): number {
     const answers = this.answers()[questionId] ?? [];
@@ -54,8 +59,9 @@ export class SurveyResult {
 
   /**
    * Counts the total votes across all questions.
+   * @returns number
    */
-  totalVotes() {
+  totalVotes(): number {
     let total = 0;
     for (let i = 0; i < this.questions().length; i++) {
       for (let j = 0; j < this.questions()[i].answers.length; j++) {
@@ -67,6 +73,9 @@ export class SurveyResult {
 
   /**
    * Calculates the percentage of votes for the specified answer within its question.
+   * @param answer The answer to calculate the percentage for.
+   * @param questionId The ID of the question the answer belongs to.
+   * @returns number
    */
   answerPercentage(answer: Answer, questionId: number): number {
     const total = this.countVotes(questionId);
@@ -79,6 +88,8 @@ export class SurveyResult {
 
   /**
    * Returns the letter corresponding to the answer index (e.g., 0 -> 'A', 1 -> 'B').
+   * @param index The index of the answer.
+   * @returns string
    */
   getAnswerLetter(index: number): string {
     return String.fromCharCode(65 + index);

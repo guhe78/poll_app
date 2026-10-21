@@ -1,4 +1,4 @@
-import { Component, computed, HostBinding, input, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-status-badge',

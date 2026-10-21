@@ -1,5 +1,4 @@
 import { Component, ElementRef, input, ViewChild } from '@angular/core';
-import { Survey } from '../../interfaces/survey';
 
 @Component({
   selector: 'app-result-bar',

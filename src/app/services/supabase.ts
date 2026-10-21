@@ -16,6 +16,7 @@ export class Supabase {
 
   /**
    * Initializes the Supabase client with the URL and publishable key from the environment configuration.
+   * @returns void
    */
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabasePublishKey);

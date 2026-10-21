@@ -2,7 +2,6 @@ import { Component, Output, EventEmitter, inject, ViewChild } from '@angular/cor
 import { SurveyForm } from '../survey-form/survey-form';
 import { StatusBadge } from '../status-badge/status-badge';
 import { Icons } from '../../../services/icons';
-import { Header } from '../header/header';
 
 @Component({
   selector: 'app-create-survey',
@@ -19,6 +18,7 @@ export class CreateSurvey {
 
   /**
    * Closes the survey form and emits the closeDialog event.
+   * @returns void
    */
   closeSurveyForm(): void {
     this.closeDialog.emit();

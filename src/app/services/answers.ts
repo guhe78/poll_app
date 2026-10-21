@@ -1,4 +1,4 @@
-import { inject, Injectable, Service, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Supabase } from './supabase';
 import { Answer } from '../shared/interfaces/answer';
 
@@ -28,6 +28,7 @@ export class Answers {
   /**
    * Loads the list of answers for a specific question into the answerList signal.
    * @param questionId The ID of the question.
+   * @returns void
    */
   async loadAnswers(questionId: number): Promise<void> {
     this.answerList.set(await this.supabase.getAnswers(questionId));
@@ -36,6 +37,7 @@ export class Answers {
   /**
    * Votes for multiple answers.
    * @param answerIds The IDs of the answers to vote for.
+   * @returns void
    */
   async voteForAnswers(answerIds: number[]): Promise<void> {
     await Promise.all(answerIds.map((answerId) => this.supabase.voteForAnswer(answerId)));

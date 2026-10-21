@@ -74,6 +74,7 @@ export class MainPage {
   /**
    * Sets the status filter for the survey list.
    * @param status The status to filter by.
+   * @returns void
    */
   setStatusFilter(status: SurveyStatus): void {
     this.statusFilter.set(status);
@@ -82,6 +83,7 @@ export class MainPage {
   /**
    * Sets the category filter for the survey list.
    * @param category The category to filter by.
+   * @returns void
    */
   setCategoryFilter(category: string): void {
     this.categoryFilter.set(category);
@@ -92,6 +94,7 @@ export class MainPage {
 
   /**
    * Opens the dialog for creating a new survey.
+   * @returns void
    */
   openCreatingDialog() {
     this.creatingDialogRef.nativeElement.showModal();
@@ -101,6 +104,7 @@ export class MainPage {
 
   /**
    * Closes the dialog for creating a new survey.
+   * @returns void
    */
   closeCreatingDialog() {
     this.creatingDialogRef.nativeElement.close();
@@ -111,6 +115,7 @@ export class MainPage {
   /**
    * Closes the creating dialog if the backdrop is clicked.
    * @param event The mouse event triggered by clicking the backdrop.
+   * @returns void
    */
   closeCreatingDialogOnBackdrop(event: MouseEvent) {
     const dialog = this.creatingDialogRef.nativeElement as HTMLDialogElement;
@@ -123,6 +128,7 @@ export class MainPage {
   /**
    * Opens the dialog for voting on a survey.
    * @param survey The survey to vote on.
+   * @returns void
    */
   openVotingDialog(survey: Survey) {
     this.selectedSurvey.set(survey);
@@ -133,6 +139,7 @@ export class MainPage {
 
   /**
    * Closes the dialog for voting on a survey.
+   * @returns void
    */
   closeVotingDialog() {
     this.votingDialogRef.nativeElement.close();
@@ -143,6 +150,7 @@ export class MainPage {
   /**
    * Closes the voting dialog if the backdrop is clicked.
    * @param event The mouse event triggered by clicking the backdrop.
+   * @returns void
    */
   closeVotingDialogOnBackdrop(event: MouseEvent) {
     const dialog = this.votingDialogRef.nativeElement as HTMLDialogElement;

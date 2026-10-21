@@ -34,6 +34,7 @@ export class DropDownButtonMenu {
   /**
    * Selects a category from the dropdown menu.
    * @param category The category to select.
+   * @returns void
    */
   toggleCategoryDropdown(): void {
     this.categoryDropdownOpen = !this.categoryDropdownOpen;
@@ -46,6 +47,7 @@ export class DropDownButtonMenu {
   /**
    * Handles the selection of a category from the dropdown menu.
    * @param category The category to select.
+   * @returns void
    */
   selectCategory(category: string): void {
     this.selectedCategory = category;

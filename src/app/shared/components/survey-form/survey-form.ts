@@ -51,6 +51,7 @@ export class SurveyForm {
 
   /**
    * Creates a new question form group.
+   * @returns A new question form group.
    */
   private createQuestionGroup() {
     return this.formbuilder.nonNullable.group({
@@ -65,6 +66,7 @@ export class SurveyForm {
 
   /**
    * Handles the form submission.
+   * @returns A promise that resolves when the survey is created.
    */
   async onSubmit(): Promise<void> {
     if (this.surveyForm.invalid) {
@@ -80,6 +82,8 @@ export class SurveyForm {
 
   /**
    * Creates a survey object from the form value.
+   * @param formValue The raw value of the survey form.
+   * @returns The survey object to be created.
    */
   private createSurvey(formValue: ReturnType<typeof this.surveyForm.getRawValue>): CreateSurvey {
     return {
@@ -97,6 +101,7 @@ export class SurveyForm {
 
   /**
    * Returns the default end date for the survey.
+   * @returns The default end date as a string in YYYY-MM-DD format.
    */
   private getDefaultEndDate(): string {
     const date = new Date();
@@ -108,6 +113,7 @@ export class SurveyForm {
   /**
    * Getter for the form array of questions.
    * Returns the form array of questions.
+   * @returns The form array of questions.
    */
   get questions(): FormArray {
     return this.surveyForm.get('questions') as FormArray;
@@ -115,6 +121,8 @@ export class SurveyForm {
 
   /**
    * Handles the selection of a category from the dropdown.
+   * @param category The selected category.
+   * @returns void
    */
   selectCategory(category: string): void {
     this.selectedCategory = category;
@@ -128,6 +136,7 @@ export class SurveyForm {
 
   /**
    * Checks if the survey form is invalid.
+   * @returns True if the survey form is invalid, false otherwise.
    */
   isInvalid(): boolean {
     return this.surveyForm.invalid;
@@ -135,6 +144,7 @@ export class SurveyForm {
 
   /**
    * Returns the form array of questions.
+   * @returns The form array of questions.
    */
   getQuestions(): FormArray {
     return this.surveyForm.controls.questions;
@@ -142,6 +152,8 @@ export class SurveyForm {
 
   /**
    * Removes a question from the form array at the specified index.
+   * @param index The index of the question to remove.
+   * @returns void
    */
   removeQuestion(index: number): void {
     this.questions.removeAt(index);
@@ -149,6 +161,8 @@ export class SurveyForm {
 
   /**
    * Returns the form array of answers for the specified question index.
+   * @param questionIndex The index of the question.
+   * @returns The form array of answers for the specified question.
    */
   getAnswers(questionIndex: number): FormArray {
     return this.questions.at(questionIndex).get('answers') as FormArray;
@@ -156,6 +170,8 @@ export class SurveyForm {
 
   /**
    * Adds a new answer to the specified question.
+   * @param questionIndex The index of the question to add an answer to.
+   * @returns void
    */
   addAnswer(questionIndex: number): void {
     this.getAnswers(questionIndex).push(this.formbuilder.control('', Validators.required));
@@ -172,6 +188,7 @@ export class SurveyForm {
 
   /**
    * Returns the letter corresponding to the answer index (e.g., 0 -> 'A', 1 -> 'B').
+   * @returns The letter corresponding to the answer index.
    */
   getAnswerLetter(index: number): string {
     return String.fromCharCode(65 + index);
@@ -179,6 +196,7 @@ export class SurveyForm {
 
   /**
    * Adds a new question to the form array.
+   * @returns void
    */
   addQuestion(): void {
     this.questions.push(this.createQuestionGroup());
@@ -186,6 +204,8 @@ export class SurveyForm {
 
   /**
    * Clears the value of the specified form control.
+   * @param control The form control to clear.
+   * @returns void
    */
   clearInput(control: FormControl): void {
     control.reset();
@@ -193,6 +213,7 @@ export class SurveyForm {
 
   /**
    * Resets the entire survey form to its initial state.
+   * @returns void
    */
   resetForm(): void {
     this.surveyForm.reset();

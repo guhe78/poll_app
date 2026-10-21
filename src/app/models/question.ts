@@ -8,6 +8,10 @@ export class QuestionModel implements Question {
   allow_multiple_answers: boolean;
   answers: Answer[];
 
+  /**
+   * Constructs an instance of the QuestionModel class.
+   * @param data Partial data to initialize the question model.
+   */
   constructor(data: Partial<Question> = {}) {
     this.id = data.id ?? 0;
     this.survey_id = data.survey_id ?? 0;

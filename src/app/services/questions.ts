@@ -1,4 +1,4 @@
-import { inject, Injectable, Signal, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Supabase } from './supabase';
 import { Question } from '../shared/interfaces/question';
 
@@ -12,9 +12,9 @@ export class Questions {
 
   /**
    * Loads the list of questions into the questionList signal.
+   * @returns void
    */
   async loadQuestions() {
     this.questionList.set(await this.supabase.getQuestions());
-    console.log(this.questionList());
   }
 }

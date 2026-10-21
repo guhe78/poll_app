@@ -19,6 +19,7 @@ export class SurveyCard {
 
   /**
    * Opens the survey card and emits the surveyClick event.
+   * @returns void
    */
   openSurvey(): void {
     this.surveyClick.emit(this.survey());

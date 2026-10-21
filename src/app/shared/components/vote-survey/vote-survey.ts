@@ -27,6 +27,7 @@ export class VoteSurvey {
 
   /**
    * Handles the creation of a new survey.
+   * @returns void
    */
   onCreateSurvey(): void {
     this.createSurvey.emit();
@@ -34,6 +35,8 @@ export class VoteSurvey {
 
   /**
    * Returns the letter corresponding to the answer index (e.g., 0 -> 'A', 1 -> 'B').
+   * @param index The index of the answer.
+   * @returns string
    */
   getLetter(index: number): string {
     return String.fromCharCode(65 + index);
@@ -41,6 +44,7 @@ export class VoteSurvey {
 
   /**
    * Returns the formatted end date of the survey.
+   * @returns string
    */
   get formattedEndDate(): string {
     return new Intl.DateTimeFormat('de-DE', {
@@ -52,6 +56,7 @@ export class VoteSurvey {
 
   /**
    * Handles the selection of answers for the survey.
+   * @returns void
    */
   async onSelect(): Promise<void> {
     const selectedAnswers = document.querySelectorAll<HTMLInputElement>(
@@ -67,6 +72,7 @@ export class VoteSurvey {
 
   /**
    * Closes the vote survey dialog.
+   * @returns void
    */
   closeVoteSurvey(): void {
     this.closeDialog.emit();
@@ -74,6 +80,7 @@ export class VoteSurvey {
 
   /**
    * Toggles the display of the survey results.
+   * @returns void
    */
   showResults(): void {
     this.isOpen = !this.isOpen;

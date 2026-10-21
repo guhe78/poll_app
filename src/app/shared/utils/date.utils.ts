@@ -1,3 +1,8 @@
+/**
+ * Returns a human-readable string indicating the time left until the specified date.
+ * @param date The target date as a string.
+ * @returns string
+ */
 export function timeLeft(date: string): string {
   const today = new Date();
   const target = new Date(date);
@@ -18,6 +23,11 @@ export function timeLeft(date: string): string {
   }
 }
 
+/**
+ * Returns the letter corresponding to the answer index (e.g., 0 -> 'A', 1 -> 'B').
+ * @param index The index of the answer.
+ * @returns string
+ */
 export function getAnswerLetter(index: number): string {
   return String.fromCharCode(65 + index);
 }

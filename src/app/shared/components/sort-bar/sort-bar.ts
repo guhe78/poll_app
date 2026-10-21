@@ -19,6 +19,7 @@ export class SortBar {
   /**
    * Sets the status filter for the survey list.
    * @param filter The status filter to set.
+   * @returns void
    */
   setStatus(filter: SurveyFilter): void {
     this.selectedFilter.set(filter);
