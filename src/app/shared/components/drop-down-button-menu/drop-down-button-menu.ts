@@ -1,6 +1,5 @@
 import { Component, inject, input, output } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { uiIcons } from '../../../assets/icons';
+import { Icons } from '../../../services/icons';
 
 @Component({
   selector: 'app-drop-down-button-menu',
@@ -14,8 +13,6 @@ export class DropDownButtonMenu {
 
   menuClosed = output<void>();
 
-  private sanitizer = inject(DomSanitizer);
-
   readonly categories = [
     'All surveys',
     'Team Activities',
@@ -26,12 +23,7 @@ export class DropDownButtonMenu {
     'Technology & Innovation',
   ];
 
-  readonly icons = {
-    dropdownDownArrow: this.sanitizer.bypassSecurityTrustHtml(uiIcons.dropdownDownArrow()),
-    dropdownUpArrow: this.sanitizer.bypassSecurityTrustHtml(uiIcons.dropdownUpArrow()),
-    trashcan: this.sanitizer.bypassSecurityTrustHtml(uiIcons.trashcan()),
-    plus: this.sanitizer.bypassSecurityTrustHtml(uiIcons.plus()),
-  };
+  readonly iconsService = inject(Icons).icons;
 
   categoryDropdownOpen = false;
 
@@ -39,6 +31,10 @@ export class DropDownButtonMenu {
 
   categorySelected = output<string>();
 
+  /**
+   * Selects a category from the dropdown menu.
+   * @param category The category to select.
+   */
   toggleCategoryDropdown(): void {
     this.categoryDropdownOpen = !this.categoryDropdownOpen;
 
@@ -47,6 +43,10 @@ export class DropDownButtonMenu {
     }
   }
 
+  /**
+   * Handles the selection of a category from the dropdown menu.
+   * @param category The category to select.
+   */
   selectCategory(category: string): void {
     this.selectedCategory = category;
     this.categorySelected.emit(category);

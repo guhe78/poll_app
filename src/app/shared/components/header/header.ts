@@ -9,12 +9,16 @@ import { Component, input } from '@angular/core';
 export class Header {
   variant = input.required<'light' | 'dark'>();
 
+  /**
+   * Returns the appropriate logo URL based on the current variant.
+   * @returns The URL of the logo image.
+   */
   logo = () => {
-    if (this.variant() === 'light') {
-      return '/images/poll_logo.png';
-    } else if (this.variant() === 'dark') {
-      return '/images/poll_logo_dark.png';
-    }
-    return '';
+    const logos = {
+      light: '/images/poll_logo.png',
+      dark: '/images/poll_logo_dark.png',
+    };
+
+    return logos[this.variant()] ?? '';
   };
 }

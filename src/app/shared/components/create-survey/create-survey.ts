@@ -17,6 +17,9 @@ export class CreateSurvey {
 
   @ViewChild(SurveyForm) surveyForm?: SurveyForm;
 
+  /**
+   * Closes the survey form and emits the closeDialog event.
+   */
   closeSurveyForm(): void {
     this.closeDialog.emit();
     this.surveyForm?.resetForm();

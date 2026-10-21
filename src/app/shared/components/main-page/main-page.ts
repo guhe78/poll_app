@@ -23,19 +23,27 @@ export class MainPage {
   readonly iconsService = inject(Icons).icons;
 
   selectedSurvey = signal<Survey | null>(null);
+  statusFilter = signal<SurveyStatus>('active');
+  categoryFilter = signal('All surveys');
 
   surveyList = this.surveysService.surveyList;
 
   @ViewChild('creatingDialog') creatingDialogRef!: ElementRef<HTMLDialogElement>;
   @ViewChild('votingDialog') votingDialogRef!: ElementRef<HTMLDialogElement>;
 
-  statusFilter = signal<SurveyStatus>('active');
-  categoryFilter = signal('All surveys');
-
+  /**
+   * Returns the list of surveys sorted by their end date.
+   * @returns The sorted list of surveys.
+   */
   sortedSurveyList = computed(() => {
-    return this.surveyList().sort((a, b) => a.endDate.localeCompare(b.endDate));
+    const sortedList = this.surveyList();
+    return sortedList.sort((a, b) => a.endDate.localeCompare(b.endDate));
   });
 
+  /**
+   * Returns the list of active surveys whose end date is greater than or equal to today's date.
+   * @returns The list of active surveys.
+   */
   isActiveSurveyList = computed(() => {
     const today = new Date();
     const todayString =
@@ -45,6 +53,10 @@ export class MainPage {
     return this.sortedSurveyList().filter((survey) => survey.endDate >= todayString);
   });
 
+  /**
+   * Returns the list of surveys filtered by the selected status and category.
+   * @returns The filtered list of surveys.
+   */
   filteredSurveyList = computed(() => {
     const activeSurveys = this.isActiveSurveyList();
 
@@ -59,26 +71,47 @@ export class MainPage {
     return this.statusFilter() === 'past' ? filteredSurveys.reverse() : filteredSurveys;
   });
 
+  /**
+   * Sets the status filter for the survey list.
+   * @param status The status to filter by.
+   */
   setStatusFilter(status: SurveyStatus): void {
     this.statusFilter.set(status);
   }
 
+  /**
+   * Sets the category filter for the survey list.
+   * @param category The category to filter by.
+   */
+  setCategoryFilter(category: string): void {
+    this.categoryFilter.set(category);
+  }
   async ngOnInit(): Promise<void> {
     await this.surveysService.loadSurveys();
   }
 
+  /**
+   * Opens the dialog for creating a new survey.
+   */
   openCreatingDialog() {
     this.creatingDialogRef.nativeElement.showModal();
 
     document.body.style.overflowY = 'clip';
   }
 
+  /**
+   * Closes the dialog for creating a new survey.
+   */
   closeCreatingDialog() {
     this.creatingDialogRef.nativeElement.close();
 
     document.body.style.overflowY = '';
   }
 
+  /**
+   * Closes the creating dialog if the backdrop is clicked.
+   * @param event The mouse event triggered by clicking the backdrop.
+   */
   closeCreatingDialogOnBackdrop(event: MouseEvent) {
     const dialog = this.creatingDialogRef.nativeElement as HTMLDialogElement;
 
@@ -86,6 +119,11 @@ export class MainPage {
       this.closeCreatingDialog();
     }
   }
+
+  /**
+   * Opens the dialog for voting on a survey.
+   * @param survey The survey to vote on.
+   */
   openVotingDialog(survey: Survey) {
     this.selectedSurvey.set(survey);
     this.votingDialogRef.nativeElement.showModal();
@@ -93,12 +131,19 @@ export class MainPage {
     document.body.style.overflowY = 'clip';
   }
 
+  /**
+   * Closes the dialog for voting on a survey.
+   */
   closeVotingDialog() {
     this.votingDialogRef.nativeElement.close();
 
     document.body.style.overflowY = '';
   }
 
+  /**
+   * Closes the voting dialog if the backdrop is clicked.
+   * @param event The mouse event triggered by clicking the backdrop.
+   */
   closeVotingDialogOnBackdrop(event: MouseEvent) {
     const dialog = this.votingDialogRef.nativeElement as HTMLDialogElement;
 

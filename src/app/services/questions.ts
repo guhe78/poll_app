@@ -10,6 +10,9 @@ export class Questions {
 
   questionList = signal<Question[]>([]);
 
+  /**
+   * Loads the list of questions into the questionList signal.
+   */
   async loadQuestions() {
     this.questionList.set(await this.supabase.getQuestions());
     console.log(this.questionList());

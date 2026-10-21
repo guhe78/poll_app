@@ -16,6 +16,10 @@ export class SortBar {
 
   selectedFilter = signal<SurveyFilter>('active');
 
+  /**
+   * Sets the status filter for the survey list.
+   * @param filter The status filter to set.
+   */
   setStatus(filter: SurveyFilter): void {
     this.selectedFilter.set(filter);
     this.statusSelected.emit(filter);

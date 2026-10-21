@@ -3,7 +3,6 @@ import { ResultBar } from '../result-bar/result-bar';
 import { Answers } from '../../../services/answers';
 import { Answer } from '../../interfaces/answer';
 import { Question } from '../../interfaces/question';
-import { getAnswerLetter } from '../../utils/date.utils';
 
 @Component({
   selector: 'app-survey-result',
@@ -18,6 +17,9 @@ export class SurveyResult {
 
   answers = signal<Record<number, Answer[]>>({});
 
+  /**
+   * Initializes the survey result component and sets up the effect to load results when questions change.
+   */
   constructor() {
     effect(() => {
       const questions = this.questions();
@@ -28,6 +30,9 @@ export class SurveyResult {
     });
   }
 
+  /**
+   * Loads the survey results for the given questions.
+   */
   async loadResults(questions: Question[]): Promise<void> {
     const results: Record<number, Answer[]> = {};
 
@@ -38,12 +43,18 @@ export class SurveyResult {
     this.answers.set(results);
   }
 
+  /**
+   * Counts the total votes for the specified question.
+   */
   countVotes(questionId: number): number {
     const answers = this.answers()[questionId] ?? [];
 
     return answers.reduce((total, answer) => total + answer.votes, 0);
   }
 
+  /**
+   * Counts the total votes across all questions.
+   */
   totalVotes() {
     let total = 0;
     for (let i = 0; i < this.questions().length; i++) {
@@ -54,6 +65,9 @@ export class SurveyResult {
     return total;
   }
 
+  /**
+   * Calculates the percentage of votes for the specified answer within its question.
+   */
   answerPercentage(answer: Answer, questionId: number): number {
     const total = this.countVotes(questionId);
 
@@ -63,6 +77,9 @@ export class SurveyResult {
     return Math.round((answer.votes / total) * 100);
   }
 
+  /**
+   * Returns the letter corresponding to the answer index (e.g., 0 -> 'A', 1 -> 'B').
+   */
   getAnswerLetter(index: number): string {
     return String.fromCharCode(65 + index);
   }
