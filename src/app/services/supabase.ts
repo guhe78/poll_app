@@ -8,6 +8,17 @@ import { Answer } from '../shared/interfaces/answer';
 import { CreateQuestion } from '../shared/interfaces/create-question';
 import { CreateAnswer } from '../shared/interfaces/create-answer';
 
+type AnswerRow = Pick<Answer, 'id' | 'question_id' | 'answer' | 'votes'>;
+
+type QuestionRow = Pick<Question, 'id' | 'survey_id' | 'question' | 'allow_multiple_answers'> & {
+  answers: AnswerRow[];
+};
+
+type SurveyRow = Pick<Survey, 'id' | 'name' | 'category' | 'description'> & {
+  date_end: string;
+  questions: QuestionRow[];
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -28,48 +39,73 @@ export class Supabase {
    */
   async getSurveys(): Promise<Survey[]> {
     const { data, error } = await this.supabase.from('surveys').select(`
+    id,
+    name,
+    category,
+    date_end,
+    description,
+    questions (
       id,
-      name,
-      category,
-      date_end,
-      description,
-      questions (
+      survey_id,
+      question,
+      allow_multiple_answers,
+      answers (
         id,
-        survey_id,
-        question,
-        allow_multiple_answers,
-        answers (
-          id,
-          question_id,
-          answer,
-          votes
-        )
+        question_id,
+        answer,
+        votes
       )
-    `);
+    )
+  `);
 
-    if (error) {
-      throw error;
-    }
+    if (error) throw error;
 
-    return data.map((survey) => ({
-      id: survey.id,
-      name: survey.name,
-      category: survey.category,
-      endDate: survey.date_end,
-      description: survey.description,
-      questions: survey.questions.map((question) => ({
-        id: question.id,
-        survey_id: question.survey_id,
-        question: question.question,
-        allow_multiple_answers: question.allow_multiple_answers,
-        answers: question.answers.map((answer) => ({
-          id: answer.id,
-          question_id: answer.question_id,
-          answer: answer.answer,
-          votes: answer.votes,
-        })),
-      })),
-    }));
+    return (data as SurveyRow[]).map((survey) => this.mapSurvey(survey));
+  }
+
+  /**
+   * Helper method to map a SurveyRow to a Survey object.
+   * @param row The SurveyRow object to be mapped.
+   * @returns A Survey object.
+   */
+  private mapSurvey(row: SurveyRow): Survey {
+    return {
+      id: row.id,
+      name: row.name,
+      category: row.category,
+      endDate: row.date_end,
+      description: row.description,
+      questions: row.questions.map((question) => this.mapQuestion(question)),
+    };
+  }
+
+  /**
+   * Helper method to map a QuestionRow to a Question object.
+   * @param row The QuestionRow object to be mapped.
+   * @returns A Question object.
+   */
+  private mapQuestion(row: QuestionRow): Question {
+    return {
+      id: row.id,
+      survey_id: row.survey_id,
+      question: row.question,
+      allow_multiple_answers: row.allow_multiple_answers,
+      answers: [...row.answers].sort((a, b) => a.id - b.id).map((answer) => this.mapAnswer(answer)),
+    };
+  }
+
+  /**
+   * Helper method to map an AnswerRow to an Answer object.
+   * @param row The AnswerRow object to be mapped.
+   * @returns An Answer object.
+   */
+  private mapAnswer(row: AnswerRow): Answer {
+    return {
+      id: row.id,
+      question_id: row.question_id,
+      answer: row.answer,
+      votes: row.votes,
+    };
   }
 
   /**
@@ -81,7 +117,7 @@ export class Supabase {
 
     if (error) throw error;
 
-    return data as Question[];
+    return (data as Question[]).sort((a, b) => a.id - b.id);
   }
 
   async getSurvey(id: number) {}
@@ -99,7 +135,7 @@ export class Supabase {
 
     if (error) throw error;
 
-    return data as Answer[];
+    return (data as Answer[]).sort((a, b) => a.id - b.id);
   }
 
   /**

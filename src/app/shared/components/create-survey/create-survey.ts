@@ -13,8 +13,19 @@ export class CreateSurvey {
   readonly iconsService = inject(Icons).icons;
 
   @Output() closeDialog = new EventEmitter<void>();
+  @Output() surveyCreated = new EventEmitter<void>();
 
   @ViewChild(SurveyForm) surveyForm?: SurveyForm;
+
+  /**
+   * Handles the event when a survey is created.
+   * Emits the surveyCreated and closeDialog events.
+   * @returns void
+   */
+  onSurveyCreated(): void {
+    this.surveyCreated.emit();
+    this.closeDialog.emit();
+  }
 
   /**
    * Closes the survey form and emits the closeDialog event.

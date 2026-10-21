@@ -62,13 +62,11 @@ export class SurveyResult {
    * @returns number
    */
   totalVotes(): number {
-    let total = 0;
-    for (let i = 0; i < this.questions().length; i++) {
-      for (let j = 0; j < this.questions()[i].answers.length; j++) {
-        total += this.questions()[i].answers[j].votes;
-      }
-    }
-    return total;
+    return Object.values(this.answers()).reduce(
+      (total, answers) =>
+        total + answers.reduce((questionTotal, answer) => questionTotal + answer.votes, 0),
+      0,
+    );
   }
 
   /**

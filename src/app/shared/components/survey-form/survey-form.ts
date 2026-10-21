@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -22,6 +22,8 @@ export class SurveyForm {
   private surveysService = inject(Surveys);
 
   readonly iconsService = inject(Icons).icons;
+
+  @Output() surveyCreated = new EventEmitter<void>();
 
   indexQuestions = 0;
 
@@ -65,7 +67,8 @@ export class SurveyForm {
   }
 
   /**
-   * Handles the form submission.
+   * Handles the submission of the survey form.
+   * Validates the form and creates the survey if the form is valid.
    * @returns A promise that resolves when the survey is created.
    */
   async onSubmit(): Promise<void> {
@@ -78,6 +81,7 @@ export class SurveyForm {
 
     await this.surveysService.createSurvey(survey);
     this.resetForm();
+    this.surveyCreated.emit();
   }
 
   /**
@@ -179,15 +183,17 @@ export class SurveyForm {
 
   /**
    * Removes an answer from the specified question at the given answer index.
+   * @param questionIndex The index of the question.
+   * @param answerIndex The index of the answer to remove.
+   * @returns void
    */
   removeAnswer(questionIndex: number, answerIndex: number): void {
     this.getAnswers(questionIndex).removeAt(answerIndex);
-    console.log(this.getAnswers(questionIndex));
-    console.log(questionIndex, answerIndex);
   }
 
   /**
    * Returns the letter corresponding to the answer index (e.g., 0 -> 'A', 1 -> 'B').
+   * @param index The index of the answer.
    * @returns The letter corresponding to the answer index.
    */
   getAnswerLetter(index: number): string {

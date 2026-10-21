@@ -79,7 +79,10 @@
     (click)="closeCreatingDialogOnBackdrop($event)"
   >
     <app-header class="survey-create-dialog__header" variant="dark"></app-header>
-    <app-create-survey (closeDialog)="closeCreatingDialog()"></app-create-survey>
+    <app-create-survey
+      (surveyCreated)="reloadSurveys()"
+      (closeDialog)="closeCreatingDialog()"
+    ></app-create-survey>
   </dialog>
   <dialog
     class="survey-vote-dialog"

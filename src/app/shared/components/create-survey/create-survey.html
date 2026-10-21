@@ -15,6 +15,6 @@
         </button>
       </div>
     </header>
-    <app-survey-form #surveyForm></app-survey-form>
+    <app-survey-form #surveyForm (surveyCreated)="onSurveyCreated()"></app-survey-form>
   </main>
 </section>

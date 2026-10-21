@@ -56,6 +56,7 @@
                       [attr.data-question-id]="question.id"
                       [attr.data-answer-id]="answer.id"
                       name="question-{{ question.id }}"
+                      (change)="onAnswerChange(question.id, answer.id, $any($event.target).checked)"
                     />
                     <label [for]="'answer-' + answer.id"
                       ><span class="letter">{{ getLetter(i) }}.</span>{{ answer.answer }}</label
@@ -66,7 +67,12 @@
             </div>
           }
         </div>
-        <button class="vote-survey__complete--button" (click)="onSelect()">
+        <button
+          type="button"
+          class="vote-survey__complete--button"
+          [disabled]="!allQuestionsAnswered()"
+          (click)="onSelect()"
+        >
           Complete <span class="vote-survey__complete--button--word">survey</span
           ><span
             class="vote-survey__complete--button--icon"

@@ -1,4 +1,13 @@
-import { Component, EventEmitter, inject, input, Input, Output, output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  input,
+  Output,
+  output,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { Survey } from '../../interfaces/survey';
 import { StatusBadge } from '../status-badge/status-badge';
 import { SurveyResult } from '../survey-result/survey-result';
@@ -19,6 +28,9 @@ export class VoteSurvey {
   readonly iconsService = inject(Icons).icons;
 
   @Output() closeDialog = new EventEmitter<void>();
+  @ViewChild(SurveyResult) surveyResult?: SurveyResult;
+
+  selectedAnswerIdsByQuestion = signal<Record<number, number[]>>({});
 
   createSurvey = output<void>();
 
@@ -62,12 +74,11 @@ export class VoteSurvey {
     const selectedAnswers = document.querySelectorAll<HTMLInputElement>(
       '.vote-survey__answers input[type="checkbox"]:checked',
     );
-
-    const answerIds = Array.from(selectedAnswers).map((checkbox) =>
-      Number(checkbox.dataset['answerId']),
-    );
+    const answerIds = Object.values(this.selectedAnswerIdsByQuestion()).flat();
 
     await this.answers.voteForAnswers(answerIds);
+    await this.surveyResult?.loadResults(this.survey().questions);
+    await this.resetSelection(selectedAnswers);
   }
 
   /**
@@ -89,5 +100,49 @@ export class VoteSurvey {
     setTimeout(() => {
       this.isFading = false;
     }, 300);
+  }
+
+  /**
+   * Resets the selection of answers after voting.
+   * Resets the internal state of selected answers.
+   * @param selectedAnswers The selected answer checkboxes.
+   * @returns void
+   */
+  async resetSelection(selectedAnswers: NodeListOf<HTMLInputElement>): Promise<void> {
+    selectedAnswers.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+
+    this.selectedAnswerIdsByQuestion.set({});
+  }
+
+  /**
+   * Handles the change event for an answer checkbox.
+   * @param questionId The ID of the question.
+   * @param answerId The ID of the answer.
+   * @param checked Whether the checkbox is checked.
+   * @returns void
+   */
+  onAnswerChange(questionId: number, answerId: number, checked: boolean): void {
+    this.selectedAnswerIdsByQuestion.update((selected) => {
+      const current = selected[questionId] ?? [];
+      const next = checked ? [...current, answerId] : current.filter((id) => id !== answerId);
+
+      return { ...selected, [questionId]: next };
+    });
+  }
+
+  /**
+   * Checks if all questions have at least one selected answer.
+   * @returns boolean
+   */
+  allQuestionsAnswered(): boolean {
+    const selected = this.selectedAnswerIdsByQuestion();
+    const questions = this.survey().questions;
+
+    return (
+      questions.length > 0 &&
+      questions.every((question) => (selected[question.id]?.length ?? 0) > 0)
+    );
   }
 }

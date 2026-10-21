@@ -159,4 +159,12 @@ export class MainPage {
       this.closeVotingDialog();
     }
   }
+
+  /**
+   * Reloads the surveys by calling the surveys service.
+   * @returns void
+   */
+  async reloadSurveys(): Promise<void> {
+    await this.surveysService.loadSurveys();
+  }
 }

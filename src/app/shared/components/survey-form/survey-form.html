@@ -200,7 +200,12 @@
     </div>
   </div>
   <div class="survey-form__submit-container">
-    <button class="survey-form__submit-button" type="submit" form="survey-form">
+    <button
+      class="survey-form__submit-button"
+      type="submit"
+      form="survey-form"
+      [disabled]="isInvalid()"
+    >
       Publish
       <span class="survey-form__submit-button--icon" [innerHTML]="iconsService.check"></span>
     </button>
