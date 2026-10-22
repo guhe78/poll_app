@@ -42,6 +42,7 @@ export class VoteSurvey {
    * @returns void
    */
   onCreateSurvey(): void {
+    this.closeVoteSurvey();
     this.createSurvey.emit();
   }
 

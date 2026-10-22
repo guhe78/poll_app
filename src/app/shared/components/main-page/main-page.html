@@ -91,7 +91,11 @@
     (click)="closeVotingDialogOnBackdrop($event)"
   >
     @if (selectedSurvey(); as survey) {
-      <app-vote-survey [survey]="survey" (closeDialog)="closeVotingDialog()"></app-vote-survey>
+      <app-vote-survey
+        [survey]="survey"
+        (closeDialog)="closeVotingDialog()"
+        (createSurvey)="openCreatingDialog()"
+      ></app-vote-survey>
     }
   </dialog>
 </section>
