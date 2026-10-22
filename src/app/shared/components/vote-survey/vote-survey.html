@@ -51,12 +51,22 @@
                 @for (answer of question.answers; track answer.id; let i = $index) {
                   <div class="vote-survey__answers--item">
                     <input
-                      type="checkbox"
+                      [type]="question.allow_multiple_answers ? 'checkbox' : 'radio'"
                       [id]="'answer-' + answer.id"
                       [attr.data-question-id]="question.id"
                       [attr.data-answer-id]="answer.id"
-                      name="question-{{ question.id }}"
-                      (change)="onAnswerChange(question.id, answer.id, $any($event.target).checked)"
+                      [name]="'question-' + question.id"
+                      [checked]="
+                        (selectedAnswerIdsByQuestion()[question.id] ?? []).includes(answer.id)
+                      "
+                      (change)="
+                        onAnswerChange(
+                          question.id,
+                          answer.id,
+                          $any($event.target).checked,
+                          question.allow_multiple_answers
+                        )
+                      "
                     />
                     <label [for]="'answer-' + answer.id"
                       ><span class="letter">{{ getLetter(i) }}.</span>{{ answer.answer }}</label

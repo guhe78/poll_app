@@ -71,14 +71,14 @@ export class VoteSurvey {
    * @returns void
    */
   async onSelect(): Promise<void> {
-    const selectedAnswers = document.querySelectorAll<HTMLInputElement>(
-      '.vote-survey__answers input[type="checkbox"]:checked',
-    );
+    if (!this.allQuestionsAnswered()) return;
+
     const answerIds = Object.values(this.selectedAnswerIdsByQuestion()).flat();
 
     await this.answers.voteForAnswers(answerIds);
     await this.surveyResult?.loadResults(this.survey().questions);
-    await this.resetSelection(selectedAnswers);
+
+    this.resetSelection();
   }
 
   /**
@@ -103,16 +103,9 @@ export class VoteSurvey {
   }
 
   /**
-   * Resets the selection of answers after voting.
-   * Resets the internal state of selected answers.
-   * @param selectedAnswers The selected answer checkboxes.
-   * @returns void
+   * Resets all selected answers.
    */
-  async resetSelection(selectedAnswers: NodeListOf<HTMLInputElement>): Promise<void> {
-    selectedAnswers.forEach((checkbox) => {
-      checkbox.checked = false;
-    });
-
+  resetSelection(): void {
     this.selectedAnswerIdsByQuestion.set({});
   }
 
@@ -123,10 +116,21 @@ export class VoteSurvey {
    * @param checked Whether the checkbox is checked.
    * @returns void
    */
-  onAnswerChange(questionId: number, answerId: number, checked: boolean): void {
+  onAnswerChange(
+    questionId: number,
+    answerId: number,
+    checked: boolean,
+    allowMultiple: boolean,
+  ): void {
     this.selectedAnswerIdsByQuestion.update((selected) => {
       const current = selected[questionId] ?? [];
-      const next = checked ? [...current, answerId] : current.filter((id) => id !== answerId);
+      const next = allowMultiple
+        ? checked
+          ? [...current, answerId]
+          : current.filter((id) => id !== answerId)
+        : checked
+          ? [answerId]
+          : [];
 
       return { ...selected, [questionId]: next };
     });

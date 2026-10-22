@@ -46,6 +46,11 @@
       &__title {
         hyphens: auto;
         color: rgba(53, 39, 58, 1);
+
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
       &__category {
@@ -71,6 +76,11 @@
   &__title {
     font-weight: 700;
     color: rgba(255, 255, 255, 1);
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
