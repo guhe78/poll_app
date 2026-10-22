@@ -120,8 +120,6 @@ export class Supabase {
     return (data as Question[]).sort((a, b) => a.id - b.id);
   }
 
-  async getSurvey(id: number) {}
-
   /**
    * Retrieves a single survey by its ID, including its questions and answers.
    * @param id The ID of the survey to retrieve.

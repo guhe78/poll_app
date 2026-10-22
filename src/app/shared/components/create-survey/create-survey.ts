@@ -45,6 +45,10 @@ export class CreateSurvey {
     this.surveyForm?.resetForm();
   }
 
+  /**
+   * Shows the information badge for a short duration.
+   * @returns void
+   */
   showInfoBadge(): void {
     this.isVisible.set(true);
 

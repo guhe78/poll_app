@@ -171,8 +171,15 @@
 }
 
 @media (max-width: 768px) {
-  .create-survey__button-cancel--text {
-    display: none;
+  .create-survey {
+    &__button-cancel--text {
+      display: none;
+    }
+
+    &__info-badge {
+      font-size: 20px;
+      max-width: 90%;
+    }
   }
 }
 

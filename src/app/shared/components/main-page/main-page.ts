@@ -96,7 +96,7 @@ export class MainPage {
    * Opens the dialog for creating a new survey.
    * @returns void
    */
-  openCreatingDialog() {
+  openCreatingDialog(): void {
     this.creatingDialogRef.nativeElement.showModal();
 
     document.body.style.overflowY = 'clip';
@@ -106,7 +106,7 @@ export class MainPage {
    * Closes the dialog for creating a new survey.
    * @returns void
    */
-  closeCreatingDialog() {
+  closeCreatingDialog(): void {
     this.creatingDialogRef.nativeElement.close();
 
     document.body.style.overflowY = '';
@@ -117,7 +117,7 @@ export class MainPage {
    * @param event The mouse event triggered by clicking the backdrop.
    * @returns void
    */
-  closeCreatingDialogOnBackdrop(event: MouseEvent) {
+  closeCreatingDialogOnBackdrop(event: MouseEvent): void {
     const dialog = this.creatingDialogRef.nativeElement as HTMLDialogElement;
 
     if (event.target === dialog) {
@@ -130,7 +130,7 @@ export class MainPage {
    * @param survey The survey to vote on.
    * @returns void
    */
-  openVotingDialog(survey: Survey) {
+  openVotingDialog(survey: Survey): void {
     this.selectedSurvey.set(survey);
     this.votingDialogRef.nativeElement.showModal();
 
@@ -141,7 +141,7 @@ export class MainPage {
    * Closes the dialog for voting on a survey.
    * @returns void
    */
-  closeVotingDialog() {
+  closeVotingDialog(): void {
     this.votingDialogRef.nativeElement.close();
 
     document.body.style.overflowY = '';
@@ -152,7 +152,7 @@ export class MainPage {
    * @param event The mouse event triggered by clicking the backdrop.
    * @returns void
    */
-  closeVotingDialogOnBackdrop(event: MouseEvent) {
+  closeVotingDialogOnBackdrop(event: MouseEvent): void {
     const dialog = this.votingDialogRef.nativeElement as HTMLDialogElement;
 
     if (event.target === dialog) {

@@ -84,8 +84,6 @@ export class SurveyForm {
 
     await this.surveysService.createSurvey(survey);
 
-    //this.showInfoBadge();
-
     this.resetForm();
     this.surveyCreated.emit();
   }
@@ -231,19 +229,5 @@ export class SurveyForm {
     this.surveyForm.reset();
     this.questions.clear();
     this.addQuestion();
-  }
-
-  /**
-   * Toggles the visibility of the info badge.
-   * @returns void
-   */
-  showInfoBadge(): void {
-    this.isVisible.set(true);
-
-    clearTimeout(this.infoBadgeTimeout);
-
-    this.infoBadgeTimeout = setTimeout(() => {
-      this.isVisible.set(false);
-    }, 3000);
   }
 }
