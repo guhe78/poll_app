@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, inject, ViewChild } from '@angular/core';
+import { Component, Output, EventEmitter, inject, ViewChild, signal } from '@angular/core';
 import { SurveyForm } from '../survey-form/survey-form';
 import { StatusBadge } from '../status-badge/status-badge';
 import { Icons } from '../../../services/icons';
@@ -12,10 +12,14 @@ import { Icons } from '../../../services/icons';
 export class CreateSurvey {
   readonly iconsService = inject(Icons).icons;
 
+  private infoBadgeTimeout?: ReturnType<typeof setTimeout>;
+
   @Output() closeDialog = new EventEmitter<void>();
   @Output() surveyCreated = new EventEmitter<void>();
 
   @ViewChild(SurveyForm) surveyForm?: SurveyForm;
+
+  isVisible = signal(false);
 
   /**
    * Handles the event when a survey is created.
@@ -24,7 +28,12 @@ export class CreateSurvey {
    */
   onSurveyCreated(): void {
     this.surveyCreated.emit();
-    this.closeDialog.emit();
+
+    this.showInfoBadge();
+
+    setTimeout(() => {
+      this.closeDialog.emit();
+    }, 4000);
   }
 
   /**
@@ -34,5 +43,15 @@ export class CreateSurvey {
   closeSurveyForm(): void {
     this.closeDialog.emit();
     this.surveyForm?.resetForm();
+  }
+
+  showInfoBadge(): void {
+    this.isVisible.set(true);
+
+    clearTimeout(this.infoBadgeTimeout);
+
+    this.infoBadgeTimeout = setTimeout(() => {
+      this.isVisible.set(false);
+    }, 3000);
   }
 }

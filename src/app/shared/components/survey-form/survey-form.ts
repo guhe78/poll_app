@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -21,11 +21,14 @@ export class SurveyForm {
   private formbuilder = inject(FormBuilder);
   private surveysService = inject(Surveys);
 
+  private infoBadgeTimeout?: ReturnType<typeof setTimeout>;
+
   readonly iconsService = inject(Icons).icons;
 
   @Output() surveyCreated = new EventEmitter<void>();
 
   indexQuestions = 0;
+  isVisible = signal(false);
 
   survey = this.surveysService.surveyDetail;
 
@@ -80,6 +83,9 @@ export class SurveyForm {
     const survey = this.createSurvey(this.surveyForm.getRawValue());
 
     await this.surveysService.createSurvey(survey);
+
+    //this.showInfoBadge();
+
     this.resetForm();
     this.surveyCreated.emit();
   }
@@ -225,5 +231,19 @@ export class SurveyForm {
     this.surveyForm.reset();
     this.questions.clear();
     this.addQuestion();
+  }
+
+  /**
+   * Toggles the visibility of the info badge.
+   * @returns void
+   */
+  showInfoBadge(): void {
+    this.isVisible.set(true);
+
+    clearTimeout(this.infoBadgeTimeout);
+
+    this.infoBadgeTimeout = setTimeout(() => {
+      this.isVisible.set(false);
+    }, 3000);
   }
 }

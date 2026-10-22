@@ -27,6 +27,9 @@
   font-weight: 700;
   color: rgba(254, 253, 255, 1);
 
+  overflow-x: hidden;
+  overflow-y: auto;
+
   &__content {
     display: flex;
     flex-direction: column;
@@ -252,11 +255,14 @@
   }
 
   &__submit-container {
+    border: 1px solid red;
     display: flex;
     justify-content: flex-end;
     margin-top: 16px;
 
     background-color: rgba(53, 39, 58, 1);
+
+    position: relative;
   }
 
   &__submit-button {
@@ -322,12 +328,45 @@
 
     &:hover {
       width: 140px;
+      gap: 8px;
 
       background-color: rgba(255, 183, 112, 1);
 
       & .create-survey__button--icon {
         margin-left: 8px;
       }
+    }
+  }
+
+  &__info-badge {
+    position: absolute;
+    right: 0;
+    bottom: 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 357px;
+    height: 86px;
+
+    border-radius: 5px 50px 5px 5px;
+    background-color: rgba(254, 233, 212, 1);
+
+    font-family: 'Nerko One', cursive;
+    font-size: 24px;
+    font-weight: 400;
+    color: rgba(53, 39, 58, 1);
+
+    z-index: 1000;
+
+    transform: translateX(120%);
+    opacity: 0;
+
+    &.show {
+      transform: translateX(0);
+      opacity: 1;
     }
   }
 }
