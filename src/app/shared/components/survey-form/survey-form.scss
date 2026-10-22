@@ -1,0 +1,624 @@
+:host {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.optional {
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.survey-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  width: 100%;
+
+  font-family: 'Mulish';
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(254, 253, 255, 1);
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .survey-form {
+    &__delete-button--icon,
+    &__submit-button--icon,
+    &__add-question-button--icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+
+    background-color: rgba(142, 112, 153, 0.16);
+    border-radius: 5px 80px 5px 5px;
+    padding: 40px 32px;
+
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    gap: 64px;
+    width: 100%;
+  }
+
+  &__header--left-side,
+  &__header--right-side {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__header--left-side {
+    gap: 8px;
+  }
+
+  &__name {
+    width: 100%;
+  }
+
+  & input,
+  & textarea {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+
+    font: inherit;
+
+    background-color: rgba(254, 253, 255, 1);
+    border: none;
+    border-radius: 5px 20px 5px 5px;
+  }
+
+  &__checkbox {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+  }
+
+  & textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
+
+  &__date-category {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+
+  &__date-category > .form-group {
+    width: 100%;
+  }
+
+  &__dropdown {
+    position: relative;
+    width: 100%;
+  }
+
+  &__dropdown-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    padding: 8px 6px;
+
+    font: inherit;
+    color: rgba(254, 253, 255, 1);
+
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  &__input-button-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &--textarea {
+      align-items: flex-start;
+    }
+  }
+
+  &__delete-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 26px;
+    height: 26px;
+    flex: 0 0 26px;
+
+    background-color: transparent;
+    color: rgba(254, 253, 255, 1);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    &--icon {
+      width: 18px;
+      height: 20px;
+
+      & svg {
+        fill: currentColor;
+      }
+    }
+
+    &:hover {
+      background-color: rgba(255, 183, 112, 0.6);
+      color: rgba(53, 39, 58, 1);
+    }
+  }
+
+  &__dropdown-button--open {
+    background-color: rgba(217, 217, 217, 0.12);
+
+    & .survey-form__dropdown-arrow {
+      color: rgba(255, 183, 112, 1);
+    }
+  }
+
+  &__dropdown-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+  }
+
+  &__dropdown-arrow span {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__dropdown-arrow svg {
+    display: block;
+    width: 15px;
+    height: 8px;
+
+    color: white;
+    fill: currentColor;
+  }
+
+  &__dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: 100;
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    background-color: rgba(254, 253, 255, 1);
+    border-radius: 6px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  &__dropdown-item {
+    width: 100%;
+    padding: 4px 8px;
+
+    font: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(53, 39, 58, 1);
+    text-align: left;
+
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__dropdown-item:hover {
+    background-color: rgba(142, 112, 153, 0.16);
+  }
+
+  &__selected-category {
+    display: block;
+    padding: 4px 6px;
+
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 183, 112, 1);
+  }
+
+  &__questions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__question {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__question input {
+    flex: 1;
+  }
+
+  &__submit-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+
+    background-color: rgba(53, 39, 58, 1);
+
+    position: relative;
+  }
+
+  &__submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 90px;
+    padding: 12px 16px;
+
+    font-family: 'Mulish';
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(254, 253, 255, 1);
+
+    background-color: rgba(255, 207, 161, 1);
+    border: none;
+    border-radius: 10px;
+
+    overflow: hidden;
+    cursor: pointer;
+
+    transition:
+      width 0.3s ease-in,
+      background-color 0.3s ease;
+
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    &--icon {
+      width: 20px;
+      height: 20px;
+
+      margin-left: 0;
+
+      transition: margin-left 0.3s ease-in;
+    }
+
+    &:hover {
+      width: 140px;
+      gap: 8px;
+
+      background-color: rgba(255, 183, 112, 1);
+
+      & .create-survey__button--icon {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  &__add-question-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    width: auto;
+    max-width: 195px;
+    height: 40px;
+    padding: 8px 12px;
+
+    font: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(254, 253, 255, 1);
+
+    background-color: rgba(255, 183, 112, 0.3);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(255, 183, 112, 0.6);
+    }
+
+    &--icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.survey-form-questions-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 64px;
+  width: 100%;
+  flex-grow: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+
+  margin-right: -10px;
+  padding-right: 10px;
+
+  scrollbar-color: rgba(255, 183, 112, 1) rgba(53, 39, 58, 1);
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(53, 39, 58, 1);
+
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 183, 112, 1);
+    width: 8px;
+    height: 64px;
+
+    border-radius: 10px;
+  }
+}
+
+.survey-form-question {
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__header--label-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 24px;
+    width: 100%;
+    max-width: 470px;
+  }
+}
+
+.survey-form-answers {
+  display: flex;
+
+  flex-direction: column;
+  gap: 16px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__answers {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    gap: 8px;
+  }
+
+  &__answer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__add-answer-button {
+    display: flex;
+    align-self: flex-start;
+    width: auto;
+    gap: 8px;
+
+    padding: 8px 12px;
+    margin-left: 36px;
+
+    font: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(254, 253, 255, 1);
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    position: relative;
+
+    &:hover {
+      background-color: rgba(250, 245, 254, 0.2);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      width: 117px;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 1);
+    }
+
+    &--icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.survey-form__delete-button svg,
+.survey-form__submit-button--icon svg,
+.survey-form-answers__add-answer-button--icon svg,
+.survey-form__add-question-button--icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.input-error::placeholder {
+  color: #dc2626;
+  opacity: 1;
+}
+
+@media (max-width: 1032px) {
+  .survey-form {
+    &__header {
+      flex-direction: column;
+    }
+
+    &__date-category {
+      flex-direction: column-reverse;
+    }
+
+    &__category {
+      align-items: flex-start;
+    }
+
+    &__content {
+      height: auto;
+      min-height: max-content;
+    }
+
+    &__submit-container {
+      justify-content: center;
+    }
+
+    &__submit-button {
+      background-color: rgba(255, 183, 112, 1);
+      color: rgba(34, 18, 39, 1);
+      width: inherit;
+      gap: 8px;
+
+      &--icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 18px;
+        height: 16px;
+
+        & svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .survey-form-questions-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    flex: none;
+    height: auto;
+    min-height: auto;
+    overflow: visible;
+    margin-right: 0;
+    padding-right: 0;
+    place-items: center;
+  }
+
+  .survey-form-question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+}
+.survey-form {
+  &__content {
+    padding: 40px 16px;
+  }
+}
+
+@media (max-width: 550px) {
+  .form-group {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: 8px;
+  }
+
+  .form-group label {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .form-group > .survey-form__input-button-container {
+    display: contents;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  .form-group .survey-form__delete-button {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .survey-form {
+    &__category app-drop-down-button-menu {
+      justify-self: flex-start;
+    }
+  }
+}
+
+@media (max-width: 370px) {
+  .survey-form-answers {
+    &__header {
+      display: inline-block;
+    }
+
+    & .multiple-answers {
+      display: flex;
+      flex-direction: row-reverse;
+    }
+  }
+}

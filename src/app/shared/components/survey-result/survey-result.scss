@@ -1,0 +1,51 @@
+.survey-result {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__question,
+  &__no-votes {
+    font-family: 'Mulish';
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+
+    color: rgba(53, 39, 58, 1);
+  }
+
+  &__question {
+    padding: 0 8px;
+  }
+
+  &__no-votes {
+    display: flex;
+    flex-direction: column;
+    gap: 146px;
+
+    &:last-child {
+      align-items: center;
+    }
+  }
+}
+
+.resultbars {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.resultbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &__letter {
+    margin: 0;
+    font-family: 'Mulish';
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    color: rgba(53, 39, 58, 1);
+  }
+}

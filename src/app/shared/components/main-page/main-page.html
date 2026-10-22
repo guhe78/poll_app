@@ -1,0 +1,101 @@
+<section class="main-page">
+  <div class="main-page__aot">
+    <app-header variant="light" class="main-page__header"></app-header>
+    <h1 class="main-page__aot--title">
+      Collect Feedback,<br />
+      Unlock Ideas
+    </h1>
+    <p class="main-page__aot--description">
+      Create and share surveys in minutes &ndash; from team events to workplace culture. Collect
+      opinions, engage your audience, and turn feedback into action.
+    </p>
+    <app-main-button
+      [buttonText]="'New Survey'"
+      (clickFunction)="openCreatingDialog()"
+      iconName="plus"
+    ></app-main-button>
+    <img class="main-page__aot--image" src="images/main-page-image.png" alt="Main page image" />
+    <div class="main-page__aot--images-container">
+      <img
+        class="main-page__aot--image-main"
+        src="images/tablet_main-page.png"
+        alt="Main page image"
+      />
+      <img
+        class="main-page__aot--image-check"
+        src="images/check_main-page.png"
+        alt="Main page image"
+      />
+      <img
+        class="main-page__aot--image-question"
+        src="images/question_main-page.png"
+        alt="Main page image"
+      />
+      <img
+        class="main-page__aot--image-star"
+        src="images/star_main-page.png"
+        alt="Main page image"
+      />
+      <img
+        class="main-page__aot--image-speech-bubble"
+        src="images/speech-bubble_main-page.png"
+        alt="Main page image"
+      />
+    </div>
+  </div>
+  <div class="main-page__content">
+    <h2 class="main-page__content-title">Your surveys</h2>
+    <div class="main-page__survey-list">
+      <h4 class="main-page__survey-list--subheading">Ending soon surveys</h4>
+      <div class="main-page__survey-list--ending-soon">
+        @for (survey of isActiveSurveyList(); track survey.id; let i = $index) {
+          @if (i < 3) {
+            <app-survey-card
+              [survey]="survey"
+              (surveyClick)="openVotingDialog($event)"
+            ></app-survey-card>
+          }
+        }
+      </div>
+      <app-sort-bar
+        (statusSelected)="setStatusFilter($event)"
+        (categorySelected)="categoryFilter.set($event)"
+      ></app-sort-bar>
+      <div class="main-page__survey-list--surveys">
+        @for (survey of filteredSurveyList(); track survey.id; let i = $index) {
+          <app-survey-card
+            [survey]="survey"
+            variant="normal"
+            (surveyClick)="openVotingDialog($event)"
+          ></app-survey-card>
+        }
+      </div>
+    </div>
+  </div>
+  <dialog
+    class="survey-create-dialog"
+    #creatingDialog
+    (cancel)="closeCreatingDialog()"
+    (click)="closeCreatingDialogOnBackdrop($event)"
+  >
+    <app-header class="survey-create-dialog__header" variant="dark"></app-header>
+    <app-create-survey
+      (surveyCreated)="reloadSurveys()"
+      (closeDialog)="closeCreatingDialog()"
+    ></app-create-survey>
+  </dialog>
+  <dialog
+    class="survey-vote-dialog"
+    #votingDialog
+    (cancel)="closeVotingDialog()"
+    (click)="closeVotingDialogOnBackdrop($event)"
+  >
+    @if (selectedSurvey(); as survey) {
+      <app-vote-survey
+        [survey]="survey"
+        (closeDialog)="closeVotingDialog()"
+        (createSurvey)="openCreatingDialog()"
+      ></app-vote-survey>
+    }
+  </dialog>
+</section>

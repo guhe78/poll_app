@@ -1,0 +1,34 @@
+<section class="dropdown">
+  <button
+    type="button"
+    class="dropdown__button"
+    [class.survey-form__dropdown-button--open]="categoryDropdownOpen"
+    [class.input-error]="inputError()"
+    (click)="toggleCategoryDropdown()"
+  >
+    <span>{{ buttonText() }}</span>
+
+    <span class="dropdown__arrow">
+      @if (categoryDropdownOpen) {
+        <span [innerHTML]="iconsService.dropdownUpArrow"></span>
+      } @else {
+        <span [innerHTML]="iconsService.dropdownDownArrow"></span>
+      }
+    </span>
+  </button>
+
+  @if (selectedCategory) {
+    <span class="dropdown__selected-category">
+      {{ selectedCategory }}
+    </span>
+  }
+  @if (categoryDropdownOpen) {
+    <div class="dropdown__menu">
+      @for (category of categories; track category) {
+        <button type="button" class="dropdown__menu--item" (click)="selectCategory(category)">
+          {{ category }}
+        </button>
+      }
+    </div>
+  }
+</section>

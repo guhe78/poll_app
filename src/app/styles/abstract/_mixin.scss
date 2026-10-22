@@ -1,0 +1,29 @@
+@use 'sass:meta';
+
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap, $gap: null) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+
+  @if $gap != null {
+    gap: $gap;
+  }
+}
+
+@mixin flex-center($direction: row, $gap: null) {
+  @include flex($direction, center, center, nowrap, $gap);
+}
+
+@mixin flex-start($direction: row, $gap: null) {
+  @include flex($direction, flex-start, flex-start, nowrap, $gap);
+}
+
+@mixin flex-end($direction: row, $gap: null) {
+  @include flex($direction, flex-end, flex-end, nowrap, $gap);
+}
+
+@mixin flex-between($direction: row, $align: center, $gap: null) {
+  @include flex($direction, space-between, $align, nowrap, $gap);
+}

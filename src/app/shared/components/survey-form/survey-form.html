@@ -1,0 +1,216 @@
+<form
+  id="survey-form"
+  class="survey-form"
+  [formGroup]="surveyForm"
+  (ngSubmit)="onSubmit()"
+  novalidate
+>
+  <div class="survey-form__content">
+    <div class="survey-form__header">
+      <div class="survey-form__header--left-side">
+        <div class="form-group survey-form__name">
+          <label for="name">Survey name</label>
+          <div class="survey-form__input-button-container">
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              [class.input-error]="
+                surveyForm.controls.name.invalid && surveyForm.controls.name.touched
+              "
+              [placeholder]="
+                surveyForm.controls.name.invalid && surveyForm.controls.name.touched
+                  ? 'Please enter a survey name!'
+                  : ''
+              "
+            />
+            <button
+              type="button"
+              class="survey-form__delete-button"
+              (click)="clearInput(surveyForm.controls.name)"
+            >
+              <span
+                class="survey-form__delete-button--icon"
+                [innerHTML]="iconsService.trashcan"
+              ></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="survey-form__date-category">
+          <div class="form-group survey-form__date">
+            <label for="date">Set end date <span class="optional">(optional)</span></label>
+            <div class="survey-form__input-button-container">
+              <input type="date" id="date" formControlName="endDate" />
+              <button
+                type="button"
+                class="survey-form__delete-button"
+                (click)="clearInput(surveyForm.controls.endDate)"
+              >
+                <span
+                  class="survey-form__delete-button--icon"
+                  [innerHTML]="iconsService.trashcan"
+                ></span>
+              </button>
+            </div>
+          </div>
+          <div class="form-group survey-form__category">
+            <app-drop-down-button-menu
+              #categoryDropdownMenu
+              buttonText="Choose category"
+              [inputError]="
+                surveyForm.controls.category.invalid && surveyForm.controls.category.touched
+              "
+              (categorySelected)="selectCategory($event)"
+              (menuClosed)="surveyForm.controls.category.markAsTouched()"
+            ></app-drop-down-button-menu>
+          </div>
+        </div>
+      </div>
+      <div class="survey-form__header--right-side">
+        <div class="form-group">
+          <label for="description">Describing text <span class="optional">(optional)</span></label>
+          <div
+            class="survey-form__input-button-container survey-form__input-button-container--textarea"
+          >
+            <textarea id="description" formControlName="description"></textarea>
+            <button
+              type="button"
+              class="survey-form__delete-button"
+              (click)="clearInput(surveyForm.controls.description)"
+            >
+              <span
+                class="survey-form__delete-button--icon"
+                [innerHTML]="iconsService.trashcan"
+              ></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="survey-form-questions-container" formArrayName="questions">
+      @for (question of questions.controls; track question; let index = $index) {
+        <div class="form-group survey-form-question">
+          <div class="survey-form-question__item" [formGroupName]="index">
+            <div class="survey-form-question__header">
+              <div class="survey-form-question__header--label-container">
+                <label>
+                  <span>{{ index + 1 }}.</span>
+                  Question
+                </label>
+                <button
+                  type="button"
+                  class="survey-form__delete-button"
+                  [disabled]="questions.length <= 1"
+                  (click)="removeQuestion(index)"
+                >
+                  <span
+                    class="survey-form__delete-button--icon"
+                    [innerHTML]="iconsService.trashcan"
+                  ></span>
+                </button>
+              </div>
+              <input
+                type="text"
+                [formControlName]="'question'"
+                [class.input-error]="
+                  question.get('question')?.invalid && question.get('question')?.touched
+                "
+                [placeholder]="
+                  question.get('question')?.invalid && question.get('question')?.touched
+                    ? 'Please enter a question!'
+                    : ''
+                "
+              />
+            </div>
+            <div class="survey-form-answers">
+              <div class="survey-form-answers__header">
+                <label>Answers</label>
+                <div class="survey-form__input-button-container multiple-answers">
+                  <input
+                    class="survey-form__checkbox"
+                    type="checkbox"
+                    [id]="'allowMultipleAnswers' + index"
+                    formControlName="allowMultipleAnswers"
+                  />
+                  <label [for]="'allowMultipleAnswers' + index" class="optional">
+                    Allow multiple answers
+                  </label>
+                </div>
+              </div>
+              <div class="survey-form-answers__answers" formArrayName="answers">
+                @for (
+                  answer of getAnswers(index).controls;
+                  track answer;
+                  let answerIndex = $index
+                ) {
+                  <div class="form-group survey-form-answers__answer">
+                    <label>{{ getAnswerLetter(answerIndex) }}.</label>
+
+                    <input
+                      type="text"
+                      [formControlName]="answerIndex"
+                      [placeholder]="
+                        getAnswers(index).at(answerIndex).invalid &&
+                        getAnswers(index).at(answerIndex).touched
+                          ? 'Please enter an answer'
+                          : ''
+                      "
+                      [class.input-error]="
+                        getAnswers(index).at(answerIndex).invalid &&
+                        getAnswers(index).at(answerIndex).touched
+                      "
+                    />
+
+                    <button
+                      type="button"
+                      class="survey-form__delete-button"
+                      [disabled]="getAnswers(index).length <= 2"
+                      (click)="removeAnswer(index, answerIndex)"
+                    >
+                      <span
+                        class="survey-form__delete-button--icon"
+                        [innerHTML]="iconsService.trashcan"
+                      ></span>
+                    </button>
+                  </div>
+                }
+              </div>
+              <button
+                type="button"
+                class="survey-form-answers__add-answer-button"
+                (click)="addAnswer(index)"
+              >
+                Add answer
+                <span
+                  class="survey-form-answers__add-answer-button--icon"
+                  [innerHTML]="iconsService.plus"
+                ></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+      <button
+        class="addQuestionButton"
+        type="button"
+        class="survey-form__add-question-button"
+        (click)="addQuestion()"
+      >
+        Add next question
+        <span class="survey-form__add-question-button--icon" [innerHTML]="iconsService.plus"></span>
+      </button>
+    </div>
+  </div>
+  <div class="survey-form__submit-container">
+    <button
+      class="survey-form__submit-button"
+      type="submit"
+      form="survey-form"
+      [disabled]="isInvalid()"
+    >
+      Publish
+      <span class="survey-form__submit-button--icon" [innerHTML]="iconsService.check"></span>
+    </button>
+  </div>
+</form>
