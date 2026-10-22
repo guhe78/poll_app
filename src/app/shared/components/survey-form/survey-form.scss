@@ -145,7 +145,13 @@
     background-color: transparent;
     color: rgba(254, 253, 255, 1);
     border: none;
+    border-radius: 3px;
     cursor: pointer;
+
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
 
     &--icon {
       display: flex;
@@ -159,6 +165,11 @@
         height: 100%;
         fill: currentColor;
       }
+    }
+
+    &:hover {
+      background-color: rgba(255, 183, 112, 0.6);
+      color: rgba(53, 39, 58, 1);
     }
   }
 
@@ -427,7 +438,7 @@
     width: auto;
     gap: 8px;
 
-    padding: 10px 0;
+    padding: 8px 12px;
     margin-left: 36px;
 
     font: inherit;
@@ -441,11 +452,15 @@
 
     position: relative;
 
+    &:hover {
+      background-color: rgba(250, 245, 254, 0.2);
+    }
+
     &::after {
       content: '';
       position: absolute;
       bottom: 4px;
-      width: 100%;
+      width: 117px;
       height: 1px;
       background-color: rgba(255, 255, 255, 1);
     }
@@ -485,6 +500,10 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 183, 112, 0.6);
+  }
 
   &--icon {
     display: flex;

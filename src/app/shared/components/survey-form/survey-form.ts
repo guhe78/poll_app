@@ -51,7 +51,7 @@ export class SurveyForm {
     category: ['', Validators.required],
     endDate: [''],
     description: [''],
-    questions: this.formbuilder.array([this.createQuestionGroup()]),
+    questions: this.formbuilder.array([this.createQuestionGroup()], Validators.minLength(1)),
   });
 
   /**
@@ -62,10 +62,13 @@ export class SurveyForm {
     return this.formbuilder.nonNullable.group({
       question: ['', Validators.required],
       allowMultipleAnswers: [false],
-      answers: this.formbuilder.nonNullable.array([
-        this.formbuilder.nonNullable.control('', Validators.required),
-        this.formbuilder.nonNullable.control('', Validators.required),
-      ]),
+      answers: this.formbuilder.nonNullable.array(
+        [
+          this.formbuilder.nonNullable.control('', Validators.required),
+          this.formbuilder.nonNullable.control('', Validators.required),
+        ],
+        Validators.minLength(2),
+      ),
     });
   }
 
@@ -164,6 +167,9 @@ export class SurveyForm {
    * @returns void
    */
   removeQuestion(index: number): void {
+    if (this.questions.length <= 1) {
+      return;
+    }
     this.questions.removeAt(index);
   }
 
@@ -192,6 +198,9 @@ export class SurveyForm {
    * @returns void
    */
   removeAnswer(questionIndex: number, answerIndex: number): void {
+    if (this.getAnswers(questionIndex).length <= 2) {
+      return;
+    }
     this.getAnswers(questionIndex).removeAt(answerIndex);
   }
 
