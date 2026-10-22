@@ -41,8 +41,8 @@ export class CreateSurvey {
    * @returns void
    */
   closeSurveyForm(): void {
-    this.closeDialog.emit();
     this.surveyForm?.resetForm();
+    this.closeDialog.emit();
   }
 
   /**

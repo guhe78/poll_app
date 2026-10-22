@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, input, output } from '@angular/core';
 import { Icons } from '../../../services/icons';
 
 @Component({
@@ -12,6 +12,8 @@ export class DropDownButtonMenu {
   inputError = input<boolean>(false);
 
   menuClosed = output<void>();
+
+  private readonly changeDetector = inject(ChangeDetectorRef);
 
   readonly categories = [
     'All surveys',
@@ -53,5 +55,15 @@ export class DropDownButtonMenu {
     this.selectedCategory = category;
     this.categorySelected.emit(category);
     this.categoryDropdownOpen = false;
+  }
+
+  /**
+   * Resets the category selection to the default value.
+   * @returns void
+   */
+  resetSelection(): void {
+    this.selectedCategory = '';
+    this.categoryDropdownOpen = false;
+    this.changeDetector.markForCheck();
   }
 }

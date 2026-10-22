@@ -37,11 +37,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
-      svg {
-        width: 100%;
-        height: 100%;
-      }
     }
   }
 
@@ -321,20 +316,6 @@
       margin-left: 0;
 
       transition: margin-left 0.3s ease-in;
-
-      &--cancel {
-        width: 20px;
-        height: 20px;
-
-        margin-left: 0;
-
-        transition: margin-left 0.3s ease-in;
-
-        & svg {
-          width: 100%;
-          height: 100%;
-        }
-      }
     }
 
     &:hover {
@@ -503,13 +484,16 @@
 
       width: 20px;
       height: 20px;
-
-      & svg {
-        width: 100%;
-        height: 100%;
-      }
     }
   }
+}
+
+.survey-form__delete-button svg,
+.survey-form__submit-button--icon svg,
+.survey-form-answers__add-answer-button--icon svg,
+.survey-form__add-question-button--icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .input-error::placeholder {

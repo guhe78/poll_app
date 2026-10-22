@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Output, ViewChild } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -21,30 +21,14 @@ export class SurveyForm {
   private formbuilder = inject(FormBuilder);
   private surveysService = inject(Surveys);
 
-  private infoBadgeTimeout?: ReturnType<typeof setTimeout>;
-
   readonly iconsService = inject(Icons).icons;
+
+  @ViewChild('categoryDropdownMenu', { read: DropDownButtonMenu })
+  categoryDropdown?: DropDownButtonMenu;
 
   @Output() surveyCreated = new EventEmitter<void>();
 
-  indexQuestions = 0;
-  isVisible = signal(false);
-
   survey = this.surveysService.surveyDetail;
-
-  readonly categories = [
-    'All surveys',
-    'Team Activities',
-    'Health & Wellness',
-    'Gaming & Entertainment',
-    'Education & Learning',
-    'Lifestyle & Preferences',
-    'Technology & Innovation',
-  ];
-
-  categoryDropdownOpen = false;
-
-  selectedCategory = '';
 
   surveyForm = this.formbuilder.nonNullable.group({
     name: [this.survey().name, Validators.required],
@@ -136,13 +120,9 @@ export class SurveyForm {
    * @returns void
    */
   selectCategory(category: string): void {
-    this.selectedCategory = category;
-
     this.surveyForm.patchValue({
       category,
     });
-
-    this.categoryDropdownOpen = false;
   }
 
   /**
@@ -238,5 +218,7 @@ export class SurveyForm {
     this.surveyForm.reset();
     this.questions.clear();
     this.addQuestion();
+
+    this.categoryDropdown?.resetSelection();
   }
 }
