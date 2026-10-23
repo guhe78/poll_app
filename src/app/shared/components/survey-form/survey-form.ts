@@ -1,9 +1,11 @@
 import { Component, EventEmitter, inject, Output, ViewChild } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormControl,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { Surveys } from '../../../services/surveys';
@@ -22,6 +24,14 @@ export class SurveyForm {
   private surveysService = inject(Surveys);
 
   readonly iconsService = inject(Icons).icons;
+  readonly today = this.getTodayDate();
+
+  private readonly notBeforeTodayValidator = (
+    control: AbstractControl,
+  ): ValidationErrors | null => {
+    const value = control.value as string;
+    return value && value < this.today ? { pastDate: true } : null;
+  };
 
   @ViewChild('categoryDropdownMenu', { read: DropDownButtonMenu })
   categoryDropdown?: DropDownButtonMenu;
@@ -31,9 +41,9 @@ export class SurveyForm {
   survey = this.surveysService.surveyDetail;
 
   surveyForm = this.formbuilder.nonNullable.group({
-    name: [this.survey().name, [Validators.required, Validators.maxLength(50)]],
+    name: [this.survey().name, [this.trimRequiredValidator, Validators.maxLength(50)]],
     category: ['', [Validators.required]],
-    endDate: [''],
+    endDate: ['', this.notBeforeTodayValidator],
     description: ['', Validators.maxLength(150)],
     questions: this.formbuilder.array([this.createQuestionGroup()], Validators.minLength(1)),
   });
@@ -44,12 +54,20 @@ export class SurveyForm {
    */
   private createQuestionGroup() {
     return this.formbuilder.nonNullable.group({
-      question: ['', [Validators.required, Validators.maxLength(70)]],
+      question: ['', [Validators.required, this.trimRequiredValidator, Validators.maxLength(70)]],
       allowMultipleAnswers: [false],
       answers: this.formbuilder.nonNullable.array(
         [
-          this.formbuilder.nonNullable.control('', [Validators.required, Validators.maxLength(70)]),
-          this.formbuilder.nonNullable.control('', [Validators.required, Validators.maxLength(70)]),
+          this.formbuilder.nonNullable.control('', [
+            Validators.required,
+            this.trimRequiredValidator,
+            Validators.maxLength(70),
+          ]),
+          this.formbuilder.nonNullable.control('', [
+            Validators.required,
+            this.trimRequiredValidator,
+            Validators.maxLength(70),
+          ]),
         ],
         Validators.minLength(2),
       ),
@@ -62,17 +80,42 @@ export class SurveyForm {
    * @returns A promise that resolves when the survey is created.
    */
   async onSubmit(): Promise<void> {
-    if (this.surveyForm.status !== 'VALID') {
-      this.surveyForm.markAllAsTouched();
-      return;
-    }
+    this.surveyForm.markAllAsTouched();
+    this.clearInvalidWhitespace();
+
+    if (this.surveyForm.invalid) return;
 
     const survey = this.createSurvey(this.surveyForm.getRawValue());
-
     const surveyId = await this.surveysService.createSurvey(survey);
 
     this.resetForm();
     this.surveyCreated.emit(surveyId);
+  }
+
+  /**
+   * Clears all form controls that contain only whitespace.
+   */
+  private clearInvalidWhitespace(): void {
+    this.clearWhitespaceOnlyValue(this.surveyForm.controls.name);
+
+    for (const question of this.questions.controls) {
+      this.clearWhitespaceOnlyValue(question.get('question'));
+
+      const answers = question.get('answers') as FormArray;
+      for (const answer of answers.controls) {
+        this.clearWhitespaceOnlyValue(answer);
+      }
+    }
+  }
+
+  /**
+   * Clears the value of a form control if it contains only whitespace.
+   * @param control The form control to check and clear.
+   */
+  private clearWhitespaceOnlyValue(control: AbstractControl | null): void {
+    if (typeof control?.value === 'string' && !control.value.trim()) {
+      control.setValue('');
+    }
   }
 
   /**
@@ -103,6 +146,14 @@ export class SurveyForm {
     date.setDate(date.getDate() + 1000);
 
     return date.toISOString().split('T')[0];
+  }
+
+  private getTodayDate(): string {
+    const date = new Date();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${date.getFullYear()}-${month}-${day}`;
   }
 
   /**
@@ -220,5 +271,14 @@ export class SurveyForm {
     this.addQuestion();
 
     this.categoryDropdown?.resetSelection();
+  }
+
+  /**
+   * Trims the value of the form control and returns a validation error if it contains only whitespace.
+   * @param control The form control to validate.
+   * @returns ValidationErrors | null
+   */
+  trimRequiredValidator(control: AbstractControl): ValidationErrors | null {
+    return control.value?.trim() ? null : { required: true };
   }
 }

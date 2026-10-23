@@ -73,7 +73,7 @@ export class VoteSurvey {
    * @returns void
    */
   async onSelect(): Promise<void> {
-    if (!this.allQuestionsAnswered()) return;
+    if (this.isPastSurvey || !this.allQuestionsAnswered()) return;
 
     const answerIds = Object.values(this.selectedAnswerIdsByQuestion()).flat();
 
@@ -150,5 +150,18 @@ export class VoteSurvey {
       questions.length > 0 &&
       questions.every((question) => (selected[question.id]?.length ?? 0) > 0)
     );
+  }
+
+  /**
+   * Checks if the survey has already ended.
+   * @returns boolean
+   */
+  get isPastSurvey(): boolean {
+    const today = new Date();
+    const todayString =
+      `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-` +
+      String(today.getDate()).padStart(2, '0');
+
+    return this.survey().endDate < todayString;
   }
 }

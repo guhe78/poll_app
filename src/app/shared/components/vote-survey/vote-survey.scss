@@ -64,6 +64,8 @@
   border-radius: 5px 160px 5px 5px;
   background-color: rgba(142, 112, 153, 0.1);
 
+  hyphens: auto;
+
   &__content {
     display: flex;
     flex-direction: column;
@@ -73,7 +75,7 @@
   &__header {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
   }
 
   &__button-cancel {
@@ -219,9 +221,8 @@
 
       &:checked {
         background-color: rgba(255, 183, 112, 1);
-        border-color: #28a745;
 
-        background-image: url('/images/check-vote.png');
+        background-image: url('/images/check-vote.svg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: 10px;

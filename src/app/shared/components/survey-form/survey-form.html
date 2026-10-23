@@ -12,8 +12,8 @@
           <label for="name"
             >Survey name<small class="max-char">
               {{ surveyForm.get('name')?.value?.length ?? 0 }}/50
-            </small></label
-          >
+            </small>
+          </label>
           <div class="survey-form__input-button-container">
             <input
               type="text"
@@ -30,6 +30,11 @@
               "
             />
 
+            @if (
+              surveyForm.controls.name.hasError('required') && surveyForm.controls.name.touched
+            ) {
+              <small class="error-message"> Please enter a survey name! </small>
+            }
             <button
               type="button"
               class="survey-form__delete-button"
@@ -47,7 +52,7 @@
           <div class="form-group survey-form__date">
             <label for="date">Set end date <span class="optional">(optional)</span></label>
             <div class="survey-form__input-button-container">
-              <input type="date" id="date" formControlName="endDate" />
+              <input type="date" id="date" formControlName="endDate" [min]="today" />
               <button
                 type="button"
                 class="survey-form__delete-button"

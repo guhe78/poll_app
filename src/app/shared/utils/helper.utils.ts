@@ -31,3 +31,13 @@ export function timeLeft(date: string): string {
 export function getAnswerLetter(index: number): string {
   return String.fromCharCode(65 + index);
 }
+
+/**
+ * Truncates the given text to the specified maximum length, adding ellipsis if necessary.
+ * @param text The text to be truncated.
+ * @param maxLength The maximum allowed length of the text.
+ * @returns The truncated text with ellipsis if it exceeds the maximum length.
+ */
+export function truncateText(text: string, maxLength: number): string {
+  return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+}

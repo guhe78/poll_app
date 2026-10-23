@@ -89,6 +89,14 @@
     border-radius: 5px 20px 5px 5px;
   }
 
+  &__date input[type='date'] {
+    cursor: pointer;
+  }
+
+  &__date input[type='date']::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
+
   &__checkbox {
     display: block;
     width: 20px;
