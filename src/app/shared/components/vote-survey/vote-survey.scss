@@ -163,7 +163,6 @@
   &__questions {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-columns: auto;
     gap: 24px;
 
     &--item {
@@ -338,8 +337,6 @@
     padding: 8px 12px;
     cursor: pointer;
 
-    align-self: flex-end;
-
     &:disabled {
       pointer-events: none;
       opacity: 0.5;
@@ -475,20 +472,10 @@
           height: 100%;
         }
       }
+    }
 
-      &__info-badge {
-        left: 50%;
-        transform: translate(120%);
-        transition:
-          transform 0.3s ease,
-          opacity 0.3s ease;
-
-        pointer-events: none;
-
-        &.show {
-          transform: translate(-50%, 0);
-        }
-      }
+    &__info-badge {
+      right: 0;
     }
   }
 
