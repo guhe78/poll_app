@@ -8,68 +8,88 @@ Umfragen können aus mehreren Fragen bestehen und für jede Frage kann festgeleg
 
 Die Übersicht hebt bald endende Umfragen hervor und kann nach Kategorie sowie danach gefiltert werden, ob eine Umfrage noch aktiv oder bereits beendet ist. Das Layout ist responsiv und passt sich auch kleineren Bildschirmen an.
 
+## Voraussetzungen
+
+- [Node.js](https://nodejs.org/) in einer von Angular 22 unterstützten Version
+- npm (wird zusammen mit Node.js installiert)
+- Git, um das Repository zu klonen
+
+Die benötigte Angular CLI und alle Projektabhängigkeiten werden über npm installiert. Eine globale Angular-CLI-Installation ist nicht erforderlich.
+
+## Projekt lokal einrichten
+
+1. Repository klonen und in das Projektverzeichnis wechseln:
+
+   ```bash
+   git clone https://github.com/guhe78/poll_app.git
+   cd poll_app
+   ```
+
+2. Abhängigkeiten anhand der Lockdatei installieren:
+
+   ```bash
+   npm ci
+   ```
+
+3. Entwicklungsserver starten:
+
+   ```bash
+   npm start
+   ```
+
+4. Die App im Browser unter [http://localhost:4200](http://localhost:4200) öffnen. Änderungen an den Quelldateien werden während der Entwicklung automatisch übernommen.
+
+## Supabase konfigurieren
+
+Die Anwendung verwendet Supabase für Umfragen, Fragen, Antworten und Abstimmungsergebnisse. Die URL und der Publishable Key sind in `src/environments/environment.ts` und `src/environments/environment.development.ts` konfiguriert. Die Entwicklungsumgebung ersetzt beim Start die reguläre Environment-Datei.
+
+Die vorhandene Konfiguration verweist auf das im Projekt eingetragene Supabase-Projekt. Wenn du eine eigene Supabase-Instanz verwenden möchtest, trage deren Project URL und Publishable Key in beiden Dateien ein. Die Datenbank muss die von der Anwendung verwendeten Tabellen `surveys`, `questions` und `answers` samt passenden Beziehungen und Berechtigungen enthalten. Für Abstimmungen ruft die App außerdem die Datenbankfunktion `vote_for_answer` auf.
+
+Verwende im Frontend ausschließlich einen Publishable Key und niemals einen geheimen `service_role`-Key. Zugangsdaten für die Datenbank dürfen nicht in der Angular-Anwendung hinterlegt werden.
+
+## Build und Tests
+
+Produktions-Build erstellen:
+
+```bash
+npm run build
+```
+
+Die Build-Ausgabe wird im Verzeichnis `dist/` abgelegt.
+
+Für lokale Entwicklungs-Builds mit Watch-Modus:
+
+```bash
+npm run watch
+```
+
+Unit-Tests mit Vitest ausführen:
+
+```bash
+npm test
+```
+
+## Angular CLI
+
+Das Projekt verwendet Angular CLI 22.1.2. Die CLI kann über das npm-Script oder mit `npx` aufgerufen werden. Zum Beispiel, um eine Komponente zu generieren:
+
+```bash
+npx ng generate component component-name
+```
+
+Eine Übersicht der verfügbaren Angular-CLI-Befehle und Schematics erhältst du mit:
+
+```bash
+npx ng generate --help
+```
+
 ## Technischer Hintergrund
 
-Die Anwendung ist mit Angular und TypeScript umgesetzt. Angular-Komponenten strukturieren die Benutzeroberfläche; Reactive Forms übernehmen die Eingabe und Validierung beim Erstellen von Umfragen. Für gemeinsam genutzte Daten und UI-Zustände kommen Services und Signals zum Einsatz. Supabase speichert Umfragen, Fragen und Antworten. Beim Abstimmen werden die Stimmen über eine Datenbankfunktion aktualisiert.
+Die Anwendung ist mit Angular und TypeScript umgesetzt. Angular-Komponenten strukturieren die Benutzeroberfläche; Reactive Forms übernehmen die Eingabe und Validierung beim Erstellen von Umfragen. Für gemeinsam genutzte Daten und UI-Zustände kommen Services und Signals zum Einsatz. Supabase speichert Umfragen, Fragen und Antworten. Beim Abstimmen werden die Stimmen über die Datenbankfunktion `vote_for_answer` aktualisiert.
 
 Das Projekt ist ein Lernprojekt mit Schwerpunkt auf der Umsetzung der Anwendung und der objektorientierten Programmierung. Eine Anmeldung ist nicht erforderlich; dieselbe Person kann mehrfach abstimmen. Es gibt daher keine Identitätsprüfung oder Schutz vor Mehrfachstimmen. Die Ergebnisse eignen sich zur Demonstration der Funktionen, sind aber nicht als manipulationssichere oder repräsentative Abstimmung gedacht.
 
-## Angular
+## Weiterführende Informationen
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.2.
-
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [Angular CLI-Dokumentation](https://angular.dev/tools/cli)
+- [Angular-Kompatibilität von Node.js und TypeScript](https://angular.dev/reference/versions)

@@ -6,7 +6,10 @@
     </div>
   } @else {
     @for (question of questions(); track question.id; let i = $index) {
-      <p class="survey-result__question">{{ i + 1 }}. {{ question.question }}</p>
+      <p class="survey-result__question">
+        <span class="survey-result__question--number">{{ i + 1 }}.</span>
+        <span class="survey-result__question--text">{{ question.question }}</span>
+      </p>
 
       <div class="resultbars">
         @for (answer of displayAnswers(question.id); track answer.id; let j = $index) {

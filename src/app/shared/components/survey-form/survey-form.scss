@@ -93,6 +93,10 @@
     cursor: pointer;
   }
 
+  &__date input[type='date']::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
+
   &__checkbox {
     display: block;
     width: 20px;
