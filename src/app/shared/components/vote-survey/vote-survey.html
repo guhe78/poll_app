@@ -58,6 +58,7 @@
                       [attr.data-question-id]="question.id"
                       [attr.data-answer-id]="answer.id"
                       [name]="'question-' + question.id"
+                      [disabled]="isPastSurvey"
                       [checked]="
                         (selectedAnswerIdsByQuestion()[question.id] ?? []).includes(answer.id)
                       "
@@ -82,7 +83,7 @@
         <button
           type="button"
           class="vote-survey__complete--button"
-          [disabled]="!allQuestionsAnswered()"
+          [disabled]="isPastSurvey || !allQuestionsAnswered()"
           (click)="onSelect()"
         >
           Complete <span class="vote-survey__complete--button--word">survey</span
@@ -95,15 +96,15 @@
     </div>
     <button class="vote-results__show-results-button" (click)="showResults()">
       <span class="vote-results__show-results-button--text" [class.fade]="isFading">
-        {{ isOpen ? 'Close results' : 'See results' }}</span
+        {{ !isOpen ? 'Close results' : 'See results' }}</span
       >
       <span
         class="vote-results__show-results-button--icon"
         [class.rotate]="isOpen"
-        [innerHTML]="iconsService.dropdownDownArrow"
+        [innerHTML]="iconsService.dropdownUpArrow"
       ></span>
     </button>
-    <div class="vote-results" [class.hidden]="!isOpen">
+    <div class="vote-results" [class.hidden]="isOpen">
       <h4 class="vote-results__headline">
         Survey Results <span class="vote-results__headline--live">LIVE</span>
       </h4>
