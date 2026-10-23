@@ -29,7 +29,6 @@ export class SurveyForm {
   @Output() surveyCreated = new EventEmitter<number>();
 
   survey = this.surveysService.surveyDetail;
-  activeInput?: HTMLInputElement;
 
   surveyForm = this.formbuilder.nonNullable.group({
     name: [this.survey().name, [Validators.required, Validators.maxLength(50)]],
@@ -221,13 +220,5 @@ export class SurveyForm {
     this.addQuestion();
 
     this.categoryDropdown?.resetSelection();
-  }
-
-  /**
-   * Sets the currently active input element.
-   * @param element
-   */
-  onFocus(element: HTMLInputElement): void {
-    this.activeInput = element;
   }
 }
