@@ -185,6 +185,10 @@
 
         color: rgba(53, 39, 58, 1);
 
+        &--number {
+          white-space: nowrap;
+        }
+
         &--text {
           display: flex;
           flex-direction: column;
@@ -209,6 +213,8 @@
     padding: 0 8px;
 
     input {
+      margin-top: 3px;
+
       appearance: none;
       -webkit-appearance: none;
 
@@ -233,7 +239,7 @@
 
     &--item {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 16px;
       min-height: 21px;
 
@@ -265,6 +271,7 @@
         font-weight: 700;
         align-self: flex-start;
         cursor: inherit;
+        white-space: nowrap;
       }
     }
   }

@@ -16,10 +16,20 @@
   }
 
   &__question {
+    display: flex;
+    gap: 3px;
     overflow-wrap: anywhere;
     word-break: break-word;
     hyphens: auto;
     padding: 0 8px;
+
+    &--number {
+      white-space: nowrap;
+    }
+
+    &--text {
+      flex: 1;
+    }
   }
 
   &__no-votes {
@@ -53,5 +63,6 @@
     font-weight: 800;
     line-height: 1;
     color: rgba(53, 39, 58, 1);
+    white-space: nowrap;
   }
 }
