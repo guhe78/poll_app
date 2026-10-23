@@ -16,6 +16,7 @@ export class SurveyResult {
   private answerService = inject(Answers);
 
   answers = signal<Record<number, Answer[]>>({});
+  selectedAnswerIdsByQuestion = input.required<Record<number, number[]>>();
 
   /**
    * Initializes the survey result component and sets up the effect to load results when questions change.
@@ -47,26 +48,36 @@ export class SurveyResult {
   }
 
   /**
-   * Counts the total votes for the specified question.
-   * @param questionId The ID of the question to count votes for.
-   * @returns number
+   * Returns the list of answers for the specified question, including the votes from selected answers.
+   * @param questionId The ID of the question.
+   * @returns Answer[]
    */
-  countVotes(questionId: number): number {
-    const answers = this.answers()[questionId] ?? [];
+  displayAnswers(questionId: number): Answer[] {
+    const question = this.questions().find((item) => item.id === questionId);
+    const answers = this.answers()[questionId] ?? question?.answers ?? [];
+    const selectedIds = this.selectedAnswerIdsByQuestion()[questionId] ?? [];
 
-    return answers.reduce((total, answer) => total + answer.votes, 0);
+    return answers.map((answer) => ({
+      ...answer,
+      votes: answer.votes + (selectedIds.includes(answer.id) ? 1 : 0),
+    }));
   }
 
   /**
-   * Counts the total votes across all questions.
+   * Counts the total number of votes for the specified question.
+   * @param questionId The ID of the question.
+   * @returns number
+   */
+  countVotes(questionId: number): number {
+    return this.displayAnswers(questionId).reduce((total, answer) => total + answer.votes, 0);
+  }
+
+  /**
+   * Counts the total number of votes across all questions.
    * @returns number
    */
   totalVotes(): number {
-    return Object.values(this.answers()).reduce(
-      (total, answers) =>
-        total + answers.reduce((questionTotal, answer) => questionTotal + answer.votes, 0),
-      0,
-    );
+    return this.questions().reduce((total, question) => total + this.countVotes(question.id), 0);
   }
 
   /**
@@ -77,8 +88,6 @@ export class SurveyResult {
    */
   answerPercentage(answer: Answer, questionId: number): number {
     const total = this.countVotes(questionId);
-
-    this.totalVotes();
     if (total === 0) return 0;
 
     return Math.round((answer.votes / total) * 100);

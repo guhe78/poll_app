@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +8,8 @@ import { Component, input } from '@angular/core';
 })
 export class Header {
   variant = input.required<'light' | 'dark'>();
+
+  @Output() navigateTo = new EventEmitter<void>();
 
   /**
    * Returns the appropriate logo URL based on the current variant.
@@ -20,5 +22,9 @@ export class Header {
     };
 
     return logos[this.variant()] ?? '';
+  };
+
+  navigateToHome = () => {
+    this.navigateTo.emit();
   };
 }

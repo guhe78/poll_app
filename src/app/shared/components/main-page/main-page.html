@@ -72,24 +72,18 @@
       </div>
     </div>
   </div>
-  <dialog
-    class="survey-create-dialog"
-    #creatingDialog
-    (cancel)="closeCreatingDialog()"
-    (click)="closeCreatingDialogOnBackdrop($event)"
-  >
-    <app-header class="survey-create-dialog__header" variant="dark"></app-header>
+  <dialog class="survey-create-dialog" #creatingDialog (cancel)="closeCreatingDialog()">
+    <app-header
+      class="survey-create-dialog__header"
+      variant="dark"
+      (navigateTo)="closeCreatingDialog()"
+    ></app-header>
     <app-create-survey
-      (surveyCreated)="reloadSurveys()"
+      (surveyCreated)="onSurveyCreated($event)"
       (closeDialog)="closeCreatingDialog()"
     ></app-create-survey>
   </dialog>
-  <dialog
-    class="survey-vote-dialog"
-    #votingDialog
-    (cancel)="closeVotingDialog()"
-    (click)="closeVotingDialogOnBackdrop($event)"
-  >
+  <dialog class="survey-vote-dialog" #votingDialog (cancel)="closeVotingDialog()">
     @if (selectedSurvey(); as survey) {
       <app-vote-survey
         [survey]="survey"

@@ -6,6 +6,28 @@
   padding: 0;
 }
 
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(53, 39, 58, 1);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 183, 112, 1);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(240, 156, 77, 1);
+}
+
+body {
+  background-color: rgba(53, 39, 58, 1);
+}
+
 section {
   width: 100%;
   max-width: 1400px;

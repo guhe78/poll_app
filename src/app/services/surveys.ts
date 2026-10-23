@@ -31,9 +31,9 @@ export class Surveys {
   /**
    * Creates a new survey in the database.
    * @param survey The data for the survey to create.
-   * @returns A promise that resolves when the survey has been created.
+   * @returns A promise that resolves to the ID of the newly created survey.
    */
-  async createSurvey(survey: CreateSurvey): Promise<void> {
-    await this.supabase.createSurvey(survey);
+  async createSurvey(survey: CreateSurvey): Promise<number> {
+    return await this.supabase.createSurvey(survey);
   }
 }

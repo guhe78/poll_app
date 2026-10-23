@@ -9,12 +9,17 @@
     <div class="survey-form__header">
       <div class="survey-form__header--left-side">
         <div class="form-group survey-form__name">
-          <label for="name">Survey name</label>
+          <label for="name"
+            >Survey name<small class="max-char">
+              {{ surveyForm.get('name')?.value?.length ?? 0 }}/50
+            </small></label
+          >
           <div class="survey-form__input-button-container">
             <input
               type="text"
               id="name"
               formControlName="name"
+              maxlength="50"
               [class.input-error]="
                 surveyForm.controls.name.invalid && surveyForm.controls.name.touched
               "
@@ -24,6 +29,7 @@
                   : ''
               "
             />
+
             <button
               type="button"
               class="survey-form__delete-button"
@@ -69,11 +75,16 @@
       </div>
       <div class="survey-form__header--right-side">
         <div class="form-group">
-          <label for="description">Describing text <span class="optional">(optional)</span></label>
+          <label for="description"
+            >Describing text <span class="optional">(optional)</span
+            ><small class="max-char">
+              {{ surveyForm.get('description')?.value?.length ?? 0 }}/150
+            </small></label
+          >
           <div
             class="survey-form__input-button-container survey-form__input-button-container--textarea"
           >
-            <textarea id="description" formControlName="description"></textarea>
+            <textarea id="description" formControlName="description" maxlength="150"></textarea>
             <button
               type="button"
               class="survey-form__delete-button"
@@ -97,6 +108,9 @@
                 <label>
                   <span>{{ index + 1 }}.</span>
                   Question
+                  <small class="max-char">
+                    {{ question.get('question')?.value?.length ?? 0 }}/70
+                  </small>
                 </label>
                 <button
                   type="button"
@@ -112,6 +126,7 @@
               </div>
               <input
                 type="text"
+                maxlength="70"
                 [formControlName]="'question'"
                 [class.input-error]="
                   question.get('question')?.invalid && question.get('question')?.touched
@@ -125,7 +140,10 @@
             </div>
             <div class="survey-form-answers">
               <div class="survey-form-answers__header">
-                <label>Answers</label>
+                <label
+                  >Answers
+                  <small class="max-char">{{ activeInput?.value?.length ?? 0 }}/70</small></label
+                >
                 <div class="survey-form__input-button-container multiple-answers">
                   <input
                     class="survey-form__checkbox"
@@ -149,7 +167,9 @@
 
                     <input
                       type="text"
+                      maxlength="70"
                       [formControlName]="answerIndex"
+                      (focus)="onFocus($event.target)"
                       [placeholder]="
                         getAnswers(index).at(answerIndex).invalid &&
                         getAnswers(index).at(answerIndex).touched
@@ -203,12 +223,7 @@
     </div>
   </div>
   <div class="survey-form__submit-container">
-    <button
-      class="survey-form__submit-button"
-      type="submit"
-      form="survey-form"
-      [disabled]="isInvalid()"
-    >
+    <button class="survey-form__submit-button" type="submit" form="survey-form">
       Publish
       <span class="survey-form__submit-button--icon" [innerHTML]="iconsService.check"></span>
     </button>

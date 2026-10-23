@@ -1,7 +1,13 @@
 .header {
-  display: flex;
-  align-items: flex-start;
-  gap: 7px;
+  &__logo {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    width: fit-content;
+
+    text-decoration: none;
+    cursor: pointer;
+  }
 
   & p {
     font-family: 'Nerko One', sans-serif;

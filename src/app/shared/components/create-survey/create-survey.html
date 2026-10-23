@@ -10,7 +10,7 @@
         </button>
       </div>
     </header>
-    <app-survey-form #surveyForm (surveyCreated)="onSurveyCreated()"></app-survey-form>
+    <app-survey-form #surveyForm (surveyCreated)="onSurveyCreated($event)"></app-survey-form>
     <div class="create-survey__info-badge" [class.show]="isVisible()">
       Your survey is now published
     </div>

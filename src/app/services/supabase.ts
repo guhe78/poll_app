@@ -187,15 +187,16 @@ export class Supabase {
   /**
    * Creates a new survey along with its questions and answers.
    * @param surveyData The data for the survey to create.
-   * @returns A promise that resolves when the survey has been created.
+   * @returns A promise that resolves to the ID of the newly created survey.
    */
-  async createSurvey(surveyData: CreateSurvey): Promise<void> {
+  async createSurvey(surveyData: CreateSurvey): Promise<number> {
     const surveyId = await this.insertSurvey(surveyData);
 
     for (const question of surveyData.questions) {
       const questionId = await this.insertQuestion(surveyId, question);
       await this.insertAnswers(questionId, question.answers);
     }
+    return surveyId;
   }
 
   /**

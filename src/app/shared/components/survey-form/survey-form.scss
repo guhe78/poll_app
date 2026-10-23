@@ -375,23 +375,6 @@
   padding-right: 10px;
 
   scrollbar-color: rgba(255, 183, 112, 1) rgba(53, 39, 58, 1);
-
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: rgba(53, 39, 58, 1);
-
-    border-radius: 5px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgba(255, 183, 112, 1);
-    width: 8px;
-    height: 64px;
-
-    border-radius: 10px;
-  }
 }
 
 .survey-form-question {
@@ -499,6 +482,12 @@
 .input-error::placeholder {
   color: #dc2626;
   opacity: 1;
+}
+
+.max-char {
+  font-size: 12px;
+  color: rgba(93, 244, 33, 0.7);
+  padding-left: 14px;
 }
 
 @media (max-width: 1032px) {
