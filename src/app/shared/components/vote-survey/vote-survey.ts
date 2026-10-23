@@ -25,6 +25,7 @@ import { Header } from '../header/header';
 export class VoteSurvey {
   survey = input.required<Survey>();
   private answers = inject(Answers);
+  private infoBadgeTimeout?: ReturnType<typeof setTimeout>;
 
   readonly iconsService = inject(Icons).icons;
 
@@ -37,6 +38,7 @@ export class VoteSurvey {
 
   isOpen = false;
   isFading = false;
+  isVisible = signal(false);
 
   /**
    * Handles the creation of a new survey.
@@ -75,6 +77,8 @@ export class VoteSurvey {
   async onSelect(): Promise<void> {
     if (this.isPastSurvey || !this.allQuestionsAnswered()) return;
 
+    this.showInfoBadge();
+
     const answerIds = Object.values(this.selectedAnswerIdsByQuestion()).flat();
 
     await this.answers.voteForAnswers(answerIds);
@@ -89,6 +93,7 @@ export class VoteSurvey {
    */
   closeVoteSurvey(): void {
     this.closeDialog.emit();
+    this.isVisible.set(false);
   }
 
   /**
@@ -163,5 +168,13 @@ export class VoteSurvey {
       String(today.getDate()).padStart(2, '0');
 
     return this.survey().endDate < todayString;
+  }
+
+  /**
+   * Shows the information badge for a short duration.
+   * @returns void
+   */
+  showInfoBadge(): void {
+    this.isVisible.set(true);
   }
 }

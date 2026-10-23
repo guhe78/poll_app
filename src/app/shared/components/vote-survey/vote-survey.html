@@ -80,18 +80,22 @@
             </div>
           }
         </div>
-        <button
-          type="button"
-          class="vote-survey__complete--button"
-          [disabled]="isPastSurvey || !allQuestionsAnswered()"
-          (click)="onSelect()"
-        >
-          Complete <span class="vote-survey__complete--button--word">survey</span
-          ><span
-            class="vote-survey__complete--button--icon"
-            [innerHTML]="iconsService.check"
-          ></span>
-        </button>
+        <div class="vote-survey__submit">
+          <button
+            type="button"
+            class="vote-survey__complete--button"
+            [disabled]="isPastSurvey || !allQuestionsAnswered()"
+            (click)="onSelect()"
+          >
+            Complete <span class="vote-survey__complete--button--word">survey</span>
+            <span
+              class="vote-survey__complete--button--icon"
+              [innerHTML]="iconsService.check"
+            ></span>
+          </button>
+
+          <div class="vote-survey__info-badge" [class.show]="isVisible()">Thanks for voting</div>
+        </div>
       </div>
     </div>
     <button class="vote-results__show-results-button" (click)="showResults()">
