@@ -375,23 +375,6 @@
   padding-right: 10px;
 
   scrollbar-color: rgba(255, 183, 112, 1) rgba(53, 39, 58, 1);
-
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: rgba(53, 39, 58, 1);
-
-    border-radius: 5px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgba(255, 183, 112, 1);
-    width: 8px;
-    height: 64px;
-
-    border-radius: 10px;
-  }
 }
 
 .survey-form-question {
@@ -486,6 +469,12 @@
       height: 20px;
     }
   }
+
+  &__answer-label-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .survey-form__delete-button svg,
@@ -499,6 +488,12 @@
 .input-error::placeholder {
   color: #dc2626;
   opacity: 1;
+}
+
+.max-char {
+  font-size: 12px;
+  color: rgba(93, 244, 33, 0.7);
+  padding-left: 14px;
 }
 
 @media (max-width: 1032px) {
@@ -563,18 +558,17 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-  }
-}
 
-@media (max-width: 768px) {
-}
-.survey-form {
-  &__content {
-    padding: 40px 16px;
+    &__item {
+      max-width: 100%;
+    }
   }
-}
 
-@media (max-width: 550px) {
+  .survey-form-answers__answer-label-container {
+    display: flex;
+    flex-direction: row;
+  }
+
   .form-group {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -595,7 +589,6 @@
   .form-group textarea {
     grid-column: 1 / -1;
     grid-row: 2;
-    width: 100%;
   }
 
   .form-group .survey-form__delete-button {
@@ -606,6 +599,14 @@
   .survey-form {
     &__category app-drop-down-button-menu {
       justify-self: flex-start;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .survey-form {
+    &__content {
+      padding: 40px 16px;
     }
   }
 }

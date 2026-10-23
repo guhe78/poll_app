@@ -14,10 +14,11 @@ import { SurveyResult } from '../survey-result/survey-result';
 import { Answers } from '../../../services/answers';
 import { MainButton } from '../main-button/main-button';
 import { Icons } from '../../../services/icons';
+import { Header } from '../header/header';
 
 @Component({
   selector: 'app-vote-survey',
-  imports: [StatusBadge, SurveyResult, MainButton],
+  imports: [StatusBadge, SurveyResult, MainButton, Header],
   templateUrl: './vote-survey.html',
   styleUrl: './vote-survey.scss',
 })

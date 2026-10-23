@@ -99,7 +99,7 @@ export class MainPage {
   openCreatingDialog(): void {
     this.creatingDialogRef.nativeElement.showModal();
 
-    document.body.style.overflowY = 'clip';
+    document.documentElement.style.overflow = 'hidden';
   }
 
   /**
@@ -109,20 +109,7 @@ export class MainPage {
   closeCreatingDialog(): void {
     this.creatingDialogRef.nativeElement.close();
 
-    document.body.style.overflowY = '';
-  }
-
-  /**
-   * Closes the creating dialog if the backdrop is clicked.
-   * @param event The mouse event triggered by clicking the backdrop.
-   * @returns void
-   */
-  closeCreatingDialogOnBackdrop(event: MouseEvent): void {
-    const dialog = this.creatingDialogRef.nativeElement as HTMLDialogElement;
-
-    if (event.target === dialog) {
-      this.closeCreatingDialog();
-    }
+    document.documentElement.style.overflow = '';
   }
 
   /**
@@ -134,7 +121,7 @@ export class MainPage {
     this.selectedSurvey.set(survey);
     this.votingDialogRef.nativeElement.showModal();
 
-    document.body.style.overflowY = 'clip';
+    document.documentElement.style.overflow = 'hidden';
   }
 
   /**
@@ -144,20 +131,7 @@ export class MainPage {
   closeVotingDialog(): void {
     this.votingDialogRef.nativeElement.close();
 
-    document.body.style.overflowY = '';
-  }
-
-  /**
-   * Closes the voting dialog if the backdrop is clicked.
-   * @param event The mouse event triggered by clicking the backdrop.
-   * @returns void
-   */
-  closeVotingDialogOnBackdrop(event: MouseEvent): void {
-    const dialog = this.votingDialogRef.nativeElement as HTMLDialogElement;
-
-    if (event.target === dialog) {
-      this.closeVotingDialog();
-    }
+    document.documentElement.style.overflow = '';
   }
 
   /**
@@ -166,5 +140,19 @@ export class MainPage {
    */
   async reloadSurveys(): Promise<void> {
     await this.surveysService.loadSurveys();
+  }
+
+  /**
+   * Handles the event when a survey is created.
+   * Reloads the surveys and opens the voting dialog for the created survey.  
+   * @param id
+   */
+  async onSurveyCreated(id: number): Promise<void> {
+    await this.reloadSurveys();
+
+    const survey = this.surveyList().find((item) => item.id === id);
+    if (survey) this.openVotingDialog(survey);
+
+    this.closeCreatingDialog();
   }
 }

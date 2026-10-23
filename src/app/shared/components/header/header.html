@@ -1,4 +1,6 @@
 <section class="header">
-  <img src="{{ logo() }}" alt="poll app logo" />
-  <p class="{{ variant() }}">Poll<br />App</p>
+  <div class="header__logo" (click)="navigateToHome()">
+    <img src="{{ logo() }}" alt="poll app logo" />
+    <p class="{{ variant() }}">Poll<br />App</p>
+  </div>
 </section>

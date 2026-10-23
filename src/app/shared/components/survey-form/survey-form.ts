@@ -26,15 +26,15 @@ export class SurveyForm {
   @ViewChild('categoryDropdownMenu', { read: DropDownButtonMenu })
   categoryDropdown?: DropDownButtonMenu;
 
-  @Output() surveyCreated = new EventEmitter<void>();
+  @Output() surveyCreated = new EventEmitter<number>();
 
   survey = this.surveysService.surveyDetail;
 
   surveyForm = this.formbuilder.nonNullable.group({
-    name: [this.survey().name, Validators.required],
-    category: ['', Validators.required],
+    name: [this.survey().name, [Validators.required, Validators.maxLength(50)]],
+    category: ['', [Validators.required]],
     endDate: [''],
-    description: [''],
+    description: ['', Validators.maxLength(150)],
     questions: this.formbuilder.array([this.createQuestionGroup()], Validators.minLength(1)),
   });
 
@@ -44,12 +44,12 @@ export class SurveyForm {
    */
   private createQuestionGroup() {
     return this.formbuilder.nonNullable.group({
-      question: ['', Validators.required],
+      question: ['', [Validators.required, Validators.maxLength(70)]],
       allowMultipleAnswers: [false],
       answers: this.formbuilder.nonNullable.array(
         [
-          this.formbuilder.nonNullable.control('', Validators.required),
-          this.formbuilder.nonNullable.control('', Validators.required),
+          this.formbuilder.nonNullable.control('', [Validators.required, Validators.maxLength(70)]),
+          this.formbuilder.nonNullable.control('', [Validators.required, Validators.maxLength(70)]),
         ],
         Validators.minLength(2),
       ),
@@ -62,17 +62,17 @@ export class SurveyForm {
    * @returns A promise that resolves when the survey is created.
    */
   async onSubmit(): Promise<void> {
-    if (this.surveyForm.invalid) {
+    if (this.surveyForm.status !== 'VALID') {
       this.surveyForm.markAllAsTouched();
       return;
     }
 
     const survey = this.createSurvey(this.surveyForm.getRawValue());
 
-    await this.surveysService.createSurvey(survey);
+    const surveyId = await this.surveysService.createSurvey(survey);
 
     this.resetForm();
-    this.surveyCreated.emit();
+    this.surveyCreated.emit(surveyId);
   }
 
   /**

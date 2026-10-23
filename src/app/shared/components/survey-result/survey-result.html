@@ -9,7 +9,7 @@
       <p class="survey-result__question">{{ i + 1 }}. {{ question.question }}</p>
 
       <div class="resultbars">
-        @for (answer of answers()[question.id] ?? []; track answer.id; let j = $index) {
+        @for (answer of displayAnswers(question.id); track answer.id; let j = $index) {
           <div class="resultbar">
             <p class="resultbar__letter">{{ getAnswerLetter(j) }}</p>
             <app-result-bar [percentage]="answerPercentage(answer, question.id)" />

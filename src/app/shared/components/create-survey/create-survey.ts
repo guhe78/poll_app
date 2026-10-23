@@ -15,7 +15,7 @@ export class CreateSurvey {
   private infoBadgeTimeout?: ReturnType<typeof setTimeout>;
 
   @Output() closeDialog = new EventEmitter<void>();
-  @Output() surveyCreated = new EventEmitter<void>();
+  @Output() surveyCreated = new EventEmitter<number>();
 
   @ViewChild(SurveyForm) surveyForm?: SurveyForm;
 
@@ -26,13 +26,12 @@ export class CreateSurvey {
    * Emits the surveyCreated and closeDialog events.
    * @returns void
    */
-  onSurveyCreated(): void {
-    this.surveyCreated.emit();
-
+  onSurveyCreated(id: number): void {
     this.showInfoBadge();
 
     setTimeout(() => {
-      this.closeDialog.emit();
+      this.surveyCreated.emit(id);
+      this.closeSurveyForm();
     }, 4000);
   }
 
@@ -41,8 +40,8 @@ export class CreateSurvey {
    * @returns void
    */
   closeSurveyForm(): void {
-    this.surveyForm?.resetForm();
     this.closeDialog.emit();
+    this.surveyForm?.resetForm();
   }
 
   /**
