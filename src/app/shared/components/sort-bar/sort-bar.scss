@@ -1,21 +1,17 @@
+@use '../../../styles/abstract/mixins';
+
 .sort-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  @include mixin.flex($direction: row, $justify: space-between, $align: center);
 
   &__buttons {
-    display: flex;
-    gap: 24px;
+    @include mixin.flex($gap: 24px);
   }
 }
 
 @media (max-width: 768px) {
   .sort-bar {
-    flex-direction: column;
-    align-items: flex-start;
+    @include mixin.flex($direction: column, $align: flex-start, $gap: 48px);
     padding: 0 16px;
-    gap: 48px;
 
     &__buttons {
       gap: 16px;

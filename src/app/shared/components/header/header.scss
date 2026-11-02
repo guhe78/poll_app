@@ -1,8 +1,8 @@
+@use '../../../styles/abstract/mixins';
+
 .header {
   &__logo {
-    display: flex;
-    align-items: flex-start;
-    gap: 7px;
+    @include mixin.flex($align: flex-start, $gap: 7px);
     width: fit-content;
 
     text-decoration: none;

@@ -1,7 +1,7 @@
+@use '../../../styles/abstract/mixins';
+
 .survey-result {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  @include mixin.flex($direction: column, $gap: 16px);
   max-width: 315px;
   width: 100%;
 
@@ -16,8 +16,7 @@
   }
 
   &__question {
-    display: flex;
-    gap: 3px;
+    @include mixin.flex($gap: 3px);
     overflow-wrap: anywhere;
     word-break: break-word;
     hyphens: auto;
@@ -33,9 +32,7 @@
   }
 
   &__no-votes {
-    display: flex;
-    flex-direction: column;
-    gap: 146px;
+    @include mixin.flex($direction: column, $gap: 146px);
 
     &:last-child {
       align-items: center;
@@ -44,16 +41,11 @@
 }
 
 .resultbars {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
+  @include mixin.flex($direction: column, $align: center, $gap: 6px);
 }
 
 .resultbar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  @include mixin.flex($align: center, $gap: 6px);
 
   &__letter {
     margin: 0;

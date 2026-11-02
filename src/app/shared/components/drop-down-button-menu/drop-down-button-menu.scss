@@ -1,20 +1,19 @@
+@use '../../../styles/abstract/mixins';
+
 .dropdown {
   font-family: 'Mulish';
   font-size: 18px;
   font-weight: 700;
   color: rgba(254, 253, 255, 1);
 
-  display: flex;
-  flex-direction: column;
+  @include mixin.flex($direction: column);
+
   max-width: fit-content;
 
   position: relative;
 
   &__button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
+    @include mixin.flex($justify: space-between, $align: center, $gap: 8px);
 
     width: 100%;
     padding: 8px 6px;
@@ -29,9 +28,7 @@
   }
 
   &__arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include mixin.flex($align: center, $justify: center);
 
     width: 20px;
     height: 20px;
@@ -59,8 +56,8 @@
     left: 0;
     z-index: 100;
 
-    display: flex;
-    flex-direction: column;
+    @include mixin.flex($direction: column);
+
     width: 100%;
 
     background-color: rgba(254, 253, 255, 1);
