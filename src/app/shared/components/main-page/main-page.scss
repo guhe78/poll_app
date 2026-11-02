@@ -1,11 +1,7 @@
-@use '../../../styles/base/typography';
-@use '../../../styles/layout';
+@use '../../../styles/abstract/mixins' as mixin;
 
 .main-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 90px;
+  @include mixin.flex($direction: column, $align: center, $gap: 90px);
 
   background-color: rgba(53, 39, 58, 1);
 
@@ -141,9 +137,7 @@
   }
 
   &__content {
-    display: flex;
-    flex-direction: column;
-    gap: 80px;
+    @include mixin.flex($direction: column, $gap: 80px);
 
     max-width: 1042px;
     width: 100%;
@@ -158,9 +152,7 @@
   }
 
   &__button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include mixin.flex($justify: center, $align: center);
     padding: 12px 16px;
 
     border: none;
@@ -173,8 +165,7 @@
     color: rgba(34, 18, 39, 1);
 
     &--icon {
-      display: flex;
-      align-items: center;
+      @include mixin.flex($align: center);
       width: 0;
       height: 0;
 
@@ -203,9 +194,7 @@
   }
 
   &__survey-list {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+    @include mixin.flex($direction: column, $gap: 32px);
 
     &--ending-soon {
       display: grid;
@@ -279,8 +268,7 @@
 
 .survey-vote-dialog {
   &[open] {
-    display: flex;
-    flex-direction: column;
+    @include mixin.flex($direction: column);
   }
 
   border: none;

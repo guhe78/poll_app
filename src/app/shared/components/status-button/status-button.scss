@@ -1,7 +1,7 @@
+@use '../../../styles/abstract/mixins' as mixin;
+
 .status-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include mixin.flex($align: center, $justify: center);
 
   border: none;
 

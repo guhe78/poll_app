@@ -1,0 +1,25 @@
+@use 'sass:meta';
+
+@mixin flex($direction: row, $justify: null, $align: null, $wrap: null, $gap: null) {
+  display: flex;
+
+  @if $direction != row {
+    flex-direction: $direction;
+  }
+
+  @if $justify != null {
+    justify-content: $justify;
+  }
+
+  @if $align != null {
+    align-items: $align;
+  }
+
+  @if $wrap != null {
+    flex-wrap: $wrap;
+  }
+
+  @if $gap != null {
+    gap: $gap;
+  }
+}

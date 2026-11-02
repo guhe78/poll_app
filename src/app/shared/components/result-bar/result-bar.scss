@@ -1,11 +1,12 @@
+@use '../../../styles/abstract/mixins' as mixin;
+
 .result-bar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include mixin.flex($justify: space-between, $align: center, $gap: 6px);
+
   width: 100%;
   max-width: 315px;
-  gap: 6px;
 }
+
 .result-bar {
   background-color: rgba(237, 237, 237, 1);
   border-radius: 0 20px 20px 0;
