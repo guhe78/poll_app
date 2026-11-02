@@ -1,5 +1,3 @@
-@use '../../../styles/base/typography';
-@use '../../../styles/layout';
 @use '../../../styles/abstract/mixins' as mixin;
 
 :host {
@@ -27,19 +25,6 @@
   &__head {
     @include mixin.flex($justify: space-between, $align: center);
     width: 100%;
-
-    &--logo {
-      @include mixin.flex($justify: flex-start, $gap: 7px);
-
-      & p {
-        font-family: 'Nerko One', sans-serif;
-        font-size: 26px;
-        font-weight: 400;
-        line-height: 16px;
-
-        color: rgba(255, 183, 112, 1);
-      }
-    }
   }
 
   &__body {

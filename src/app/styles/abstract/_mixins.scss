@@ -1,11 +1,23 @@
 @use 'sass:meta';
 
-@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap, $gap: null) {
+@mixin flex($direction: row, $justify: null, $align: null, $wrap: null, $gap: null) {
   display: flex;
-  flex-direction: $direction;
-  justify-content: $justify;
-  align-items: $align;
-  flex-wrap: $wrap;
+
+  @if $direction != row {
+    flex-direction: $direction;
+  }
+
+  @if $justify != null {
+    justify-content: $justify;
+  }
+
+  @if $align != null {
+    align-items: $align;
+  }
+
+  @if $wrap != null {
+    flex-wrap: $wrap;
+  }
 
   @if $gap != null {
     gap: $gap;
