@@ -1,6 +1,6 @@
 @use '../../../styles/base/typography';
 @use '../../../styles/layout';
-@use '../../../styles/abstract/mixins';
+@use '../../../styles/abstract/mixins' as mixin;
 
 .main-page {
   @include mixin.flex($direction: column, $align: center, $gap: 90px);

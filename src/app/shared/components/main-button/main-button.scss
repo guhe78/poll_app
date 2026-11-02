@@ -1,4 +1,4 @@
-@use '../../../styles/abstract/mixins';
+@use '../../../styles/abstract/mixins' as mixin;
 
 .main-button {
   @include mixin.flex($justify: center, $align: center);

@@ -1,4 +1,4 @@
-@use '../../../styles/abstract/mixins';
+@use '../../../styles/abstract/mixins' as mixin;
 
 .result-bar-container {
   @include mixin.flex($justify: space-between, $align: center, $gap: 6px);

@@ -1,4 +1,4 @@
-@use '../../../styles/abstract/mixins';
+@use '../../../styles/abstract/mixins' as mixin;
 
 .survey-card {
   @include mixin.flex($direction: column, $justify: space-between, $gap: 24px);

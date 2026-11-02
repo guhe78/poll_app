@@ -1,4 +1,4 @@
-@use '../../../styles/abstract/mixins';
+@use '../../../styles/abstract/mixins' as mixin;
 
 .sort-bar {
   @include mixin.flex($direction: row, $justify: space-between, $align: center);

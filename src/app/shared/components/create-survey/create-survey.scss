@@ -1,5 +1,5 @@
 @use '../../../styles/base/typography';
-@use '../../../styles/abstract/mixins';
+@use '../../../styles/abstract/mixins' as mixin;
 
 :host {
   display: flex;
